@@ -44,13 +44,11 @@ const AboutPage = () => {
   const isHeroInView = useInView(heroRef, { once: true });
 
   return (
-    <motion.main
-      data-testid="about-page"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="pt-20 md:pt-0"
-    >
+    <PageTransition variant="slideUp">
+      <main
+        data-testid="about-page"
+        className="pt-20 md:pt-0"
+      >
       {/* Hero */}
       <section ref={heroRef} className="min-h-screen flex items-center relative overflow-hidden px-6 md:px-12 lg:px-24 py-24">
         {/* Background */}
