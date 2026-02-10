@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Calendar, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import PageTransition from '../components/ui/PageTransition';
 
 const eventCategories = [
   { id: 'all', label: 'All Events' },
