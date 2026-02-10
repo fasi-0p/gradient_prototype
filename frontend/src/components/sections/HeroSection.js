@@ -3,7 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { ArrowDown, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { siteConfig } from '../../data/content';
-import InteractiveLogo from '../three/InteractiveLogo';
+import InteractiveGradientLogo from '../three/InteractiveGradientLogo';
 
 const HeroSection = () => {
   const ref = useRef(null);
