@@ -1,10 +1,39 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { siteConfig } from '../../data/content';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const AboutSection = () => {
   const ref = useRef(null);
+  const visualRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  // GSAP ScrollTrigger for parallax effect on visual
+  useEffect(() => {
+    if (!visualRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(visualRef.current,
+        { y: 50, rotate: -2 },
+        {
+          y: -50,
+          rotate: 2,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: ref.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1
+          }
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
