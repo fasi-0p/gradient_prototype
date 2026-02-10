@@ -297,13 +297,11 @@ const TeamPage = () => {
   const isHeroInView = useInView(heroRef, { once: true });
 
   return (
-    <motion.main
-      data-testid="team-page"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="pt-20 md:pt-0"
-    >
+    <PageTransition variant="slideUp">
+      <main
+        data-testid="team-page"
+        className="pt-20 md:pt-0"
+      >
       {/* Hero */}
       <section ref={heroRef} className="min-h-[60vh] flex items-center relative overflow-hidden px-6 md:px-12 lg:px-24 py-24">
         <div className="absolute inset-0 bg-gradient-to-b from-[#3b00ff]/5 via-transparent to-transparent" />
