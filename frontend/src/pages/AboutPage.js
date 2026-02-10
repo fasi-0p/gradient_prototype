@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { ArrowLeft, Calendar, MapPin, Award, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { siteConfig } from '../data/content';
+import PageTransition from '../components/ui/PageTransition';
 
 const achievements = [
   { icon: Calendar, value: "43+", label: "Events Conducted" },
