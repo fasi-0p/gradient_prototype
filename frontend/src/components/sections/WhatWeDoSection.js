@@ -96,7 +96,40 @@ const PillarCard = ({ pillar, index, isInView }) => {
 
 const WhatWeDoSection = () => {
   const ref = useRef(null);
+  const cardsContainerRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  // GSAP ScrollTrigger for staggered card reveals
+  useEffect(() => {
+    if (!cardsContainerRef.current) return;
+
+    const cards = cardsContainerRef.current.querySelectorAll('.pillar-card');
+    
+    const ctx = gsap.context(() => {
+      gsap.fromTo(cards,
+        { 
+          y: 60,
+          opacity: 0,
+          scale: 0.95
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          ease: 'power3.out',
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: cardsContainerRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
