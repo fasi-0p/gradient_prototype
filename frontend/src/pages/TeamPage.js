@@ -362,7 +362,8 @@ const TeamPage = () => {
           ))}
         </div>
       </div>
-    </motion.main>
+    </main>
+    </PageTransition>
   );
 };
 
