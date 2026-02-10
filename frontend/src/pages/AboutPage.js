@@ -216,7 +216,8 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
-    </motion.main>
+    </main>
+    </PageTransition>
   );
 };
 
