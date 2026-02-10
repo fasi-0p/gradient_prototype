@@ -165,7 +165,7 @@ const WhatWeDoSection = () => {
         </motion.h2>
 
         {/* Pillars grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {pillars.map((pillar, index) => (
             <PillarCard 
               key={pillar.id} 
