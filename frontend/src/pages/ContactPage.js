@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { ArrowLeft, Instagram, Linkedin, Twitter, Mail, MapPin, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { siteConfig } from '../data/content';
+import PageTransition from '../components/ui/PageTransition';
 
 const socialLinks = [
   { 
