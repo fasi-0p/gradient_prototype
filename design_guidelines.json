@@ -1,0 +1,123 @@
+{
+  "project_name": "Gradient - AI/ML Student Community",
+  "design_philosophy": {
+    "identity": "E1 - The Anti-AI Designer",
+    "core_principles": [
+      "Fusion over Imitation: Mix creative coding (Lusion) with functional clarity (Lenis).",
+      "Emotion First: Every interaction must feel 'cinematic' and 'premium'.",
+      "Content is King: The narrative is 'From Roots to Stars' (History -> Future).",
+      "Zoom In: Use macro-typography and immersive 3D details.",
+      "Negative Space: Luxurious padding (py-32) to let the WebGL breathe."
+    ],
+    "anti_patterns": [
+      "No generic 'Bootstrap' columns.",
+      "No 'Inter' font for headings.",
+      "No default 'Vercel' look.",
+      "No static gradients; use moving/living textures."
+    ]
+  },
+  "typography": {
+    "font_family": {
+      "heading": "Unbounded, sans-serif",
+      "body": "Manrope, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "imports": [
+      "@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=Manrope:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap');"
+    ],
+    "scale": {
+      "h1": "text-6xl md:text-8xl lg:text-[10rem] font-black tracking-tighter leading-[0.8]",
+      "h2": "text-4xl md:text-6xl font-bold tracking-tight",
+      "h3": "text-2xl md:text-4xl font-semibold",
+      "body": "text-base md:text-lg leading-relaxed text-white/80",
+      "label": "text-xs font-mono uppercase tracking-[0.2em] text-accent"
+    }
+  },
+  "colors": {
+    "theme": "dark",
+    "palette": {
+      "background": "#030014",
+      "foreground": "#ffffff",
+      "primary": "#ff00ff",
+      "secondary": "#3b00ff",
+      "accent": "#00f0ff",
+      "surface": "#0a0a12",
+      "border": "rgba(255, 255, 255, 0.1)"
+    },
+    "gradients": {
+      "brand": "linear-gradient(135deg, #ff00ff 0%, #3b00ff 100%)",
+      "glow": "radial-gradient(circle at center, rgba(59, 0, 255, 0.3) 0%, transparent 70%)",
+      "glass": "linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)"
+    }
+  },
+  "layout": {
+    "grid_system": "Bento Grid (Mode A: Tetris)",
+    "spacing": {
+      "container_padding": "px-6 md:px-12 lg:px-24",
+      "section_spacing": "py-24 md:py-32 lg:py-40",
+      "element_gap": "gap-8 md:gap-12"
+    },
+    "container_width": "max-w-7xl mx-auto"
+  },
+  "components": {
+    "buttons": {
+      "primary": "relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden hover:scale-105 transition-transform duration-300",
+      "secondary": "px-6 py-3 border border-white/20 rounded-full hover:bg-white/10 transition-colors backdrop-blur-md",
+      "ghost": "text-sm font-mono uppercase tracking-widest hover:text-primary transition-colors"
+    },
+    "cards": {
+      "glass": "bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-colors",
+      "solid": "bg-[#0a0a12] border border-white/5 rounded-2xl p-8"
+    },
+    "navigation": {
+      "style": "Floating Dock",
+      "classes": "fixed bottom-8 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-2xl border border-white/10 rounded-full px-6 py-3 flex gap-8 z-50"
+    }
+  },
+  "visual_enhancers": {
+    "textures": "Add a fixed 'noise' overlay with opacity-5 pointer-events-none z-[9999].",
+    "shadows": "shadow-[0_0_40px_-10px_rgba(59,0,255,0.3)]",
+    "borders": "1px solid rgba(255,255,255,0.08)"
+  },
+  "motion": {
+    "library": "Framer Motion + GSAP + Lenis",
+    "scroll": "Lenis smooth scroll is MANDATORY. Configure with duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))",
+    "transitions": {
+      "default": { "duration": 0.8, "ease": [0.16, 1, 0.3, 1] },
+      "stagger": 0.1
+    },
+    "3d_scenes": [
+      {
+        "name": "Hero Transformation",
+        "description": "A geometric mesh (Icosahedron) that morphs into the 'Gradient' logo or a fluid abstract shape on scroll.",
+        "library": "@react-three/fiber, @react-three/drei"
+      },
+      {
+        "name": "Space Travel",
+        "description": "Particle tunnel effect before the footer. Speed increases as user scrolls near the bottom.",
+        "library": "@react-three/fiber (PointsMaterial)"
+      }
+    ]
+  },
+  "image_urls": {
+    "hero_abstract": "https://images.unsplash.com/photo-1764336312138-14a5368a6cd3?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "team_coding": "https://images.unsplash.com/photo-1709099317886-13dff6d5982d?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "hackathon_vibe": "https://images.pexels.com/photos/5380607/pexels-photo-5380607.jpeg",
+    "events_crowd": "https://images.pexels.com/photos/5143280/pexels-photo-5143280.jpeg",
+    "tech_abstract": "https://images.unsplash.com/photo-1764258560164-97f682adef36?crop=entropy&cs=srgb&fm=jpg&q=85"
+  },
+  "instructions_to_main_agent": [
+    "1. INSTALL DEPENDENCIES FIRST: `npm install @react-three/fiber @react-three/drei three framer-motion gsap @studio-freight/lenis lucide-react clsx tailwind-merge`",
+    "2. SETUP LENIS: Wrap the entire application in a Lenis provider or initialize it in App.js/App.tsx.",
+    "3. IMPLEMENT 3D HERO: Create a `Scene.js` component. Do not block the main thread. Use `Suspense`.",
+    "4. USE TAILWIND ARBITRARY VALUES: For specific creative layouts, use `w-[40vw]` or `rotate-[15deg]` freely.",
+    "5. NO WHITE BACKGROUNDS: The site must be strictly dark mode.",
+    "6. DATA-TESTID: Add `data-testid` to all interactive elements (buttons, links, inputs)."
+  ],
+  "universal_guidelines": [
+    "Avoid 'AI Slop': Do not use generic centered layouts.",
+    "Dark colors only: No light mode toggle.",
+    "Micro-animations: Every hover must trigger a scale, color shift, or glow.",
+    "Use 'sonner' for toasts."
+  ]
+}
