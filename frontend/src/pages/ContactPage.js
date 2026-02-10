@@ -173,7 +173,8 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
-    </motion.main>
+    </main>
+    </PageTransition>
   );
 };
 
