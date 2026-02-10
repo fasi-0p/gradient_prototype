@@ -25,7 +25,14 @@ const HeroSection = () => {
     >
       {/* Interactive 3D Logo Background */}
       <div className="absolute inset-0 z-0">
-        <InteractiveLogo className="w-full h-full" />
+        <InteractiveGradientLogo 
+          className="w-full h-full" 
+          particleCount={1200}
+          interactionRadius={0.5}
+          returnSpeed={0.06}
+          showGlow={true}
+          logoScale={1.1}
+        />
       </div>
 
       {/* Gradient overlays */}
