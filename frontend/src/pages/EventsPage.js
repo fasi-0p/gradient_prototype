@@ -256,7 +256,8 @@ const EventsPage = () => {
           )}
         </div>
       </section>
-    </motion.main>
+    </main>
+    </PageTransition>
   );
 };
 
