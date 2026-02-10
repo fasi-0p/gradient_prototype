@@ -56,11 +56,8 @@ const PillarCard = ({ pillar, index, isInView }) => {
   
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: 0.1 * index }}
       whileHover={{ y: -8, transition: { duration: 0.3 } }}
-      className="group relative"
+      className="group relative pillar-card opacity-0"
       data-testid={`pillar-${pillar.id}`}
     >
       <div className="relative h-full p-8 rounded-2xl glass hover:bg-white/5 transition-all duration-500">
