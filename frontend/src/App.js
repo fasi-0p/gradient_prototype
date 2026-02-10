@@ -1,51 +1,99 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useCallback, useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import "./index.css";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// Hooks
+import useLenis from "./hooks/useLenis";
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+// Layout
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import Loader from "./components/layout/Loader";
 
+// Pages
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import TeamPage from "./pages/TeamPage";
+import EventsPage from "./pages/EventsPage";
+import ContactPage from "./pages/ContactPage";
+
+// Animated routes wrapper
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/team" element={<TeamPage />} />
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
+// Scroll to top on route change
+const ScrollToTop = () => {
+  const location = useLocation();
+  
   useEffect(() => {
-    helloWorldApi();
-  }, []);
+    // Use Lenis for smooth scroll to top
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
+
+  return null;
+};
+
+// Main App content (needs to be inside BrowserRouter for hooks)
+const AppContent = ({ isLoading }) => {
+  // Initialize Lenis smooth scroll
+  useLenis();
 
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
+    <>
+      <ScrollToTop />
+      
+      {/* Navigation */}
+      {!isLoading && <Navbar />}
+
+      {/* Main content */}
+      <AnimatedRoutes />
+
+      {/* Footer */}
+      {!isLoading && <Footer />}
+    </>
   );
 };
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleLoadComplete = useCallback(() => {
+    setIsLoading(false);
+    document.body.classList.remove('loading-active');
+  }, []);
+
+  useEffect(() => {
+    document.body.classList.add('loading-active');
+  }, []);
+
   return (
-    <div className="App">
+    <div className="App min-h-screen bg-[#030014] text-white">
+      {/* Noise overlay */}
+      <div className="noise-overlay" />
+      
+      {/* Loader */}
+      {isLoading && <Loader onComplete={handleLoadComplete} />}
+
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
+        <AppContent isLoading={isLoading} />
       </BrowserRouter>
     </div>
   );
