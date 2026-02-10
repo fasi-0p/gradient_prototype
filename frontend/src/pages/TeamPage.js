@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import PageTransition from '../components/ui/PageTransition';
 
 // Domain-specific animations
 const domainAnimations = {
