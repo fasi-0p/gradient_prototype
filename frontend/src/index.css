@@ -300,3 +300,116 @@ body.loading-active::-webkit-scrollbar {
     opacity: 0;
   }
 }
+
+.global-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+
+  background:
+    radial-gradient(1200px 700px at 70% 20%, rgba(124,124,255,0.12), transparent 60%),
+    radial-gradient(900px 500px at 30% 80%, rgba(236,72,153,0.10), transparent 60%),
+    #030014;
+}
+
+
+
+
+.timeline-wrapper {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: #030014;
+}
+
+.timeline-track {
+  display: flex;
+  height: 100%;
+}
+
+.timeline-panel {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stars */
+.stars {
+  position: absolute;
+  inset: 0;
+  width: 300%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+}
+
+/* BIGGER STARS */
+.star.back {
+  width: 4px;
+  height: 4px;
+  opacity: 0.25;
+}
+
+.star.mid {
+  width: 6px;
+  height: 6px;
+  opacity: 0.4;
+}
+
+.star.front {
+  width: 10px;
+  height: 10px;
+  opacity: 0.8;
+  background: linear-gradient(45deg, #ff00ff, #7c7cff);
+  box-shadow: 0 0 20px rgba(124, 124, 255, 0.8);
+}
+
+/* Content */
+.year {
+  position: absolute;
+  font-size: 18rem;
+  font-weight: 700;
+  opacity: 0.08;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.content h3 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.content p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.1rem;
+  max-width: 600px;
+}
+
+.node {
+  margin: 40px auto 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.9);
+}
+
+.timeline-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: rgba(139, 92, 246, 0.15);
+  filter: blur(140px);
+}

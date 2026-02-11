@@ -85,7 +85,8 @@ function App() {
   }, []);
 
   return (
-    <div className="App min-h-screen bg-[#030014] text-white">
+    <div className="App min-h-screen text-white">
+      <div className="global-bg" />
       {/* Noise overlay */}
       <div className="noise-overlay" />
       
