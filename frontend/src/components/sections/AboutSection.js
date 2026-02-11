@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { siteConfig } from '../../data/content';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import GradientLogo from "../three/GradientLogo";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -145,12 +146,22 @@ const AboutSection = () => {
               </div>
 
               {/* Center logo mark */}
-              <div className="absolute inset-0 flex items-center justify-center">
+              {/* <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#ff00ff] to-[#3b00ff] opacity-80 blur-sm" />
                 <div className="absolute w-20 h-20 rounded-full bg-[#030014] flex items-center justify-center">
                   <span className="font-heading font-bold text-3xl gradient-text">G</span>
                 </div>
+              </div> */}
+              <div className="about-visual-card relative">
+  
+                <div className="absolute inset-0 bg-gradient-to-br from-violet-600/20 to-cyan-500/20 blur-3xl opacity-40" />
+
+                <div className="relative z-10 w-full h-[420px]">
+                    <GradientLogo />
+                </div>
+
               </div>
+
             </div>
 
             {/* Decorative glow */}
