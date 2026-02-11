@@ -61,7 +61,7 @@ const AppContent = ({ isLoading }) => {
       <ScrollToTop />
       
       {/* Navigation */}
-      {!isLoading && <Navbar />}
+      {!isLoading && <Navbar  />}
 
       {/* Main content */}
       <AnimatedRoutes />

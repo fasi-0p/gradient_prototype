@@ -276,3 +276,27 @@ body.loading-active::-webkit-scrollbar {
   }
 }
 
+.particle {
+  position: absolute;
+  width: 8px;              /* was 6px */
+  height: 8px;
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.35),   /* brighter */
+    rgba(139, 92, 246, 0.05)
+  );
+  border-radius: 50%;
+  filter: blur(2px);
+  animation: floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+  from {
+    transform: translateY(0px) scale(1);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateY(-180px) scale(0.4);
+    opacity: 0;
+  }
+}

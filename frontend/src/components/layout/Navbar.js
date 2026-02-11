@@ -37,7 +37,7 @@ const Navbar = () => {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-50 hidden md:flex items-center gap-1 px-2 py-2 rounded-full transition-all duration-500 ${
+        className={`fixed bottom-8 right-12 z-50 hidden md:flex items-center gap-1 px-2 py-2 rounded-full transition-all duration-500 ${
           isScrolled 
             ? 'glass-strong shadow-lg shadow-black/20' 
             : 'glass'

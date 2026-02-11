@@ -8,12 +8,14 @@ import TimelineSection from '../components/sections/TimelineSection';
 import TeamPreviewSection from '../components/sections/TeamPreviewSection';
 import SpaceTravelSection from '../components/sections/SpaceTravelSection';
 import CTASection from '../components/sections/CTASection';
+import GradientEngine from '../components/sections/GradientEngine';
 
 const HomePage = () => {
   return (
     <PageTransition variant="fade">
       <main data-testid="home-page">
         <HeroSection />
+        <GradientEngine />
         <AboutSection />
         <WhatWeDoSection />
         <StatsSection />
