@@ -1,148 +1,250 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import ImmersiveSpaceTravel from '../three/ImmersiveSpaceTravel';
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "@/index.css"
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SpaceTravelSection = () => {
-  const containerRef = useRef(null);
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { amount: 0.1 });
-  const [speed, setSpeed] = useState(0.3);
-  const [phase, setPhase] = useState(0);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
 
   useEffect(() => {
-    const unsubscribe = scrollYProgress.on("change", (latest) => {
-      if (latest < 0.3) {
-        setSpeed(0.2 + latest * 0.5);
-        setPhase(0);
-      } else if (latest < 0.7) {
-        setSpeed(0.4 + (latest - 0.3) * 0.8);
-        setPhase(1);
-      } else {
-        setSpeed(0.7 + (latest - 0.7) * 2);
-        setPhase(2);
-      }
-    });
-    return () => unsubscribe();
-  }, [scrollYProgress]);
+    const ctx = gsap.context(() => {
+      
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "+=15000",
+          scrub: 1, 
+          pin: true,
+          anticipatePin: 1,
+        },
+      });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 1.05]);
+      // ----------------------------------------------------
+      // PHASE 1: MECHANICAL ASSEMBLY (0% - 20%)
+      // ----------------------------------------------------
+      // Rings fly in from BEHIND camera to form the gate
+      tl.fromTo(".ring-outer", { z: 1000, opacity: 0 }, { z: 0, opacity: 1, duration: 5, ease: "power2.out" })
+        .fromTo(".ring-mid", { z: 2000, opacity: 0, rotation: 180 }, { z: 0, opacity: 1, rotation: 0, duration: 5, ease: "power2.out" }, "<0.2")
+        .fromTo(".ring-inner", { z: 500, opacity: 0 }, { z: 0, opacity: 1, duration: 5, ease: "power2.out" }, "<0.2")
+        
+        // HUD Text: "SYSTEM ONLINE"
+        .to(".hud.status", { opacity: 1, textContent: "SYSTEM ONLINE", duration: 1 }, "-=1");
 
-  const phaseContent = [
-    { title: "Into the", highlight: "Void", subtitle: "Where innovation begins" },
-    { title: "Through the", highlight: "Stars", subtitle: "Exploring new frontiers" },
-    { title: "Beyond", highlight: "Limits", subtitle: "The future awaits" }
-  ];
+      // ----------------------------------------------------
+      // PHASE 2: CHARGE & LOCK (20% - 50%)
+      // ----------------------------------------------------
+      // Rings spin up, core ignites, camera shake begins
+      tl.to(".ring-outer", { rotation: 360, duration: 20, ease: "none" })
+        .to(".ring-mid", { rotation: -360, duration: 20, ease: "none" }, "<")
+        .to(".gate-core", { opacity: 1, scale: 2, duration: 10, ease: "power2.in" }, "<")
+        
+        // Plasma tunnel fades in (Atmosphere)
+        .to(".plasma-tunnel", { opacity: 0.5, scale: 1.5, duration: 20 }, "<")
+        
+        // HUD Update
+        .to(".hud.status", { opacity: 0, duration: 1 }, "<")
+        .to(".hud.velocity", { opacity: 1, duration: 1 }, "-=5");
 
-  const currentContent = phaseContent[phase];
+      // ----------------------------------------------------
+      // PHASE 3: HYPERSPACE (50% - 85%)
+      // ----------------------------------------------------
+      // The "Stretch". Stars turn to lines. Gate pulls you in.
+      
+      // 1. Move gate closer
+      tl.to(".gate-container", { z: 500, duration: 15, ease: "power2.in" })
+      
+      // 2. Warp Lines appear (Speed effect)
+      .to(".warp-lines", { opacity: 0.8, scaleY: 5, duration: 10 }, "<")
+      
+      // 3. Digital Noise/Glitch (Reality breaking)
+      .to(".glitch-layer", { opacity: 0.5, duration: 15 }, "<")
+      
+      // 4. Intense Shake
+      .to(".space-section", { 
+         x: 10, y: 10, 
+         rotation: 1, 
+         repeat: 30, 
+         yoyo: true, 
+         duration: 0.05 
+      }, "<");
+
+      // ----------------------------------------------------
+      // PHASE 4: THE BREACH (85% - 100%)
+      // ----------------------------------------------------
+      // FLY THROUGH. CRASH. IMPACT.
+      
+      // 1. Expand gate past camera (Fly through)
+      tl.to(".gate-container", { scale: 50, z: 1500, opacity: 0, duration: 3, ease: "expo.in" })
+      
+      // 2. Shockwave explosion
+      .to(".shockwave", { width: "300vw", height: "300vw", borderWidth: "0px", opacity: 1, duration: 2, ease: "power2.out" }, "<0.1")
+      
+      // 3. INVERT COLORS FLASH (The "Impact")
+      .to(".invert-flash", { opacity: 1, duration: 0.1 }, "<")
+      .to(".invert-flash", { opacity: 0, duration: 0.2 }, "+=0.1")
+      
+      // 4. Reveal "Hyperspace Exit" text
+      .to(".hud.exit", { opacity: 1, scale: 1.5, duration: 0.5 }, "-=0.2")
+      
+      // 5. Clear screen for next section
+      .to(".space-section", { opacity: 0, duration: 1 }, "+=0.5");
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section
-      ref={containerRef}
-      data-testid="space-travel-section"
-      className="relative"
-      style={{ height: '250vh' }}
-    >
-      <div 
-        ref={sectionRef}
-        className="sticky top-0 h-screen w-full overflow-hidden"
-      >
-        <motion.div 
-          className="absolute inset-0"
-          style={{ opacity, scale }}
-        >
-          {isInView && (
-            <ImmersiveSpaceTravel 
-              speed={speed} 
-              className="w-full h-full"
-            />
-          )}
-        </motion.div>
-
-        <div className="relative z-10 h-full flex items-center justify-center pointer-events-none">
-          <motion.div
-            key={phase}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="text-center px-6"
-          >
-            <motion.div
-              className="flex justify-center gap-2 mb-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              {[0, 1, 2].map((i) => (
-                <div
-                  key={i}
-                  className={`h-2 rounded-full transition-all duration-500 ${
-                    i === phase 
-                      ? 'bg-[#ff00ff] w-8' 
-                      : 'bg-white/20 w-2'
-                  }`}
-                />
-              ))}
-            </motion.div>
-
-            <motion.p
-              className="font-mono text-xs uppercase tracking-[0.3em] text-[#ff00ff] mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              {currentContent.subtitle}
-            </motion.p>
-
-            <motion.h2
-              className="font-heading font-black text-5xl md:text-7xl lg:text-8xl xl:text-9xl tracking-tighter mb-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <span className="text-white">{currentContent.title}</span>
-              <br />
-              <span className="gradient-text glow-text">{currentContent.highlight}</span>
-            </motion.h2>
-
-            <motion.div
-              className="mt-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-              <div className="inline-flex items-center gap-4 px-6 py-3 glass rounded-full">
-                <span className="font-mono text-xs text-white/40">VELOCITY</span>
-                <div className="w-24 h-1 bg-white/10 rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-[#ff00ff] to-[#3b00ff] rounded-full"
-                    style={{ width: `${speed * 50}%` }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </div>
-                <span className="font-mono text-xs text-[#ff00ff]">
-                  {Math.round(speed * 100)}%
-                </span>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        <div className="absolute inset-0 pointer-events-none z-20">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#030014_90%)]" />
-        </div>
-
-        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#030014] to-transparent pointer-events-none z-30" />
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#030014] to-transparent pointer-events-none z-30" />
+    <section ref={sectionRef} className="space-section">
+      
+      {/* 3D GATE OBJECT */}
+      <div className="gate-container">
+        <div className="gate-ring ring-outer"></div>
+        <div className="gate-ring ring-mid"></div>
+        <div className="gate-ring ring-inner"></div>
+        <div className="gate-core"></div>
       </div>
+
+      {/* ATMOSPHERE LAYERS */}
+      <div className="plasma-tunnel"></div>
+      <div className="warp-lines"></div>
+      <div className="glitch-layer"></div>
+
+      {/* IMPACT EFFECTS */}
+      <div className="shockwave"></div>
+      <div className="invert-flash"></div>
+
+      {/* HUD TEXT */}
+      <div className="hud status" style={{ top: '80%', left: '50%', transform: 'translateX(-50%)' }}></div>{/*INITIALIZING... , MAX VELOCITY,BREACH CONFIRMED */}
+      <div className="hud velocity" style={{ top: '80%', left: '50%', transform: 'translateX(-50%)', color: '#ff00ff' }}></div>
+      <div className="hud exit" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '3rem', fontWeight: 'bold' }}>Pioneering Future</div>
+
     </section>
   );
 };
 
 export default SpaceTravelSection;
+
+// import React, { useEffect, useRef } from "react";
+// import gsap from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import "@/index.css"; 
+
+// gsap.registerPlugin(ScrollTrigger);
+
+// const SpaceTravelSection = () => {
+//   const sectionRef = useRef(null);
+
+//   useEffect(() => {
+//     const ctx = gsap.context(() => {
+      
+//       const tl = gsap.timeline({
+//         scrollTrigger: {
+//           trigger: sectionRef.current,
+//           start: "top top",
+//           end: "+=6000", 
+//           pin: true,
+//           scrub: false, 
+//           toggleActions: "play none none reverse",
+//         },
+//       });
+
+//       // ----------------------------------------------------
+//       // PHASE 1: HEAVY ASSEMBLY (0s - 1.5s)
+//       // ----------------------------------------------------
+//       tl.fromTo(".ring-outer", { z: 1000, opacity: 0 }, { z: 0, opacity: 1, duration: 1.5, ease: "power3.out" })
+//         .fromTo(".ring-mid", { z: 2000, opacity: 0, rotation: 180 }, { z: 0, opacity: 1, rotation: 0, duration: 1.5, ease: "power3.out" }, "<0.2")
+//         .fromTo(".ring-inner", { z: 500, opacity: 0 }, { z: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, "<0.2")
+//         .to(".hud.status", { opacity: 1, textContent: "SYSTEM ONLINE", duration: 1 }, "-=0.5");
+
+//       // ----------------------------------------------------
+//       // PHASE 2: TURBINE CHARGE (1.5s - 4.0s)
+//       // ----------------------------------------------------
+//       tl.to(".ring-outer", { rotation: 360, duration: 2.5, ease: "expo.in" })
+//         .to(".ring-mid", { rotation: -360, duration: 2.5, ease: "expo.in" }, "<")
+//         .to(".gate-core", { opacity: 1, scale: 4, duration: 2.5, ease: "expo.in" }, "<")
+//         .to(".plasma-tunnel", { opacity: 0.6, scale: 1.2, duration: 2.5, ease: "power2.in" }, "<")
+//         .to(".hud.status", { opacity: 0, duration: 0.2 }, "<")
+//         .to(".hud.velocity", { opacity: 1, duration: 0.5 }, "-=1.0");
+
+//       // ----------------------------------------------------
+//       // PHASE 3: THE HYPER-TUNNEL (4.0s - 7.5s)
+//       // ----------------------------------------------------
+//       tl.to(".gate-container", { z: 500, duration: 3.5, ease: "none" })
+//         .to(".warp-lines", { opacity: 1, scaleY: 10, duration: 2.0, ease: "power2.in" }, "<")
+//         .to(".glitch-layer", { opacity: 1, duration: 3.5, ease: "power1.in" }, "<")
+//         .to(".space-section", { x: 2, y: 2, rotation: 0.5, repeat: 35, yoyo: true, duration: 0.1 }, "<")
+//         .to(".space-section", { x: 20, y: 20, rotation: 2, repeat: 10, yoyo: true, duration: 0.05 }, "-=0.5");
+
+//       // ----------------------------------------------------
+//       // PHASE 4: THE LONG BREACH (7.5s - 13.0s) -- EXTENDED GREEN PHASE
+//       // ----------------------------------------------------
+//       // Total Duration: ~5.5 Seconds of visual intensity
+      
+//       // 1. Slow Motion Gate Swallow
+//       // We slow this down so you are "inside" the gate structure longer
+//       tl.to(".gate-container", { scale: 150, z: 2500, opacity: 0, duration: 5.0, ease: "expo.in" })
+      
+//       // 2. Shockwave (Slow expansion)
+//       .to(".shockwave", { width: "300vw", height: "300vw", borderWidth: "0px", opacity: 1, duration: 3.0, ease: "power2.out" }, "-=4.5")
+      
+//       // 3. THE "GREEN SCREEN" (Inversion) SEQUENCE
+//       // Instead of a flicker, we hold the inverted state.
+      
+//       // Hit 1: Hard Invert (Green/Negative World) - Hold for 0.8s
+//       .to(".invert-flash", { opacity: 1, duration: 0.1, ease: "steps(1)" }, "-=3.5") 
+//       .to(".invert-flash", { opacity: 1, duration: 0.8 }, ">") // STAY GREEN
+      
+//       // Hit 2: Flicker Reality (Rapid Strobe)
+//       .to(".invert-flash", { opacity: 0, duration: 0.1 }, ">")
+//       .to(".invert-flash", { opacity: 1, duration: 0.1 }, ">")
+//       .to(".invert-flash", { opacity: 0, duration: 0.1 }, ">")
+//       .to(".invert-flash", { opacity: 1, duration: 0.2 }, ">")
+      
+//       // Hit 3: Final Sustained Inversion (The Crash) - Hold for 1.2s
+//       .to(".invert-flash", { opacity: 1, duration: 1.2 }, ">") // LONG GREEN HOLD
+      
+//       // 4. Reveal Text inside the chaos
+//       .to(".hud.exit", { opacity: 1, scale: 2, duration: 0.5, color: "black" }, "-=2.0") // Text appears black on green
+      
+//       // 5. Final Fade Out
+//       // Fade the inversion out slowly to reveal white, then transparent
+//       .to(".invert-flash", { opacity: 0, duration: 1.0 }, ">")
+//       .to(".space-section", { backgroundColor: "white", duration: 0.5 }, "-=0.5")
+//       .to(".space-section", { opacity: 0, duration: 2.0 }, ">");
+
+//     }, sectionRef);
+
+//     return () => ctx.revert();
+//   }, []);
+
+//   return (
+//     <section ref={sectionRef} className="space-section">
+      
+//       <div className="gate-container">
+//         <div className="gate-ring ring-outer"></div>
+//         <div className="gate-ring ring-mid"></div>
+//         <div className="gate-ring ring-inner"></div>
+//         <div className="gate-core"></div>
+//       </div>
+
+//       <div className="plasma-tunnel"></div>
+//       <div className="warp-lines"></div>
+//       <div className="glitch-layer"></div>
+
+//       <div className="shockwave"></div>
+//       {/* This layer creates the Green/Negative effect */}
+//       <div className="invert-flash"></div>
+
+//       <div className="hud status" style={{ top: '80%', left: '50%', transform: 'translateX(-50%)' }}>SEQUENCE START</div>
+//       <div className="hud velocity" style={{ top: '80%', left: '50%', transform: 'translateX(-50%)', color: '#ff00ff' }}>TERMINAL VELOCITY</div>
+//       <div className="hud exit" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '5rem', fontWeight: '900', mixBlendMode: 'difference' }}>BREACH</div>
+
+//     </section>
+//   );
+// };
+
+// export default SpaceTravelSection;
