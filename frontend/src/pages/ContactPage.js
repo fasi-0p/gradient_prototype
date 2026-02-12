@@ -161,7 +161,7 @@ const ContactPage = () => {
                   Want to collaborate or sponsor an event?
                 </p>
                 <a
-                  href="mailto:gradient.bmsce@gmail.com"
+                  href="mailto:gradient.mel@bmsce.ac.in"
                   data-testid="contact-email"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#ff00ff] to-[#3b00ff] rounded-full font-medium hover:opacity-90 transition-opacity"
                 >

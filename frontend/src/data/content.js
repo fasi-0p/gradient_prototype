@@ -6,9 +6,8 @@ export const siteConfig = {
   description: "Pioneering the future through AI and Machine Learning innovation at B.M.S. College of Engineering.",
   founded: 2022,
   social: {
-    instagram: "https://instagram.com/gradient.bmsce",
-    linkedin: "https://linkedin.com/company/gradient-bmsce",
-    twitter: "https://twitter.com/gradient_bmsce"
+    instagram: "https://instagram.com/gradient.aiml",
+    linkedin: "https://linkedin.com/company/gradient-club",
   }
 };
 

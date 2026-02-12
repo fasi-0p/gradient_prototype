@@ -164,7 +164,7 @@ const GradientEngine = () => {
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="text-5xl md:text-7xl font-bold tracking-tight text-white"
         >
-          ENTER THE ENGINE
+          ENTER THE ENGINE 
         </motion.h2>
 
         <motion.p
@@ -174,7 +174,7 @@ const GradientEngine = () => {
           transition={{ delay: 0.2, duration: 1 }}
           className="mt-6 text-gray-400 text-lg"
         >
-          Systems. Intelligence. Engineering.
+          Intelligence Redefined.
         </motion.p>
 
       </div>

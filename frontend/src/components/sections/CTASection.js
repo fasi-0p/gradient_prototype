@@ -11,7 +11,7 @@ const CTASection = () => {
   const socialLinks = [
     { name: 'Instagram', icon: Instagram, url: siteConfig.social.instagram, color: '#E1306C' },
     { name: 'LinkedIn', icon: Linkedin, url: siteConfig.social.linkedin, color: '#0077B5' },
-    { name: 'X', icon: Twitter, url: siteConfig.social.twitter, color: '#ffffff' }
+    // { name: 'X', icon: Twitter, url: siteConfig.social.twitter, color: '#ffffff' }
   ];
 
   return (

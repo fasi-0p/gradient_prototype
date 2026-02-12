@@ -145,9 +145,9 @@ const WhatWeDoSection = () => {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]">
+          {/* <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]">
             02 / What We Do
-          </span>
+          </span> */}
         </motion.div>
 
         {/* Heading */}

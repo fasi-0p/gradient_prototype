@@ -54,7 +54,7 @@ const StatCard = ({ stat, index, isInView }) => {
       <div className="text-center p-8">
         {/* Value */}
         <div className="font-heading font-black text-5xl md:text-6xl lg:text-7xl gradient-text mb-3">
-          {stat.prefix && <span>{stat.prefix}</span>}
+          {/* {stat.prefix && <span>{stat.prefix}</span>} */}
           <AnimatedCounter 
             value={stat.value} 
             prefix={stat.prefix || ''} 
@@ -115,9 +115,9 @@ const StatsSection = () => {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]">
+          {/* <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]">
             03 / Impact
-          </span>
+          </span> */}
         </motion.div>
 
         {/* Heading */}

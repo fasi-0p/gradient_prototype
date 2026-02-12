@@ -51,9 +51,9 @@ const AboutSection = () => {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]">
+          {/* <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]">
             01 / About
-          </span>
+          </span> */}
         </motion.div>
 
         {/* Main content */}

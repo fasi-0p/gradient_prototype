@@ -9,7 +9,7 @@ const achievements = [
   { icon: Calendar, value: "43+", label: "Events Conducted" },
   { icon: Users, value: "3300+", label: "Participants" },
   { icon: Award, value: "200+", label: "Members" },
-  { icon: MapPin, value: "₹5.3L+", label: "Sponsorship" }
+  { icon: MapPin, value: "5.3L+", label: "Sponsorship"}
 ];
 
 const milestones = [

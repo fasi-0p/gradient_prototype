@@ -8,8 +8,8 @@ const TeamPreviewSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const teamImages = [
-    "https://gradient-content-server.vercel.app/content/core24.jpg",
-    "https://gradient-content-server.vercel.app/content/core25.jpeg"
+    "https://gradient-content-server.vercel.app/content/core26/Group.JPG",
+    "https://gradient-content-server.vercel.app/content/core25.jpeg",
   ];
 
   return (
@@ -32,9 +32,9 @@ const TeamPreviewSection = () => {
               transition={{ duration: 0.6 }}
               className="mb-8"
             >
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]">
+              {/* <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]">
                 05 / The Team
-              </span>
+              </span> */}
             </motion.div>
 
             <motion.h2

@@ -42,7 +42,7 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-20 text-center px-6 max-w-5xl mx-auto pointer-events-none">
         {/* Label */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -52,7 +52,7 @@ const HeroSection = () => {
           <span className="font-mono text-xs uppercase tracking-[0.2em] text-white/60">
             AI/ML Student Community
           </span>
-        </motion.div>
+        </motion.div> */}
 
         {/* Main heading */}
         <motion.h1
@@ -139,7 +139,7 @@ const HeroSection = () => {
         className="absolute top-1/4 right-8 z-20 hidden lg:block"
       >
         <p className="font-mono text-xs text-white/30 writing-vertical">
-          Move cursor to interact
+          {/* Move cursor to interact */}
         </p>
       </motion.div>
     </section>
