@@ -36,6 +36,12 @@ const milestones = [
     title: "Innovation Peak",
     description: "Gradient Week, Utsav collaborations, and groundbreaking technical events.",
     image: "https://gradient-content-server.vercel.app/content/core25.jpeg"
+  },
+  {
+    year: 2026,
+    title: "figuring shit out",
+    description: "tmep temp temp",
+    image: "https://gradient-content-server.vercel.app/content/core26/Group.JPG"
   }
 ];
 
