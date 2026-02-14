@@ -15,7 +15,7 @@ const teamData = [
     members: [
       {
         name: "S Sanjana",
-        role: "SYSTEM ADMIN",
+        role: "",
         image: "https://gradient-content-server.vercel.app/content/core26/Sanjana.JPG",
         github: "https://github.com/SSanjana-17",
         linkedin: "https://www.linkedin.com/in/s-sanjana-816788292",
@@ -262,12 +262,12 @@ const TiltCard = ({ member, color, index, setHoveredCard, hoveredCard }) => {
         >
            <div>
              {/* Role Badge */}
-             <div className="flex items-center gap-2 mb-2">
+             {/* <div className="flex items-center gap-2 mb-2">
                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: color }} />
                <span className="text-[10px] uppercase tracking-[0.2em] text-white/50 font-mono">
                  {member.role || "CORE"}
                </span>
-             </div>
+             </div> */}
 
              {/* Name - NO HIGHLIGHTER, JUST GLITCH TEXT */}
              <h3 className="text-xl font-bold text-white mb-1 transition-all duration-300">
