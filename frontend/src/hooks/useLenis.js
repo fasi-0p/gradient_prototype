@@ -39,7 +39,7 @@ export const useLenis = (options = {}) => {
       window.lenis = null;
       document.documentElement.classList.remove('lenis');
     };
-  }, []);
+  }, [options]);
 
   return lenisRef;
 };

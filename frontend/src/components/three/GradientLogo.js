@@ -5,6 +5,7 @@ const GradientLogo = () => {
   const mountRef = useRef(null);
 
   useEffect(() => {
+    const mountNode = mountRef.current;
     /* ---------------- 1. SETUP ---------------- */
     const scene = new THREE.Scene();
 
@@ -185,9 +186,10 @@ const GradientLogo = () => {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
-      if(mountRef.current && renderer.domElement) {
-        mountRef.current.removeChild(renderer.domElement);
+      if(mountNode && renderer.domElement) {
+        mountNode.removeChild(renderer.domElement);
       }
+
       geometry.dispose();
       material.dispose();
       renderer.dispose();
