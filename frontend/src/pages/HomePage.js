@@ -15,7 +15,6 @@ const HomePage = () => {
     <PageTransition variant="fade">
       <main data-testid="home-page">
         <HeroSection />
-        <GradientEngine />
         <AboutSection />
         <WhatWeDoSection />
         <StatsSection />
