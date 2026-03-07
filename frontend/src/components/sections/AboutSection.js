@@ -1,40 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { siteConfig } from '../../data/content';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GradientLogo from "../three/GradientLogo";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const AboutSection = () => {
   const ref = useRef(null);
   const visualRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  // GSAP ScrollTrigger for parallax effect on visual
-  useEffect(() => {
-    if (!visualRef.current) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(visualRef.current,
-        { y: 50, rotate: -2 },
-        {
-          y: -50,
-          rotate: 2,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: ref.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1
-          }
-        }
-      );
-    });
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section
@@ -44,21 +16,20 @@ const AboutSection = () => {
       className="relative py-24 md:py-32 lg:py-40 px-6 md:px-12 lg:px-24"
     >
       <div className="max-w-7xl mx-auto">
-        {/* Section label */}
+
+        {/* Section label (optional) */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          {/* <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]">
-            01 / About
-          </span> */}
+          {/* <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]"> 01 / About </span> */}
         </motion.div>
 
-        {/* Main content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-          {/* Text */}
+          
+          {/* Text Column */}
           <div>
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
@@ -105,67 +76,53 @@ const AboutSection = () => {
             </motion.div>
           </div>
 
-          {/* Visual element */}
+          {/* Visual Frame & Animated Circles Column */}
           <motion.div
             ref={visualRef}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative"
+            className="relative mx-auto aspect-square rounded-3xl overflow-hidden glass gradient-border"
+            style={{ width: '420px', height: '420px', maxWidth: '100%' }}
           >
-            <div className="relative aspect-square rounded-3xl overflow-hidden glass gradient-border">
-              {/* Abstract pattern */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#ff00ff]/10 to-[#3b00ff]/10" />
-              
-              {/* Animated circles */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    rotate: [0, 180, 360]
-                  }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="w-48 h-48 rounded-full border border-[#ff00ff]/30"
-                />
-                <motion.div
-                  animate={{
-                    scale: [1.2, 1, 1.2],
-                    rotate: [360, 180, 0]
-                  }}
-                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                  className="absolute w-64 h-64 rounded-full border border-[#3b00ff]/20"
-                />
-                <motion.div
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    rotate: [0, -180, -360]
-                  }}
-                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                  className="absolute w-80 h-80 rounded-full border border-[#00f0ff]/10"
-                />
-              </div>
-
-              {/* Center logo mark */}
-              {/* <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#ff00ff] to-[#3b00ff] opacity-80 blur-sm" />
-                <div className="absolute w-20 h-20 rounded-full bg-[#030014] flex items-center justify-center">
-                  <span className="font-heading font-bold text-3xl gradient-text">G</span>
-                </div>
-              </div> */}
-              <div className="about-visual-card relative">
-  
-                <div className="absolute inset-0 bg-gradient-to-br from-violet-600/20 to-cyan-500/20 blur-3xl opacity-40" />
-
-                <div className="relative z-10 w-full h-[420px]">
-                    <GradientLogo />
-                </div>
-
-              </div>
-
+            {/* Glass/gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#ff00ff]/10 to-[#3b00ff]/10" />
+            
+            {/* Animated Circles */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <motion.div
+                animate={{
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 180, 360]
+                }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="w-48 h-48 rounded-full border border-[#ff00ff]/30"
+              />
+              <motion.div
+                animate={{
+                  scale: [1.2, 1, 1.2],
+                  rotate: [360, 180, 0]
+                }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                className="absolute w-64 h-64 rounded-full border border-[#3b00ff]/20"
+              />
+              <motion.div
+                animate={{
+                  scale: [1, 1.1, 1],
+                  rotate: [0, -180, -360]
+                }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                className="absolute w-80 h-80 rounded-full border border-[#00f0ff]/10"
+              />
             </div>
 
-            {/* Decorative glow */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-[#ff00ff]/20 to-[#3b00ff]/20 rounded-3xl blur-3xl -z-10" />
+            {/* Center logo mark (Three.js) */}
+            <div className="relative z-10 flex items-center justify-center w-full h-full">
+              <GradientLogo />
+            </div>
+
+            {/* Decorative glow around frame */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-[#ff00ff]/20 to-[#3b00ff]/20 rounded-3xl blur-3xl -z-10 pointer-events-none" />
           </motion.div>
         </div>
       </div>
