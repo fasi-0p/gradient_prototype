@@ -4,11 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 const navItems = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
-  { name: 'Team', path: '/team' },
-  { name: 'Events', path: '/events' },
-  { name: 'Join Us', path: '/contact' }
+  { name: 'Home',      path: '/' },
+  { name: 'About',     path: '/about' },
+  { name: 'Team',      path: '/team' },
+  { name: 'Events',    path: '/events' },
+  { name: 'Join Us',   path: '/contact' },
+  { name: 'Mel Dept.', path: '/meldept' },
 ];
 
 const Navbar = () => {
@@ -17,13 +18,14 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+
+    // Sync immediately on every route change — no waiting for a scroll event
+    handleScroll();
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location]); // re-runs on every navigation
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
@@ -31,16 +33,14 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Desktop Navigation - Floating Dock */}
+      {/* ── DESKTOP NAV ── */}
       <motion.nav
         data-testid="navbar"
-        initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0 }}   // ← NO y transform; avoids the fixed-bottom glitch
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
         className={`fixed bottom-8 right-12 z-50 hidden md:flex items-center gap-1 px-2 py-2 rounded-full transition-all duration-500 ${
-          isScrolled 
-            ? 'glass-strong shadow-lg shadow-black/20' 
-            : 'glass'
+          isScrolled ? 'glass-strong shadow-lg shadow-black/20' : 'glass'
         }`}
       >
         {navItems.map((item) => {
@@ -49,7 +49,7 @@ const Navbar = () => {
             <Link
               key={item.path}
               to={item.path}
-              data-testid={`nav-${item.name.toLowerCase()}`}
+              data-testid={`nav-${item.name.toLowerCase().replace(/\s/g, '-')}`}
               className="relative px-5 py-2.5 rounded-full transition-all duration-300"
             >
               {isActive && (
@@ -69,9 +69,8 @@ const Navbar = () => {
         })}
       </motion.nav>
 
-      {/* Mobile Navigation */}
+      {/* ── MOBILE NAV ── */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50">
-        {/* Mobile Header */}
         <motion.div
           initial={{ y: -100 }}
           animate={{ y: 0 }}
@@ -91,7 +90,6 @@ const Navbar = () => {
           </button>
         </motion.div>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -112,10 +110,10 @@ const Navbar = () => {
                     >
                       <Link
                         to={item.path}
-                        data-testid={`mobile-nav-${item.name.toLowerCase()}`}
+                        data-testid={`mobile-nav-${item.name.toLowerCase().replace(/\s/g, '-')}`}
                         className={`block py-3 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
-                          isActive 
-                            ? 'bg-gradient-to-r from-[#ff00ff]/20 to-[#3b00ff]/20 text-white gradient-border' 
+                          isActive
+                            ? 'bg-gradient-to-r from-[#ff00ff]/20 to-[#3b00ff]/20 text-white gradient-border'
                             : 'text-white/70 hover:text-white hover:bg-white/5'
                         }`}
                       >

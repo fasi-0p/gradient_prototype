@@ -17,6 +17,7 @@ import AboutPage from "./pages/AboutPage";
 import TeamPage from "./pages/TeamPage";
 import EventsPage from "./pages/EventsPage";
 import ContactPage from "./pages/ContactPage";
+import MelDeptPage from "./pages/MelDeptPage"
 
 // Animated routes wrapper
 const AnimatedRoutes = () => {
@@ -30,6 +31,7 @@ const AnimatedRoutes = () => {
         <Route path="/team" element={<TeamPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/meldept" element={<MelDeptPage/>}/>
       </Routes>
     </AnimatePresence>
   );
