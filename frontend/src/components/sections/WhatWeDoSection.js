@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { Code, Trophy, Sparkles, Mic2, Briefcase, Users } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import NeuralNetworkBackground from "../background/NeuralNetworkBackground";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -51,9 +52,9 @@ const pillars = [
   }
 ];
 
-const PillarCard = ({ pillar, index, isInView }) => {
+const PillarCard = ({ pillar }) => {
   const Icon = pillar.icon;
-  
+
   return (
     <motion.div
       whileHover={{ y: -8, transition: { duration: 0.3 } }}
@@ -61,26 +62,23 @@ const PillarCard = ({ pillar, index, isInView }) => {
       data-testid={`pillar-${pillar.id}`}
     >
       <div className="relative h-full p-8 rounded-2xl glass hover:bg-white/5 transition-all duration-500">
-        {/* Icon */}
-        <div 
+
+        <div
           className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110"
           style={{ background: `${pillar.color}20` }}
         >
           <Icon className="w-7 h-7" style={{ color: pillar.color }} />
         </div>
 
-        {/* Title */}
         <h3 className="font-heading font-semibold text-xl mb-3 group-hover:text-white transition-colors">
           {pillar.title}
         </h3>
 
-        {/* Description */}
         <p className="text-white/50 text-sm leading-relaxed group-hover:text-white/70 transition-colors">
           {pillar.description}
         </p>
 
-        {/* Hover gradient border */}
-        <div 
+        <div
           className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
           style={{
             background: `linear-gradient(135deg, ${pillar.color}20 0%, transparent 50%)`,
@@ -96,19 +94,15 @@ const WhatWeDoSection = () => {
   const cardsContainerRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  // GSAP ScrollTrigger for staggered card reveals
   useEffect(() => {
     if (!cardsContainerRef.current) return;
 
     const cards = cardsContainerRef.current.querySelectorAll('.pillar-card');
-    
+
     const ctx = gsap.context(() => {
-      gsap.fromTo(cards,
-        { 
-          y: 60,
-          opacity: 0,
-          scale: 0.95
-        },
+      gsap.fromTo(
+        cards,
+        { y: 60, opacity: 0, scale: 0.95 },
         {
           y: 0,
           opacity: 1,
@@ -132,46 +126,43 @@ const WhatWeDoSection = () => {
     <section
       ref={ref}
       data-testid="whatwedo-section"
-      className="relative py-24 md:py-32 lg:py-40 px-6 md:px-12 lg:px-24"
+      className="relative py-24 md:py-32 lg:py-40 px-6 md:px-12 lg:px-24 overflow-hidden"
     >
+
+      {/* Shared Neural Network Background */}
+      <NeuralNetworkBackground opacity={0.35} />
+
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#7C3AED]/5 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section label */}
+
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="mb-8"
-        >
-          {/* <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]">
-            02 / What We Do
-          </span> */}
-        </motion.div>
+        />
 
-        {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.1 }}
           className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1] mb-16 max-w-3xl"
         >
-          Building the future,{' '}
+          Building the future,{" "}
           <span className="gradient-text">one event at a time</span>
         </motion.h2>
 
-        {/* Pillars grid */}
-        <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {pillars.map((pillar, index) => (
-            <PillarCard 
-              key={pillar.id} 
-              pillar={pillar} 
-              index={index}
-              isInView={isInView}
-            />
+        <div
+          ref={cardsContainerRef}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {pillars.map((pillar) => (
+            <PillarCard key={pillar.id} pillar={pillar} />
           ))}
         </div>
+
       </div>
     </section>
   );
