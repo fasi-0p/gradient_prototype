@@ -67,17 +67,34 @@ export const FloatingNav = ({
           <Link
             key={`link=${idx}`}
             to={navItem.link}
-            className={cn(
-              "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500"
+            className="relative flex items-center space-x-1 px-4 py-2 rounded-full"
+            >
+            {isActive && (
+                <motion.div
+                layoutId="navbar-pill"
+                className="absolute inset-0 bg-white/10 rounded-full"
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
             )}
-          >
-            <span className="block sm:hidden text-white">{navItem.icon}</span>
-            <span className={cn(
-                "hidden sm:block text-sm font-medium transition-colors duration-200",
-                isActive ? "text-[#7C3AED]" : "text-white hover:text-white/80"
-            )}>{navItem.name}</span>
-          </Link>
+
+            <span className="block sm:hidden relative z-10 text-white">
+                {navItem.icon}
+            </span>
+
+            <span
+                className={cn(
+                "hidden sm:block text-sm font-medium relative z-10 transition-colors",
+                isActive ? "text-white" : "text-white/80 hover:text-white"
+                )}
+            >
+                {navItem.name}
+            </span>
+            </Link>
         )})}
+        {/* <Link to="/contact" className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full">
+          <span>Join Us</span>
+          <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-[#BCA4FF] to-transparent  h-px" />
+        </Link> */}
       </motion.div>
     </AnimatePresence>
   );
