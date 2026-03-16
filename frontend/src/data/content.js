@@ -71,7 +71,7 @@ export const teamDomains = [
     id: "coordinator",
     title: "Coordinator",
     animation: "pulse",
-    color: "#ff00ff",
+    color: "#7C3AED",
     members: [
       { name: "Faculty Coordinator", role: "Faculty Advisor", image: "https://gradient-content-server.vercel.app/content/core26/faculty.jpg" }
     ]
@@ -80,7 +80,7 @@ export const teamDomains = [
     id: "tech",
     title: "Tech Heads",
     animation: "orbit",
-    color: "#3b00ff",
+    color: "#A891FF",
     members: [
       { name: "Pranav Veeraghanta", role: "Technical Head", image: "https://gradient-content-server.vercel.app/content/core26/pranav.jpg", link: "https://beyondmebtw.com/" }
     ]
@@ -89,7 +89,7 @@ export const teamDomains = [
     id: "design",
     title: "Design Heads", 
     animation: "morph",
-    color: "#00f0ff",
+    color: "#D4C5FF",
     members: [
       { name: "Vinay Yele", role: "Design Head", image: "https://gradient-content-server.vercel.app/content/core26/vinay.jpg", link: "https://vinayyele.live/" }
     ]

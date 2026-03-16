@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { siteConfig } from '../../data/content';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import LiquidEther from '../three/LiquidEther';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,19 +13,6 @@ const HeroSection = () => {
   const containerRef = useRef(null);
   const textContainerRef = useRef(null);
   const otherElementsRef = useRef([]);
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
-
-  // Lightweight mouse tracking for the background gradient
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
-      });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -72,17 +60,30 @@ const HeroSection = () => {
     <section
       ref={containerRef}
       data-testid="hero-section"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#030014]"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0A0A0F]"
     >
       {/* High-Performance Interactive Background */}
-      <div 
-        className="absolute inset-0 z-0 transition-opacity duration-300 opacity-60"
-        style={{
-          background: `radial-gradient(circle 800px at ${mousePos.x}% ${mousePos.y}%, rgba(255, 0, 255, 0.15), rgba(59, 0, 255, 0.05), transparent 80%)`,
-        }}
-      />
+      <div className="absolute inset-0 z-0 opacity-60">
+        <LiquidEther
+          colors={['#7C3AED', '#3B82F6', '#A855F7']}
+          mouseForce={20}
+          cursorSize={100}
+          isViscous
+          viscous={30}
+          iterationsViscous={32}
+          iterationsPoisson={32}
+          resolution={0.5}
+          isBounce={false}
+          autoDemo
+          autoSpeed={0.5}
+          autoIntensity={2.2}
+          takeoverDuration={0.25}
+          autoResumeDelay={3000}
+          autoRampDuration={0.6}
+        />
+      </div>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-[#030014]/30 via-transparent to-[#030014] z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0F]/30 via-transparent to-[#0A0A0F] z-10 pointer-events-none" />
 
       {/* Content */}
       <div className="relative z-20 text-center px-6 max-w-5xl mx-auto flex flex-col items-center">
@@ -109,7 +110,7 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link to="/about" className="group relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden hover:scale-105 transition-transform duration-300">
               <span className="relative z-10">Explore Our Club</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#ff00ff] to-[#3b00ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#7C3AED] to-[#3B82F6] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-bold">
                 Explore Our Club
               </span>

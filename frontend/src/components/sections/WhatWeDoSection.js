@@ -12,42 +12,42 @@ const pillars = [
     title: "Technical Workshops",
     description: "Hands-on workshops and seminars on cutting-edge AI and ML technologies",
     icon: Code,
-    color: "#ff00ff"
+    color: "#7C3AED"
   },
   {
     id: "hackathons",
     title: "Hackathons",
     description: "Competitive coding events and AI project challenges",
     icon: Trophy,
-    color: "#3b00ff"
+    color: "#A891FF"
   },
   {
     id: "events",
     title: "Technical Events",
     description: "Collaborative, fun and innovative events with real-world applications",
     icon: Sparkles,
-    color: "#00f0ff"
+    color: "#D4C5FF"
   },
   {
     id: "lectures",
     title: "Guest Lectures",
     description: "Industry experts sharing insights and experiences",
     icon: Mic2,
-    color: "#ff6b00"
+    color: "#E5DAFF"
   },
   {
     id: "placement",
     title: "Placement Talks",
     description: "Educating students on the ever-changing landscape of placements",
     icon: Briefcase,
-    color: "#00ff88"
+    color: "#9D7FFF"
   },
   {
     id: "networking",
     title: "Networking",
     description: "Building connections within the AI community",
     icon: Users,
-    color: "#ffcc00"
+    color: "#B89EFF"
   }
 ];
 
@@ -135,7 +135,7 @@ const WhatWeDoSection = () => {
       className="relative py-24 md:py-32 lg:py-40 px-6 md:px-12 lg:px-24"
     >
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#ff00ff]/5 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#7C3AED]/5 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section label */}

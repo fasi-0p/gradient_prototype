@@ -119,7 +119,7 @@ const SpaceTravelSection = () => {
 
       {/* HUD TEXT */}
       <div className="hud status" style={{ top: '80%', left: '50%', transform: 'translateX(-50%)' }}></div>{/*INITIALIZING... , MAX VELOCITY,BREACH CONFIRMED */}
-      <div className="hud velocity" style={{ top: '80%', left: '50%', transform: 'translateX(-50%)', color: '#ff00ff' }}></div>
+      <div className="hud velocity" style={{ top: '80%', left: '50%', transform: 'translateX(-50%)', color: '#7C3AED' }}></div>
       <div className="hud exit" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '3rem', fontWeight: 'bold' }}>Pioneering Future</div>
 
     </section>

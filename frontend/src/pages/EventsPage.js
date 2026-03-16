@@ -95,7 +95,7 @@ const EventCard = ({ event, index }) => {
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F] via-transparent to-transparent" />
           
           {/* Status badge */}
           <div className="absolute top-4 right-4">
@@ -130,7 +130,7 @@ const EventCard = ({ event, index }) => {
               href={event.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[#ff00ff] hover:text-white transition-colors text-sm font-medium"
+              className="inline-flex items-center gap-2 text-[#7C3AED] hover:text-white transition-colors text-sm font-medium"
             >
               <span>Visit Event</span>
               <ExternalLink className="w-4 h-4" />
@@ -159,7 +159,7 @@ const EventsPage = () => {
       >
       {/* Hero */}
       <section ref={heroRef} className="min-h-[50vh] flex items-center relative overflow-hidden px-6 md:px-12 lg:px-24 py-24">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#ff00ff]/5 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#7C3AED]/5 via-transparent to-transparent" />
         
         <div className="max-w-7xl mx-auto relative z-10 w-full">
           <motion.div
@@ -180,7 +180,7 @@ const EventsPage = () => {
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]"
+            className="font-mono text-xs uppercase tracking-[0.2em] text-[#7C3AED]"
           >
             Event Gallery
           </motion.span>
@@ -220,7 +220,7 @@ const EventsPage = () => {
                 data-testid={`filter-${cat.id}`}
                 className={`px-4 py-2 rounded-full font-medium text-sm transition-all duration-300 ${
                   activeCategory === cat.id
-                    ? 'bg-gradient-to-r from-[#ff00ff] to-[#3b00ff] text-white'
+                    ? 'bg-gradient-to-r from-[#7C3AED] to-[#3B82F6] text-white'
                     : 'glass text-white/60 hover:text-white'
                 }`}
               >

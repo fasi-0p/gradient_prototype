@@ -6,7 +6,7 @@ const GradientEngine = () => {
   return (
     <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
       {/* Background */}
-      <div className="engine-bg absolute inset-0 bg-gradient-to-b from-black via-violet-950/30 to-black bg-[length:100%_200%]" />
+      <div className="engine-bg absolute inset-0 bg-gradient-to-b from-[#0A0A0F] via-[#7C3AED]/10 to-[#0A0A0F] bg-[length:100%_200%]" />
       {/* ✨ Reduced Particle Field (Canvas API recommended for production) */}
       <canvas className="absolute inset-0" width={window.innerWidth} height={window.innerHeight} style={{ pointerEvents: 'none', zIndex: 1 }}></canvas>
       {/* If you want, use a simple animated Canvas for particles instead of divs for much better perf */}

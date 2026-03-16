@@ -72,7 +72,7 @@ const StatCard = ({ stat, index, isInView }) => {
           initial={{ scaleX: 0 }}
           animate={isInView ? { scaleX: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3 + 0.15 * index }}
-          className="h-[1px] w-16 mx-auto mt-6 bg-gradient-to-r from-transparent via-[#ff00ff]/50 to-transparent"
+          className="h-[1px] w-16 mx-auto mt-6 bg-gradient-to-r from-transparent via-[#BCA4FF]/50 to-transparent"
         />
       </div>
     </motion.div>

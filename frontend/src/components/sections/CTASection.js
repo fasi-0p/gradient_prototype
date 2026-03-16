@@ -9,8 +9,8 @@ const CTASection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const socialLinks = [
-    { name: 'Instagram', icon: Instagram, url: siteConfig.social.instagram, color: '#E1306C' },
-    { name: 'LinkedIn', icon: Linkedin, url: siteConfig.social.linkedin, color: '#0077B5' },
+            { name: 'Instagram', icon: Instagram, url: siteConfig.social.instagram, color: '#7C3AED' },
+            { name: 'LinkedIn', icon: Linkedin, url: siteConfig.social.linkedin, color: '#7C3AED' },
     // { name: 'X', icon: Twitter, url: siteConfig.social.twitter, color: '#ffffff' }
   ];
 
@@ -22,7 +22,7 @@ const CTASection = () => {
     >
       {/* Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-r from-[#ff00ff]/20 to-[#3b00ff]/20 blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-r from-[#7C3AED]/20 to-[#3B82F6]/20 blur-[120px]" />
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10 text-center">
@@ -33,7 +33,7 @@ const CTASection = () => {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]">
+          <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#7C3AED]">
             Join Us
           </span>
         </motion.div>

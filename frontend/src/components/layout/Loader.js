@@ -39,7 +39,7 @@ const Loader = ({ onComplete }) => {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[100] bg-[#030014] flex flex-col items-center justify-center"
+          className="fixed inset-0 z-[100] bg-[#0A0A0F] flex flex-col items-center justify-center"
         >
           {/* Background gradient */}
           <div className="absolute inset-0 overflow-hidden">
@@ -51,7 +51,7 @@ const Loader = ({ onComplete }) => {
               transition={{ duration: 3, repeat: Infinity }}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[120px]"
               style={{
-                background: 'radial-gradient(circle, rgba(255,0,255,0.3) 0%, rgba(59,0,255,0.3) 50%, transparent 70%)'
+                background: 'radial-gradient(circle, rgba(188,164,255,0.3) 0%, rgba(188,164,255,0.2) 50%, transparent 70%)'
               }}
             />
           </div>
@@ -72,8 +72,8 @@ const Loader = ({ onComplete }) => {
             >
               <defs>
                 <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#ff00ff" />
-                  <stop offset="100%" stopColor="#3b00ff" />
+                  <stop offset="0%" stopColor="#7C3AED" />
+                  <stop offset="100%" stopColor="#191B22" />
                 </linearGradient>
               </defs>
               {/* Zigzag pattern like the actual logo */}
@@ -117,7 +117,7 @@ const Loader = ({ onComplete }) => {
               <motion.div
                 className="h-full rounded-full"
                 style={{
-                  background: 'linear-gradient(90deg, #ff00ff, #3b00ff)',
+                  background: 'linear-gradient(90deg, #7C3AED, #3B82F6)',
                   width: `${progress}%`
                 }}
                 transition={{ duration: 0.1 }}

@@ -14,11 +14,11 @@ const CTASection = lazy(() => import('../components/sections/CTASection'));
 const HomePage = () => {
   return (
     <PageTransition variant="fade">
-      <main data-testid="home-page" className="bg-[#030014]">
+      <main data-testid="home-page" className="bg-[#0A0A0F]">
         <HeroSection />
         
         {/* Suspense keeps the layout stable while other components load in the background */}
-        <Suspense fallback={<div className="h-screen w-full bg-[#030014]" />}>
+        <Suspense fallback={<div className="h-screen w-full bg-[#0A0A0F]" />}>
           <AboutSection />
           <WhatWeDoSection />
           <StatsSection />

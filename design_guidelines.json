@@ -36,18 +36,18 @@
   "colors": {
     "theme": "dark",
     "palette": {
-      "background": "#030014",
-      "foreground": "#ffffff",
-      "primary": "#ff00ff",
-      "secondary": "#3b00ff",
-      "accent": "#00f0ff",
-      "surface": "#0a0a12",
-      "border": "rgba(255, 255, 255, 0.1)"
+      "background": "#0A0A0F",
+      "foreground": "#F5F5F5",
+      "primary": "#7C3AED",
+      "secondary": "#12121A",
+      "accent": "#A855F7",
+      "surface": "#12121A",
+      "border": "rgba(124, 58, 237, 0.2)"
     },
     "gradients": {
-      "brand": "linear-gradient(135deg, #ff00ff 0%, #3b00ff 100%)",
-      "glow": "radial-gradient(circle at center, rgba(59, 0, 255, 0.3) 0%, transparent 70%)",
-      "glass": "linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)"
+      "brand": "linear-gradient(135deg, #7C3AED, #3B82F6)",
+      "glow": "radial-gradient(circle at center, rgba(124, 58, 237, 0.3) 0%, transparent 70%)",
+      "glass": "linear-gradient(180deg, rgba(124, 58, 237, 0.08) 0%, rgba(124, 58, 237, 0.02) 100%)"
     }
   },
   "layout": {

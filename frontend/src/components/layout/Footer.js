@@ -47,7 +47,7 @@ const Footer = () => {
                   data-testid={`social-${social.name.toLowerCase()}`}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-12 h-12 rounded-full glass flex items-center justify-center group transition-all duration-300 hover:border-[#ff00ff]/50"
+                  className="w-12 h-12 rounded-full glass flex items-center justify-center group transition-all duration-300 hover:border-[#7C3AED]/50"
                 >
                   <social.icon className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
                 </motion.a>

@@ -19,7 +19,7 @@ const TeamPreviewSection = () => {
       className="relative py-24 md:py-32 lg:py-40 px-6 md:px-12 lg:px-24 overflow-hidden"
     >
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#3b00ff]/5 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#BCA4FF]/5 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
@@ -85,7 +85,7 @@ const TeamPreviewSection = () => {
                 {[1, 2, 3, 4].map((i) => (
                   <div
                     key={i}
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-[#ff00ff] to-[#3b00ff] border-2 border-[#030014]"
+                    className="w-10 h-10 rounded-full bg-gradient-to-br from-[#BCA4FF] to-[#191B22] border-2 border-[#00030E]"
                   />
                 ))}
               </div>
@@ -117,13 +117,13 @@ const TeamPreviewSection = () => {
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#00030E] via-transparent to-transparent" />
                 </motion.div>
               ))}
             </div>
 
             {/* Decorative elements */}
-            <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full bg-gradient-to-r from-[#ff00ff]/30 to-[#3b00ff]/30 blur-3xl" />
+            <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full bg-gradient-to-r from-[#BCA4FF]/30 to-[#191B22]/30 blur-3xl" />
           </motion.div>
         </div>
       </div>

@@ -69,7 +69,7 @@ const AboutSection = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="mt-8 inline-flex items-center gap-4"
             >
-              <div className="w-16 h-[1px] bg-gradient-to-r from-[#ff00ff] to-transparent" />
+              <div className="w-16 h-[1px] bg-gradient-to-r from-[#7C3AED] to-transparent" />
               <span className="font-mono text-sm text-white/40">
                 Founded {siteConfig.founded} • BMSCE Bangalore
               </span>
@@ -86,7 +86,7 @@ const AboutSection = () => {
             style={{ width: '420px', height: '420px', maxWidth: '100%' }}
           >
             {/* Glass/gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#ff00ff]/10 to-[#3b00ff]/10" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/10 to-[#3B82F6]/10" />
             
             {/* Animated Circles */}
             <div className="absolute inset-0 flex items-center justify-center">
@@ -96,7 +96,7 @@ const AboutSection = () => {
                   rotate: [0, 180, 360]
                 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="w-48 h-48 rounded-full border border-[#ff00ff]/30"
+                className="w-48 h-48 rounded-full border border-[#7C3AED]/30"
               />
               <motion.div
                 animate={{

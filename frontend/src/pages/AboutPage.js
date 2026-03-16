@@ -58,7 +58,7 @@ const AboutPage = () => {
       {/* Hero */}
       <section ref={heroRef} className="min-h-screen flex items-center relative overflow-hidden px-6 md:px-12 lg:px-24 py-24">
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#ff00ff]/5 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#7C3AED]/5 via-transparent to-transparent" />
         
         <div className="max-w-7xl mx-auto relative z-10 w-full">
           {/* Back link */}
@@ -84,7 +84,7 @@ const AboutPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6 }}
-                className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]"
+                className="font-mono text-xs uppercase tracking-[0.2em] text-[#7C3AED]"
               >
                 About Gradient
               </motion.span>
@@ -134,7 +134,7 @@ const AboutPage = () => {
                 alt="Gradient Team"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F] via-transparent to-transparent" />
             </motion.div>
           </div>
         </div>
@@ -154,7 +154,7 @@ const AboutPage = () => {
                 className="text-center p-6 glass rounded-2xl"
                 data-testid={`about-stat-${index}`}
               >
-                <stat.icon className="w-8 h-8 mx-auto mb-4 text-[#ff00ff]" />
+                <stat.icon className="w-8 h-8 mx-auto mb-4 text-[#7C3AED]" />
                 <div className="font-heading font-bold text-4xl gradient-text mb-2">
                   {stat.value}
                 </div>

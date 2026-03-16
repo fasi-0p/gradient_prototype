@@ -105,10 +105,10 @@ const TimelineSection = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} data-testid="timeline-section" className="bg-gradient-to-b from-[#130026] to-[#05001a] text-white">
+    <div ref={sectionRef} data-testid="timeline-section" className="bg-gradient-to-b from-[#0A0A0F] to-[#12121A] text-white">
       <div ref={triggerRef} className="h-screen w-full relative overflow-hidden flex flex-col justify-center">
         
-        <div className="absolute inset-0 bg-gradient-to-b from-[#2e026d] to-[#0f0229] opacity-60 mix-blend-overlay" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#7C3AED]/20 to-[#0A0A0F] opacity-60 mix-blend-overlay" />
         
         <div className="starfield absolute inset-0 w-[200vw] h-full opacity-20 pointer-events-none will-change-transform" 
              style={{ 
@@ -117,7 +117,7 @@ const TimelineSection = () => {
              }} 
         />
         
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_#05001a_80%)] z-20 pointer-events-none opacity-80" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_#0A0A0F_80%)] z-20 pointer-events-none opacity-80" />
 
         {/* Added will-change-transform to tell browser to prep GPU */}
         <div 
@@ -126,7 +126,7 @@ const TimelineSection = () => {
           style={{ width: `${timelineData.length * 60 + 50}vw` }}
         >
           <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white/10 -z-10" />
-          <div className="progress-line absolute top-1/2 left-0 w-full h-[2px] bg-gradient-to-r from-violet-500 via-fuchsia-500 to-violet-500 shadow-[0_0_20px_rgba(167,139,250,0.8)] -z-10 will-change-transform" />
+          <div className="progress-line absolute top-1/2 left-0 w-full h-[2px] bg-gradient-to-r from-[#7C3AED] via-[#A78BFA] to-[#7C3AED] shadow-[0_0_20px_rgba(124,58,237,0.8)] -z-10 will-change-transform" />
 
           {timelineData.map((item, index) => (
             <div key={index} className="timeline-panel relative w-[60vw] h-full flex items-center justify-center px-10 flex-shrink-0">
@@ -139,13 +139,13 @@ const TimelineSection = () => {
               </div>
 
               <div className="timeline-card relative group">
-                <div className="absolute -top-[calc(50vh-50%+2rem)] left-1/2 -translate-x-1/2 w-4 h-4 bg-violet-500 rounded-full shadow-[0_0_15px_rgba(139,92,246,1)] z-30 hidden md:block" />
-                <div className="absolute -top-[calc(50vh-50%)] left-1/2 -translate-x-1/2 h-[calc(50vh-50%)] w-[1px] bg-gradient-to-b from-transparent to-violet-500/50 hidden md:block" />
+                <div className="absolute -top-[calc(50vh-50%+2rem)] left-1/2 -translate-x-1/2 w-4 h-4 bg-[#BCA4FF] rounded-full shadow-[0_0_15px_rgba(188,164,255,1)] z-30 hidden md:block" />
+                <div className="absolute -top-[calc(50vh-50%)] left-1/2 -translate-x-1/2 h-[calc(50vh-50%)] w-[1px] bg-gradient-to-b from-transparent to-[#BCA4FF]/50 hidden md:block" />
 
-                <div className="w-[85vw] md:w-[35vw] p-8 md:p-12 backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl transition-all duration-500 hover:bg-white/10 hover:border-violet-500/30 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]">
+                <div className="w-[85vw] md:w-[35vw] p-8 md:p-12 backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl transition-all duration-500 hover:bg-white/10 hover:border-[#BCA4FF]/30 hover:shadow-[0_0_30px_rgba(188,164,255,0.15)]">
                   <div className="inline-flex items-center gap-2 mb-4">
-                    <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
-                    <span className="text-violet-300 text-xs font-mono tracking-widest uppercase">
+                    <span className="w-2 h-2 rounded-full bg-[#A891FF] animate-pulse" />
+                    <span className="text-[#E5DAFF] text-xs font-mono tracking-widest uppercase">
                       {item.category} // {item.year}
                     </span>
                   </div>
@@ -154,7 +154,7 @@ const TimelineSection = () => {
                     {item.title}
                   </h3>
 
-                  <p className="text-gray-400 text-lg leading-relaxed font-light border-l-2 border-violet-500/20 pl-6">
+                  <p className="text-gray-400 text-lg leading-relaxed font-light border-l-2 border-[#BCA4FF]/20 pl-6">
                     {item.desc}
                   </p>
                   
