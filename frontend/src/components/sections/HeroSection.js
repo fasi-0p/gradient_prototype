@@ -158,9 +158,9 @@ const HeroSection = () => {
         onClick={scrollToContent}
       >
 
-        <span className="font-mono text-xs uppercase tracking-widest">
+        {/* <span className="font-mono text-xs uppercase tracking-widest">
           Scroll
-        </span>
+        </span> */}
 
         <motion.div
           animate={{ y: [0, 8, 0] }}

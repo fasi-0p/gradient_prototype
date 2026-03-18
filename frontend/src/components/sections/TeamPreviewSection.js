@@ -90,7 +90,7 @@ const TeamPreviewSection = () => {
                 ))}
               </div>
               <span className="text-white/40 font-mono text-sm">
-                200+ Community Members
+                300+ Community Members
               </span>
             </motion.div>
           </div>

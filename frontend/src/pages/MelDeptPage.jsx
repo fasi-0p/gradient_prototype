@@ -287,7 +287,7 @@ export default function MelDeptPage() {
 
           <div className="mel-fade10" style={S.heroScroll}>
             <div className="mel-sline" style={S.scrollLine} />
-            <span>Scroll</span>
+            {/* <span>Scroll</span> */}
           </div>
         </section>
 
