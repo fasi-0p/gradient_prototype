@@ -12,65 +12,60 @@ const eventCategories = [
   { id: 'standalone', label: 'Standalone' }
 ];
 
-const allEvents = [
-  {
-    id: 1,
-    title: "Jokes on You Again",
-    category: "utsav",
-    year: 2025,
-    description: "A fun-filled comedy and tech trivia event.",
-    image: "https://gradient-content-server.vercel.app/content/utsav25/JOY.png",
-    status: "completed"
-  },
-  {
-    id: 2,
-    title: "Uncharted 3: Lost Voyage",
-    category: "utsav",
-    year: 2025,
-    description: "Digital treasure hunt with cryptic puzzles and challenges.",
-    image: "https://gradient-content-server.vercel.app/content/utsav25/UNC.png",
-    status: "completed",
-    link: "https://uncharted3.gradientaiml.tech/"
-  },
-  {
-    id: 3,
-    title: "Sync or Sink",
-    category: "utsav",
-    year: 2025,
-    description: "Team synchronization challenge testing coordination skills.",
-    image: "https://gradient-content-server.vercel.app/content/utsav25/SOS.png",
-    status: "completed"
-  },
-  {
-    id: 4,
-    title: "Gradient Week 2025",
-    category: "gradientweek",
-    year: 2025,
-    description: "Our flagship annual Tech Innovation Week featuring hackathons, workshops, and tech showcases.",
-    image: "https://gradient-content-server.vercel.app/content/gallery/special/3.webp",
-    status: "completed",
-    link: "https://gradientaiml.tech/gw25"
-  },
-  {
-    id: 5,
-    title: "PhaseShift Meridian 2025",
-    category: "phaseshift",
-    year: 2025,
-    description: "BMSCE's premier technical symposium featuring innovative workshops and showcases.",
-    image: "https://gradient-content-server.vercel.app/content/gallery/special/7.webp",
-    status: "completed",
-    link: "https://gradientaiml.tech/ps25"
-  },
-  {
-    id: 6,
-    title: "AI/ML Hackathon 2024",
-    category: "standalone",
-    year: 2024,
-    description: "Our biggest hackathon challenging participants to build AI solutions.",
-    image: "https://gradient-content-server.vercel.app/content/posters/hacka24.webp",
-    status: "completed"
-  }
-];
+const allEvents=[
+  // UTSAV 2025
+  { id: 1, title: "Jokes on You Again", category: "utsav", year: 2025, description: "", image: "https://gradient-content-server.vercel.app/content/utsav25/JOY.png" },
+  { id: 2, title: "Uncharted 3: Lost Voyage", category: "utsav", year: 2025, description: "", image: "https://gradient-content-server.vercel.app/content/utsav25/UNC.png" },
+  { id: 3, title: "Sync or Sink", category: "utsav", year: 2025, description: "", image: "https://gradient-content-server.vercel.app/content/utsav25/SOS.png" },
+  // { id: 4, title: "The Gradient Team", category: "utsav", year: 2025, description: "", image: "" },
+
+  // UTSAV 2024
+  { id: 5, title: "Jokes on You Too Standup Comedy Event", category: "utsav", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/jok2.webp" },
+  { id: 6, title: "Uncharted 2.0", category: "utsav", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/unc2.webp" },
+  { id: 7, title: "Time Rift", category: "utsav", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/tmr.webp" },
+
+  // PHASESHIFT 2025
+  { id: 8, title: "Fortune 404", category: "phaseshift", year: 2025, description: "", image: "https://gradient-content-server.vercel.app/content/ps25/f404poster.png" },
+  { id: 9, title: "AI Unplugged", category: "phaseshift", year: 2025, description: "", image: "https://gradient-content-server.vercel.app/content/ps25/aiunplugposter.png" },
+
+  // PHASESHIFT 2024
+  { id: 10, title: "Maze Maniac Resurrected", category: "phaseshift", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/mmrlogo.webp" },
+  { id: 11, title: "Cipher Secrets", category: "phaseshift", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/ciphersec.webp" },
+  { id: 12, title: "Retro Design 2.0", category: "phaseshift", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/rd2.webp" },
+
+  // PHASESHIFT 2023
+  { id: 13, title: "Maze Maniac 2.0", category: "phaseshift", year: 2023, description: "", image: "https://gradient-content-server.vercel.app/content/posters/mmr2.webp" },
+  { id: 14, title: "Retro Design", category: "phaseshift", year: 2023, description: "", image: "https://gradient-content-server.vercel.app/content/posters/rd1.webp" },
+  { id: 15, title: "Datathon Hackathon", category: "phaseshift", year: 2023, description: "", image: "https://gradient-content-server.vercel.app/content/posters/datathon.webp" },
+  { id: 16, title: "Workshop on LLM and LangChain", category: "phaseshift", year: 2023, description: "", image: "https://gradient-content-server.vercel.app/content/posters/pswork1.webp" },
+
+  // GRADIENT WEEK 2025
+  { id: 17, title: "Impact AI 2.0 24hr Hackathon", category: "gradientweek", year: 2025, description: "", image: "https://gradient-week.vercel.app/posters/gw/impact2.webp" },
+  { id: 18, title: "Parallel Fusion", category: "gradientweek", year: 2025, description: "", image: "https://gradient-week.vercel.app/posters/gw/pf.webp" },
+  { id: 19, title: "AI Agents Hands on Workshop", category: "gradientweek", year: 2025, description: "", image: "https://gradient-content-server.vercel.app/content/posters/gw/aiwork.webp" },
+  // { id: 20, title: "Inauguration Ceremony", category: "gradientweek", year: 2025, description: "", image: "" },
+  { id: 21, title: "Cultural Evening", category: "gradientweek", year: 2025, description: "", image: "https://gradient-content-server.vercel.app/content/gallery/recap/cult/1.webp" },
+
+  // GRADIENT WEEK 2024
+  { id: 22, title: "Impact AI 24hr Hackathon", category: "gradientweek", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/impact1.webp" },
+  { id: 23, title: "RAG Chatbots Demystified Workshop", category: "gradientweek", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/ragchat.webp" },
+  { id: 24, title: "Data Unlocked Workshop", category: "gradientweek", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/datau.jpg" },
+  { id: 25, title: "Cipher Strike Event", category: "gradientweek", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/cipherstri.webp" },
+
+  // STANDALONE 2025
+  { id: 26, title: "AI AMPED Workshop", category: "standalone", year: 2025, description: "", image: "https://gradient-content-server.vercel.app/content/gallery/sa/2025/Ai%20amped.webp" },
+
+  // STANDALONE 2024
+  { id: 27, title: "Gradient AI Hackathon", category: "standalone", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/hacka24.webp" },
+  { id: 28, title: "Evengers - Auction Wars", category: "standalone", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/evauc.webp" },
+  { id: 29, title: "Talk on Introduction to AI and Business Intelligence", category: "standalone", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/busi.webp" },
+  { id: 30, title: "Bingo Blitz", category: "standalone", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/bingo.webp" },
+
+  // STANDALONE 2023
+  { id: 31, title: "Talk on AI", category: "standalone", year: 2023, description: "", image: "https://gradient-content-server.vercel.app/content/posters/krishnaik.webp" },
+  { id: 32, title: "Time-Traveler's Quest", category: "standalone", year: 2023, description: "", image: "https://gradient-content-server.vercel.app/content/posters/ttq.webp" },
+  { id: 33, title: "Talk on Emerging & Converging Technologies", category: "standalone", year: 2023, description: "", image: "https://gradient-content-server.vercel.app/content/posters/ect.webp" }
+]
 
 const EventCard = ({ event, index }) => {
   const ref = useRef(null);
