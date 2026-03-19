@@ -12,7 +12,13 @@ const NeuralNetworkBackground = ({ opacity = 0.5 }) => {
     let animationFrameId;
     let particles = [];
 
-    const particleCount = window.innerWidth < 768 ? 40 : 80;
+    // const particleCount = window.innerWidth < 768 ? 40 : 80;
+    const baseDensity = window.innerWidth * window.innerHeight;
+
+    const particleCount =
+      baseDensity < 500000 ? 60 : 
+      baseDensity < 1000000 ? 100 : 
+      160;
     const connectionDistance = 150;
     const mouseConnectionDistance = 120;
 
