@@ -170,21 +170,20 @@ const Footer = () => {
     { name: 'Join Us', path: '/contact' }
   ];
 
-  const basePool = [
-    { icon: <Cpu className="w-8 h-8 text-violet-400" /> },
-    { icon: <Network className="w-8 h-8 text-blue-400" /> },
-    { icon: <Database className="w-8 h-8 text-fuchsia-400" /> },
-    { icon: <Bot className="w-8 h-8 text-emerald-400" /> },
-    { icon: <Code className="w-8 h-8 text-cyan-400" /> },
-    { icon: <TechLogos.PyTorch /> },
-    { icon: <TechLogos.TensorFlow /> },
-    { icon: <TechLogos.OpenCV /> },
-    { icon: <TechLogos.Python /> },
-    { icon: <TechLogos.HuggingFace /> },
-  ];
-
-  // const balancedPool = [...basePool, ...basePool, ...basePool];
+  // Moved basePool inside useMemo to fix the ESLint / Vercel build error
   const balancedPool = useMemo(() => {
+    const basePool = [
+      { icon: <Cpu className="w-8 h-8 text-violet-400" /> },
+      { icon: <Network className="w-8 h-8 text-blue-400" /> },
+      { icon: <Database className="w-8 h-8 text-fuchsia-400" /> },
+      { icon: <Bot className="w-8 h-8 text-emerald-400" /> },
+      { icon: <Code className="w-8 h-8 text-cyan-400" /> },
+      { icon: <TechLogos.PyTorch /> },
+      { icon: <TechLogos.TensorFlow /> },
+      { icon: <TechLogos.OpenCV /> },
+      { icon: <TechLogos.Python /> },
+      { icon: <TechLogos.HuggingFace /> },
+    ];
     return [...basePool, ...basePool, ...basePool];
   }, []);
 
@@ -202,7 +201,7 @@ const Footer = () => {
         sizeClass,
         // Scatter evenly across the width
         left: `${2 + Math.random() * 90}%`, 
-        // Scatter evenly across 80% of the footer's height (keeps them off the absolute top/bottom edges)
+        // Scatter evenly across 80% of the footer's height
         top: `${10 + Math.random() * 80}%`, 
         rotation: -45 + Math.random() * 90,
         floatDistance,
@@ -257,7 +256,6 @@ const Footer = () => {
               left: chip.left, 
               top: chip.top 
             }}
-            // Replaced heavy glass with lighter bg and backdrop-blur-sm to prevent the blur blob
             className={`${chip.sizeClass} rounded-2xl bg-white/5 backdrop-blur-sm flex items-center justify-center cursor-grab pointer-events-auto border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.2)] hover:border-[#7C3AED]/50 hover:bg-white/10 transition-colors group`}
           >
             {chip.icon}
