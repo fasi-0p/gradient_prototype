@@ -183,7 +183,10 @@ const Footer = () => {
     { icon: <TechLogos.HuggingFace /> },
   ];
 
-  const balancedPool = [...basePool, ...basePool, ...basePool];
+  // const balancedPool = [...basePool, ...basePool, ...basePool];
+  const balancedPool = useMemo(() => {
+    return [...basePool, ...basePool, ...basePool];
+  }, []);
 
   // Anti-Gravity Generation
   const hangingChips = useMemo(() => {
