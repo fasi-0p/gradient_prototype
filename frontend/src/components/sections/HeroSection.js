@@ -197,7 +197,7 @@ const NeuralNetBackground = () => {
 
     // Detect mobile to dynamically scale down complexity for performance
     const isMobile = window.innerWidth < 768;
-    const PARTICLE_COUNT = isMobile ? 40 : 90;
+    const PARTICLE_COUNT = isMobile ? 40 : 120;
     const CONNECTION_DISTANCE = isMobile ? 100 : 150;
     const MOUSE_RADIUS = isMobile ? 120 : 200;
 
@@ -261,7 +261,7 @@ const NeuralNetBackground = () => {
         // Draw individual nodes
         ctx.beginPath();
         ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(124, 58, 237, 0.4)'; // Subtle Violet node
+        ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Subtle Violet node
         ctx.fill();
 
         // 1. Connect node to mouse (Synaptic firing)
