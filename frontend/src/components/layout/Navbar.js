@@ -1,6 +1,13 @@
 import React from 'react';
 import { FloatingNav } from '../ui/floating-navbar';
-import { Home, User, Users, Calendar, Laptop, MessageSquare } from 'lucide-react';
+import { 
+  Home, 
+  Info, 
+  Users, 
+  Calendar, 
+  Laptop, 
+  Mail 
+} from 'lucide-react';
 
 const Navbar = () => {
   const navItems = [
@@ -12,7 +19,7 @@ const Navbar = () => {
     {
       name: "About",
       link: "/about",
-      icon: <User className="h-4 w-4 text-white" />,
+      icon: <Info className="h-4 w-4 text-white" />,
     },
     {
       name: "Team",
@@ -32,7 +39,7 @@ const Navbar = () => {
     {
       name: "Contact",
       link: "/contact",
-      icon: <MessageSquare className="h-4 w-4 text-white" />,
+      icon: <Mail className="h-4 w-4 text-white" />,
     }
   ];
 
