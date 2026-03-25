@@ -15,32 +15,32 @@ const achievements = [
 const milestones = [
   {
     year: 2022,
-    title: "Inauguration",
-    description: "Gradient was founded with a vision to create a platform for AI/ML enthusiasts.",
+    title: "The Genesis",
+    description: "Gradient was established with a bold vision: to cultivate a thriving, inclusive ecosystem for AI and machine learning enthusiasts.",
     image: "https://gradient-content-server.vercel.app/content/inaugration.png"
   },
   {
     year: 2023,
-    title: "First Core Team",
-    description: "The founding core team established the foundation for Gradient's future growth.",
+    title: "Laying the Foundation",
+    description: "The inaugural core team took the helm, establishing the core values, community structures, and early initiatives that set the stage for our future.",
     image: "https://gradient-content-server.vercel.app/content/founding%20core.jpg"
   },
   {
     year: 2024,
-    title: "Expansion Era",
-    description: "Major growth with flagship hackathons, workshops, and 200+ active members.",
+    title: "The Expansion Era",
+    description: "A year of unprecedented growth, featuring our flagship hackathons, specialized workshops, and a rapidly expanding community of over 200 active members.",
     image: "https://gradient-content-server.vercel.app/content/core24.jpg"
   },
   {
     year: 2025,
-    title: "Innovation Peak",
-    description: "Gradient Week, Utsav collaborations, and groundbreaking technical events.",
+    title: "Pinnacle of Innovation",
+    description: "We reached new heights through the launch of Gradient Week, strategic Utsav collaborations, and hosting groundbreaking technical symposiums.",
     image: "https://gradient-content-server.vercel.app/content/core25.jpeg"
   },
   {
     year: 2026,
-    title: "figuring shit out",
-    description: "tmep temp temp",
+    title: "Redefining the Future",
+    description: "Pushing the boundaries of student-led AI development, we are currently pioneering interdisciplinary projects and focusing on real-world technological impact.",
     image: "https://gradient-content-server.vercel.app/content/core26/Group.JPG"
   }
 ];
