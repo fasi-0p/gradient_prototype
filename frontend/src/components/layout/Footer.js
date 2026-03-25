@@ -1,109 +1,3 @@
-// import React from 'react';
-// import { Link } from 'react-router-dom';
-// import { motion } from 'framer-motion';
-// import { Instagram, Linkedin, Twitter, ArrowUpRight } from 'lucide-react';
-// import { siteConfig } from '../../data/content';
-
-// const Footer = () => {
-//   const currentYear = new Date().getFullYear();
-
-//   const socialLinks = [
-//     { name: 'Instagram', icon: Instagram, url: siteConfig.social.instagram },
-//     { name: 'LinkedIn', icon: Linkedin, url: siteConfig.social.linkedin },
-//     { name: 'X', icon: Twitter, url: siteConfig.social.twitter }
-//   ];
-
-//   const footerLinks = [
-//     { name: 'Home', path: '/' },
-//     { name: 'About', path: '/about' },
-//     { name: 'Team', path: '/team' },
-//     { name: 'Events', path: '/events' },
-//     { name: 'Join Us', path: '/contact' }
-//   ];
-
-//   return (
-//     <footer data-testid="footer" className="relative z-10 border-t border-white/10">
-//       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-16 md:py-24">
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8">
-//           {/* Brand */}
-//           <div className="lg:col-span-2">
-//             <Link to="/" className="inline-block mb-6">
-//               <h3 className="font-heading font-bold text-3xl md:text-4xl gradient-text">
-//                 Gradient
-//               </h3>
-//             </Link>
-//             <p className="text-white/60 max-w-md leading-relaxed mb-8">
-//               {siteConfig.description}
-//             </p>
-            
-//             {/* Social Links */}
-//             <div className="flex gap-4">
-//               {socialLinks.map((social) => (
-//                 <motion.a
-//                   key={social.name}
-//                   href={social.url}
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                   data-testid={`social-${social.name.toLowerCase()}`}
-//                   whileHover={{ scale: 1.1 }}
-//                   whileTap={{ scale: 0.95 }}
-//                   className="w-12 h-12 rounded-full glass flex items-center justify-center group transition-all duration-300 hover:border-[#7C3AED]/50"
-//                 >
-//                   <social.icon className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
-//                 </motion.a>
-//               ))}
-//             </div>
-//           </div>
-
-//           {/* Quick Links */}
-//           <div>
-//             <h4 className="font-heading font-semibold text-sm uppercase tracking-[0.2em] text-white/40 mb-6">
-//               Navigation
-//             </h4>
-//             <ul className="space-y-4">
-//               {footerLinks.map((link) => (
-//                 <li key={link.path}>
-//                   <Link
-//                     to={link.path}
-//                     className="text-white/60 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
-//                   >
-//                     {link.name}
-//                     <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-//                   </Link>
-//                 </li>
-//               ))}
-//             </ul>
-//           </div>
-
-//           {/* Contact */}
-//           <div>
-//             <h4 className="font-heading font-semibold text-sm uppercase tracking-[0.2em] text-white/40 mb-6">
-//               Location
-//             </h4>
-//             <address className="not-italic text-white/60 leading-relaxed">
-//               B.M.S. College of Engineering<br />
-//               Bull Temple Road<br />
-//               Bangalore, Karnataka<br />
-//               India - 560019
-//             </address>
-//           </div>
-//         </div>
-
-//         {/* Bottom Bar */}
-//         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-//           <p className="text-white/40 text-sm">
-//             © {currentYear} Gradient. All rights reserved.
-//           </p>
-//           <p className="text-white/40 text-sm font-mono">
-//             Redefining Intelligence
-//           </p>
-//         </div>
-//       </div>
-//     </footer>
-//   );
-// };
-
-// export default Footer;
 import React, { useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
@@ -170,7 +64,6 @@ const Footer = () => {
     { name: 'Join Us', path: '/contact' }
   ];
 
-  // Moved basePool inside useMemo to fix the ESLint / Vercel build error
   const balancedPool = useMemo(() => {
     const basePool = [
       { icon: <Cpu className="w-8 h-8 text-violet-400" /> },
@@ -187,27 +80,22 @@ const Footer = () => {
     return [...basePool, ...basePool, ...basePool];
   }, []);
 
-  // Anti-Gravity Generation
-  const hangingChips = useMemo(() => {
+  // Falling Tokens Generation
+  const fallingChips = useMemo(() => {
     return balancedPool.map((chip, i) => {
       const sizeClass = Math.random() > 0.5 ? 'w-20 h-20' : 'w-16 h-16';
       
-      // Calculate a random float distance so they don't all move in sync
-      const floatDistance = 15 + Math.random() * 20; 
-
       return {
         ...chip,
         id: i,
         sizeClass,
         // Scatter evenly across the width
         left: `${2 + Math.random() * 90}%`, 
-        // Scatter evenly across 80% of the footer's height
-        top: `${10 + Math.random() * 80}%`, 
+        // Settle randomly near the bottom instead of floating in the middle
+        bottom: `${Math.random() * 20}%`, 
         rotation: -45 + Math.random() * 90,
-        floatDistance,
-        // Randomize the animation duration so they float at different speeds
-        duration: 3 + Math.random() * 3, 
-        delay: Math.random() * 0.5,
+        // Randomize the delay so they shower down at different times
+        delay: Math.random() * 1.5,
       };
     });
   }, [balancedPool]);
@@ -215,46 +103,33 @@ const Footer = () => {
   return (
     <footer ref={containerRef} data-testid="footer" className="relative z-10 border-t border-white/10 overflow-hidden bg-[#030014] min-h-[400px] flex flex-col justify-end">
       
-      {/* --- THE HANGING CHIPS (Anti-Gravity Field) --- */}
+      {/* --- THE FALLING CHIPS --- */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {hangingChips.map((chip) => (
+        {fallingChips.map((chip) => (
           <motion.div
             key={chip.id}
             drag
             dragConstraints={containerRef}
             dragElastic={0.2}
             whileDrag={{ scale: 1.1, zIndex: 50, cursor: "grabbing" }}
-            // Start slightly below their resting spot and faded out
-            initial={{ y: 40, opacity: 0, rotate: chip.rotation }}
-            // Animate to visible, then start an infinite up/down float
+            // Start high above the footer and rotated
+            initial={{ y: -800, opacity: 0, rotate: chip.rotation - 90 }}
+            // Drop to their final resting spot with a spring bounce
             animate={isInView ? {
-              y: [0, -chip.floatDistance, 0],
+              y: 0,
               opacity: 1,
-              rotate: [chip.rotation, chip.rotation + 10, chip.rotation]
+              rotate: chip.rotation
             } : {}}
             transition={{
-              y: {
-                duration: chip.duration,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut",
-                delay: chip.delay,
-              },
-              opacity: {
-                duration: 1,
-                delay: chip.delay,
-              },
-              rotate: {
-                duration: chip.duration * 2,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "linear",
-              }
+              type: "spring",
+              bounce: 0.3 + Math.random() * 0.3, // Gives a slight realistic bounce when hitting the bottom
+              duration: 1.5 + Math.random() * 1.5,
+              delay: chip.delay,
             }}
             style={{ 
               position: 'absolute', 
               left: chip.left, 
-              top: chip.top 
+              bottom: chip.bottom // Positioned from the bottom now
             }}
             className={`${chip.sizeClass} rounded-2xl bg-white/5 backdrop-blur-sm flex items-center justify-center cursor-grab pointer-events-auto border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.2)] hover:border-[#7C3AED]/50 hover:bg-white/10 transition-colors group`}
           >
