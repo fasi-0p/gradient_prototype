@@ -313,7 +313,7 @@ export default function MelDeptPage() {
             <h2 style={S.sectionTitle}>PhaseShift 2025 Champions</h2>
           </div>
           <div className="mel-reveal mel-achieve-card" style={S.achievementCard}>
-            <img src="https://gradient-content-server.vercel.app/content/department/phaseShiftChampions.webp" alt="PhaseShift 2025" className="mel-trophy" style={S.trophyIcon} />
+            <img src="https://gradient-content-server.vercel.app/content/department/phaseShiftChampions.png" alt="PhaseShift 2025" className="mel-trophy" style={S.trophyIcon} />
             <div style={S.achieveLabel}>PhaseShift 2025</div>
             <h2 style={S.achieveTitle}>1st Place Winner</h2>
             <p style={S.achieveSub}>Project Stalls Category Champion</p>
