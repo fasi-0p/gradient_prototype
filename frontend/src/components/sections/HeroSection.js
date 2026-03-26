@@ -1,4 +1,4 @@
-// import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
+  // import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 // import { motion } from 'framer-motion';
 // import { ArrowDown } from 'lucide-react';
 // import { Link } from 'react-router-dom';
@@ -401,10 +401,10 @@ const HeroSection = () => {
           className="relative z-10 will-change-transform"
         >
           <h1 className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[10rem] tracking-tighter leading-[0.85] mb-6 flex justify-center">
-            <span className="gradient-text glow-text drop-shadow-[0_0_20px_rgba(124,58,237,0.3)]">
-              {siteConfig.name}
-            </span>
-          </h1>
+  <span className="text-[#8B5CF6]">
+    {siteConfig.name}
+  </span>
+</h1>
         </motion.div>
 
         <div

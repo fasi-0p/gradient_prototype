@@ -53,7 +53,11 @@ const StatCard = ({ stat, index, isInView }) => {
     >
       <div className="text-center p-8">
 
-        <div className="font-heading font-black text-5xl md:text-6xl lg:text-7xl gradient-text mb-3">
+        {/* Removed gradient-text and added inline blue color */}
+        <div 
+          className="font-heading font-black text-5xl md:text-6xl lg:text-7xl mb-3"
+          style={{ color: '#3b82f6' }}
+        >
           <AnimatedCounter 
             value={stat.value} 
             prefix={stat.prefix || ''} 
@@ -65,11 +69,12 @@ const StatCard = ({ stat, index, isInView }) => {
           {stat.label}
         </p>
 
+        {/* Updated the via color for the underline to match the new hex */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={isInView ? { scaleX: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3 + 0.15 * index }}
-          className="h-[1px] w-16 mx-auto mt-6 bg-gradient-to-r from-transparent via-[#BCA4FF]/50 to-transparent"
+          className="h-[1px] w-16 mx-auto mt-6 bg-gradient-to-r from-transparent via-[#3b82f6]/50 to-transparent"
         />
       </div>
     </motion.div>
@@ -104,7 +109,8 @@ const StatsSection = () => {
           }}
         />
 
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-[#ff00ff]/10 via-[#3b00ff]/10 to-[#ff00ff]/10 blur-[100px] rounded-full" />
+        {/* Changed the glowing orb background to use the solid blue hex with low opacity */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#3b82f6]/10 blur-[100px] rounded-full" />
 
       </div>
 
@@ -123,7 +129,8 @@ const StatsSection = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1] mb-16 text-center"
         >
-          Our <span className="gradient-text">Achievements</span>
+          {/* Replaced gradient text with inline blue color */}
+          Our <span style={{ color: '#3b82f6' }}>Achievements</span>
         </motion.h2>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
