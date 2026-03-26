@@ -2,15 +2,14 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Users } from 'lucide-react';
+import NeuralNetworkBackground from "../background/NeuralNetworkBackground";
 
 const TeamPreviewSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const teamImages = [
-    "https://gradient-content-server.vercel.app/content/core26/Group.JPG",
-    "https://gradient-content-server.vercel.app/content/core25.jpeg",
-  ];
+  // Just the single primary team image
+  const teamImage = "https://gradient-content-server.vercel.app/content/core26/Group.JPG";
 
   const gradientTextStyle = {
     background: 'linear-gradient(to right, #8B5CFB, #3B82F6, #A855F7)',
@@ -21,12 +20,33 @@ const TeamPreviewSection = () => {
   return (
     <section
       ref={ref}
-      className="relative py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden bg-[#0F172A]"
+      className="relative py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#8B5CFB]/5 to-transparent pointer-events-none" />
+      {/* Shared Neural Background */}
+      <NeuralNetworkBackground opacity={0.3} />
 
+      {/* Replicated Background Theme Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Grid Pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '100px 100px'
+          }}
+        />
+        {/* Solid Blue Glowing Orb */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#3b82f6]/10 blur-[100px] rounded-full" />
+      </div>
+
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+          
+          {/* Left Side Text Content */}
           <div>
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -59,7 +79,6 @@ const TeamPreviewSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
             >
-              {/* FIXED BUTTON HERE */}
               <Link
                 to="/team"
                 className="group inline-flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-full hover:bg-[#8B5CFB] hover:border-[#8B5CFB] transition-all duration-300 shadow-xl hover:shadow-[#8B5CFB]/20 backdrop-blur-md"
@@ -76,7 +95,7 @@ const TeamPreviewSection = () => {
                 {[1, 2, 3, 4].map((i) => (
                   <div
                     key={i}
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8B5CFB] to-[#3B82F6] border-2 border-[#0F172A]"
+                    className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8B5CFB] to-[#3B82F6] border-2 border-[#030014]"
                   />
                 ))}
               </div>
@@ -84,15 +103,24 @@ const TeamPreviewSection = () => {
             </div>
           </div>
 
-          {/* Right Side Images */}
-          <div className="relative grid grid-cols-2 gap-4">
-            {teamImages.map((img, index) => (
-              <div key={index} className={`relative aspect-[4/5] rounded-2xl overflow-hidden ${index === 1 ? 'translate-y-8' : ''}`}>
-                <img src={img} alt="Team" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] to-transparent opacity-60" />
-              </div>
-            ))}
-          </div>
+          {/* Right Side Single Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative w-full max-w-md mx-auto lg:ml-auto"
+          >
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl shadow-[#3B82F6]/10 border border-white/5">
+              <img 
+                src={teamImage} 
+                alt="Gradient Team" 
+                className="w-full h-full object-cover" 
+              />
+              {/* Fade out the bottom of the image into the background */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent opacity-80" />
+            </div>
+          </motion.div>
+
         </div>
       </div>
     </section>
