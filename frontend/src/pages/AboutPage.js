@@ -49,180 +49,193 @@ const AboutPage = () => {
   const heroRef = useRef(null);
   const isHeroInView = useInView(heroRef, { once: true });
 
+  // CSS for the gradient text based on your palette
+  const gradientTextStyle = {
+    background: 'linear-gradient(to right, #8B5CFB, #3B82F6, #A855F7)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+  };
+
   return (
     <PageTransition variant="slideUp">
       <main
         data-testid="about-page"
-        className="pt-20 md:pt-0"
+        className="pt-20 md:pt-0 bg-[#0F172A] text-white"
       >
-      {/* Hero */}
-      <section ref={heroRef} className="min-h-screen flex items-center relative overflow-hidden px-6 md:px-12 lg:px-24 py-24">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#7C3AED]/5 via-transparent to-transparent" />
-        
-        <div className="max-w-7xl mx-auto relative z-10 w-full">
-          {/* Back link */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={isHeroInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="mb-12"
-          >
-            <Link
-              to="/"
-              data-testid="back-home"
-              className="inline-flex items-center gap-2 text-white/40 hover:text-white transition-colors font-mono text-sm"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
-            </Link>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-            <div>
-              <motion.span
-                initial={{ opacity: 0, y: 20 }}
-                animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6 }}
-                className="font-mono text-xs uppercase tracking-[0.2em] text-[#7C3AED]"
-              >
-                About Gradient
-              </motion.span>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.1 }}
-                className="font-heading font-black text-5xl md:text-6xl lg:text-7xl tracking-tighter leading-[0.9] mt-4 mb-6"
-              >
-                <span className="gradient-text">Who</span> We Are
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-white/60 text-lg leading-relaxed mb-6"
-              >
-                Gradient is a vibrant student community at B.M.S. College of Engineering 
-                that embraces the dynamic field of AI and Machine Learning. We focus on 
-                fostering innovation, collaboration, and knowledge sharing among aspiring 
-                machine learning enthusiasts.
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-white/60 text-lg leading-relaxed"
-              >
-                Our mission is to create a platform where passion for technology thrives, 
-                and groundbreaking ideas flourish. Founded in {siteConfig.founded}, we've 
-                grown into one of the most active tech communities in the college.
-              </motion.p>
-            </div>
-
-            {/* Image */}
+        {/* Hero */}
+        <section ref={heroRef} className="min-h-screen flex items-center relative overflow-hidden px-6 md:px-12 lg:px-24 py-24">
+          {/* Background Gradient using #8B5CFB (Primary) */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#8B5CFB]/10 via-transparent to-transparent" />
+          
+          <div className="max-w-7xl mx-auto relative z-10 w-full">
+            {/* Back link */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isHeroInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative aspect-[4/3] rounded-3xl overflow-hidden"
+              initial={{ opacity: 0, x: -20 }}
+              animate={isHeroInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6 }}
+              className="mb-12"
             >
-              <img
-                src="https://gradient-content-server.vercel.app/content/core26/Group.JPG"
-                alt="Gradient Team"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F] via-transparent to-transparent" />
+              <Link
+                to="/"
+                data-testid="back-home"
+                className="inline-flex items-center gap-2 text-white/40 hover:text-[#3B82F6] transition-colors font-mono text-sm"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back to Home
+              </Link>
             </motion.div>
-          </div>
-        </div>
-      </section>
 
-      {/* Stats */}
-      <section className="py-24 px-6 md:px-12 lg:px-24">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {achievements.map((stat, index) => (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+              <div>
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6 }}
+                  className="font-mono text-xs uppercase tracking-[0.2em] text-[#8B5CFB]"
+                >
+                  About Gradient
+                </motion.span>
+
+                <motion.h1
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: 0.1 }}
+                  className="font-heading font-black text-5xl md:text-6xl lg:text-7xl tracking-tighter leading-[0.9] mt-4 mb-6"
+                >
+                  <span style={gradientTextStyle}>Who</span> We Are
+                </motion.h1>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="text-white/60 text-lg leading-relaxed mb-6"
+                >
+                  Gradient is a vibrant student community at B.M.S. College of Engineering 
+                  that embraces the dynamic field of AI and Machine Learning. We focus on 
+                  fostering innovation, collaboration, and knowledge sharing among aspiring 
+                  machine learning enthusiasts.
+                </motion.p>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="text-white/60 text-lg leading-relaxed"
+                >
+                  Our mission is to create a platform where passion for technology thrives, 
+                  and groundbreaking ideas flourish. Founded in {siteConfig.founded}, we've 
+                  grown into one of the most active tech communities in the college.
+                </motion.p>
+              </div>
+
+              {/* Image Container with Tertiary Shadow */}
               <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center p-6 glass rounded-2xl"
-                data-testid={`about-stat-${index}`}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={isHeroInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-[#A855F7]/10"
               >
-                <stat.icon className="w-8 h-8 mx-auto mb-4 text-[#7C3AED]" />
-                <div className="font-heading font-bold text-4xl gradient-text mb-2">
-                  {stat.value}
-                </div>
-                <p className="text-white/50 text-sm">{stat.label}</p>
+                <img
+                  src="https://gradient-content-server.vercel.app/content/core26/Group.JPG"
+                  alt="Gradient Team"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent" />
               </motion.div>
-            ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Our Roots */}
-      <section className="py-24 px-6 md:px-12 lg:px-24">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#ff00ff]">
-              Our Journey
-            </span>
-            <h2 className="font-heading font-bold text-4xl md:text-5xl tracking-tight mt-4">
-              From <span className="gradient-text">Roots</span> to{' '}
-              <span className="gradient-text">Stars</span>
-            </h2>
-          </motion.div>
-
-          <div className="space-y-24">
-            {milestones.map((milestone, index) => (
-              <motion.div
-                key={milestone.year}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-                }`}
-                data-testid={`milestone-${milestone.year}`}
-              >
-                <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
-                  <div className="font-heading font-black text-6xl md:text-8xl gradient-text opacity-50 mb-4">
-                    {milestone.year}
+        {/* Stats */}
+        <section className="py-24 px-6 md:px-12 lg:px-24">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+              {achievements.map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-center p-6 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm"
+                  data-testid={`about-stat-${index}`}
+                >
+                  <stat.icon className="w-8 h-8 mx-auto mb-4 text-[#3B82F6]" />
+                  <div 
+                    className="font-heading font-bold text-4xl mb-2"
+                    style={gradientTextStyle}
+                  >
+                    {stat.value}
                   </div>
-                  <h3 className="font-heading font-bold text-2xl md:text-3xl mb-4">
-                    {milestone.title}
-                  </h3>
-                  <p className="text-white/60 text-lg leading-relaxed">
-                    {milestone.description}
-                  </p>
-                </div>
-                <div className={`relative aspect-video rounded-2xl overflow-hidden ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                  <img
-                    src={milestone.image}
-                    alt={milestone.title}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#030014]/80 via-transparent to-transparent" />
-                </div>
-              </motion.div>
-            ))}
+                  <p className="text-white/50 text-sm uppercase tracking-wider">{stat.label}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+
+        {/* Our Roots */}
+        <section className="py-24 px-6 md:px-12 lg:px-24">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#A855F7]">
+                Our Journey
+              </span>
+              <h2 className="font-heading font-bold text-4xl md:text-5xl tracking-tight mt-4">
+                From <span style={gradientTextStyle}>Roots</span> to{' '}
+                <span style={gradientTextStyle}>Stars</span>
+              </h2>
+            </motion.div>
+
+            <div className="space-y-24">
+              {milestones.map((milestone, index) => (
+                <motion.div
+                  key={milestone.year}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
+                    index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+                  }`}
+                  data-testid={`milestone-${milestone.year}`}
+                >
+                  <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
+                    <div 
+                      className="font-heading font-black text-6xl md:text-8xl opacity-30 mb-4"
+                      style={gradientTextStyle}
+                    >
+                      {milestone.year}
+                    </div>
+                    <h3 className="font-heading font-bold text-2xl md:text-3xl mb-4 text-white">
+                      {milestone.title}
+                    </h3>
+                    <p className="text-white/60 text-lg leading-relaxed">
+                      {milestone.description}
+                    </p>
+                  </div>
+                  <div className={`relative aspect-video rounded-2xl overflow-hidden ring-1 ring-white/10 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+                    <img
+                      src={milestone.image}
+                      alt={milestone.title}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/80 via-transparent to-transparent" />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
     </PageTransition>
   );
 };

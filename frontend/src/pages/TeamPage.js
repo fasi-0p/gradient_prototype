@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import PageTransition from '../components/ui/PageTransition';
 
 /* ---------------- DATA ---------------- */
-
+// Colors updated to: #8B5CFB (Primary), #3B82F6 (Secondary), #A855F7 (Tertiary)
 const teamData = [
   {
     title: "Club Coordinators",
     sector: "SECTOR 01",
     icon: Users,
-    color: "#d946ef",
+    color: "#8B5CFB", // Primary
     members: [
       { name: "S Sanjana", role: "", image: "https://gradient-content-server.vercel.app/content/core26/Sanjana.JPG", github: "https://github.com/SSanjana-17", linkedin: "https://www.linkedin.com/in/s-sanjana-816788292" },
       { name: "Divyam Jain", role: "OPERATIONS LEAD", image: "https://gradient-content-server.vercel.app/content/core26/Divyam.JPG", linkedin: "https://www.linkedin.com/in/divyamjainn" },
@@ -21,28 +21,17 @@ const teamData = [
     title: "Technical Heads",
     sector: "SECTOR 02",
     icon: Cpu,
-    color: "#06b6d4",
+    color: "#3B82F6", // Secondary
     members: [
       { name: "Rahul", role: "ARCHITECT", image: "https://gradient-content-server.vercel.app/content/core26/Rahul.JPG", github: "https://github.com/RahulH007", linkedin: "https://www.linkedin.com/in/rahulhongekar" },
       { name: "Fasi Owaiz Ahmed", role: "FULL STACK", image: "https://gradient-content-server.vercel.app/content/core26/Fasi.JPG", github: "https://github.com/fasi-0p", linkedin: "https://linkedin.com/in/fasii" },
     ],
   },
   {
-    title: "Logistics Heads",
-    sector: "SECTOR 03",
-    icon: Truck,
-    color: "#f97316",
-    members: [
-      { name: "Channabasavanna", role: "RESOURCE MANAGER", image: "https://gradient-content-server.vercel.app/content/core26/Channabasavanna.JPG", linkedin: "https://www.linkedin.com/in/channabasavanna-mb-923aa92b7/" },
-      { name: "Saachi", role: "DEPLOYMENT", image: "https://gradient-content-server.vercel.app/content/core26/Saachi.JPG" },
-      { name: "Sneha", role: "INVENTORY", image: "https://gradient-content-server.vercel.app/content/core26/Sneha.JPG" },
-    ],
-  },
-  {
     title: "Multimedia Heads",
-    sector: "SECTOR 04",
+    sector: "SECTOR 03",
     icon: PenTool,
-    color: "#8b5cf6",
+    color: "#A855F7", // Tertiary
     members: [
       { name: "Shriyans", role: "VISUAL DIRECTOR", image: "https://gradient-content-server.vercel.app/content/core26/Shriyans.JPG", github: "https://github.com/MrPhantom2325", linkedin: "https://www.linkedin.com/in/shriyans-nayak-a38a02325" },
       { name: "Smaya", role: "UI/UX DESIGNER", image: "https://gradient-content-server.vercel.app/content/core26/Smaya.JPG", github: "https://github.com/smayamaben-01", linkedin: "https://www.linkedin.com/in/smaya-maben-a99580360" },
@@ -50,10 +39,21 @@ const teamData = [
     ],
   },
   {
+    title: "Logistics Heads",
+    sector: "SECTOR 04",
+    icon: Truck,
+    color: "#8B5CFB", // Primary variant
+    members: [
+      { name: "Channabasavanna", role: "RESOURCE MANAGER", image: "https://gradient-content-server.vercel.app/content/core26/Channabasavanna.JPG", linkedin: "https://www.linkedin.com/in/channabasavanna-mb-923aa92b7/" },
+      { name: "Saachi", role: "DEPLOYMENT", image: "https://gradient-content-server.vercel.app/content/core26/Saachi.JPG" },
+      { name: "Sneha", role: "INVENTORY", image: "https://gradient-content-server.vercel.app/content/core26/Sneha.JPG" },
+    ],
+  },
+  {
     title: "Sponsorship & Marketing",
     sector: "SECTOR 05",
     icon: Megaphone,
-    color: "#eab308",
+    color: "#3B82F6", // Secondary variant
     members: [
       { name: "Krish", role: "BRAND LEAD", image: "https://gradient-content-server.vercel.app/content/core26/Krish.JPG", github: "https://github.com/Krishparmar10", linkedin: "https://www.linkedin.com/in/krish-n-jain-992066311" },
       { name: "Suniksha", role: "OUTREACH", image: "https://gradient-content-server.vercel.app/content/core26/Suniskha.JPG" },
@@ -114,28 +114,26 @@ const TiltCard = ({ member, color, index, setHoveredCard, hoveredCard }) => {
       onMouseLeave={() => { setIsHovered(false); x.set(0); y.set(0); setHoveredCard(null); }}
       className={`relative h-[380px] w-full cursor-pointer transition-all duration-500 ${isDimmed ? "blur-[2px] opacity-40 scale-95" : "opacity-100 scale-100"}`}
     >
-      <div className="absolute inset-0 rounded-2xl bg-[#0a0a12] border border-white/10 backdrop-blur-xl overflow-hidden transition-all duration-300 group hover:border-opacity-100"
+      <div className="absolute inset-0 rounded-2xl bg-[#0F172A]/80 border border-white/10 backdrop-blur-xl overflow-hidden transition-all duration-300 group hover:border-opacity-100"
         style={{ borderColor: isDimmed ? "rgba(255,255,255,0.1)" : `${color}50` }}>
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{ background: `radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), ${color}15, transparent 40%)` }} />
         <motion.div className="absolute top-0 left-0 w-full h-[65%] overflow-hidden rounded-t-2xl border-b border-white/5"
           style={{ x: imageX, y: imageY, translateZ: "20px" }}>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12] via-transparent to-transparent z-10 opacity-70" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent z-10 opacity-70" />
           <img src={member.image} alt={member.name}
             className={`w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-110 ${isDimmed ? "grayscale brightness-75 saturate-0" : "grayscale-0 brightness-100"}`} />
         </motion.div>
-        <motion.div className="absolute bottom-0 left-0 w-full h-[35%] p-6 flex flex-col justify-between bg-gradient-to-t from-[#0a0a12] to-[#0a0a12]/90"
+        <motion.div className="absolute bottom-0 left-0 w-full h-[35%] p-6 flex flex-col justify-between bg-gradient-to-t from-[#0F172A] to-[#0F172A]/90"
           style={{ translateZ: "40px" }}>
           <h3 className="text-xl font-bold text-white mb-1 transition-all duration-300">
             <GlitchText text={member.name} isHovered={isHovered} />
           </h3>
           <div className="flex gap-4">
-            {member.github && <a href={member.github} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white hover:scale-110 transition-all"><Github size={18} /></a>}
-            {member.linkedin && <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white hover:scale-110 transition-all"><Linkedin size={18} /></a>}
+            {member.github && <a href={member.github} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#3B82F6] hover:scale-110 transition-all"><Github size={18} /></a>}
+            {member.linkedin && <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#3B82F6] hover:scale-110 transition-all"><Linkedin size={18} /></a>}
           </div>
         </motion.div>
-        <div className="absolute top-0 right-0 w-16 h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-          style={{ background: `linear-gradient(to bottom left, ${color}40, transparent 50%)` }} />
       </div>
     </motion.div>
   );
@@ -157,10 +155,10 @@ const DomainSection = ({ section, index, hoveredCard, setHoveredCard, onIconMoun
         <div className="relative">
           <div
             ref={iconRefCallback}
-            className="w-16 h-16 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center mb-4 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
+            className="w-16 h-16 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center mb-4"
             style={{ boxShadow: `0 0 20px ${section.color}20`, borderColor: `${section.color}40` }}
           >
-            <Icon size={56} style={{ color: section.color }} />
+            <Icon size={32} style={{ color: section.color }} />
           </div>
           <div className={`absolute top-full h-24 w-[1px] bg-gradient-to-b from-white/20 to-transparent hidden md:block ${isEven ? "right-8" : "left-8"}`} />
         </div>
@@ -238,25 +236,16 @@ const TeamPage = () => {
         return;
       }
 
-      // 1. Precise Scroll Mapping (Forces completion at end of page)
       const winH = window.innerHeight;
       const docH = document.documentElement.scrollHeight;
       const scrollY = window.scrollY;
-      
       const maxScroll = Math.max(1, docH - winH);
       const scrollRatio = Math.max(0, Math.min(1, scrollY / maxScroll));
-
-      // 2. Dynamic Draw Head Target
-      // Target slides seamlessly from 50% to 95% of screen height as you scroll
       const drawHeadY = winH * (0.5 + 0.45 * scrollRatio);
-      
       const startY = pts[0].y;
       const endY = pts[pts.length-1].y;
-
-      // Ensure clip rect respects DOM bounds
       const clipY = Math.max(startY, Math.min(endY, drawHeadY));
 
-      // 3. Draw Ghost Path
       ctx.save();
       ctx.setLineDash([5, 14]);
       ctx.lineWidth = 1.5;
@@ -270,25 +259,21 @@ const TeamPage = () => {
       ctx.stroke();
       ctx.restore();
 
-      // Don't render dot/active path if user hasn't hit first trigger yet
       if (clipY <= startY + 5) { 
         rafRef.current = requestAnimationFrame(draw); 
         return; 
       }
 
-      // 4. Clip active animated paths
       ctx.save();
       ctx.beginPath();
-      ctx.rect(0, 0, canvas.width, clipY + 20); // +20 padding accounts for glow radius
+      ctx.rect(0, 0, canvas.width, clipY + 20);
       ctx.clip();
-
       ctx.setLineDash([]);
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
 
       for (let i = 1; i < pts.length; i++) {
         const p = pts[i-1], c = pts[i], my = (p.y + c.y) / 2;
-
         ctx.lineWidth = 12;
         ctx.strokeStyle = hexToRgba(COLORS[i-1], 0.1);
         ctx.shadowColor = COLORS[i-1];
@@ -303,56 +288,38 @@ const TeamPage = () => {
         grad.addColorStop(1, COLORS[i]);
         ctx.lineWidth = 2.5;
         ctx.strokeStyle = grad;
-        ctx.shadowColor = COLORS[i-1];
-        ctx.shadowBlur = 8;
         ctx.beginPath();
         ctx.moveTo(p.x, p.y);
         ctx.bezierCurveTo(p.x, my, c.x, my, c.x, c.y);
         ctx.stroke();
-        ctx.shadowBlur = 0;
       }
       ctx.restore();
 
-      // 5. Calculate precise dot position using Bezier Binary Search
       let si = 0;
       for (let i = 0; i < pts.length - 1; i++) {
-        if (clipY >= pts[i].y && clipY <= pts[i+1].y) {
-          si = i;
-          break;
-        }
+        if (clipY >= pts[i].y && clipY <= pts[i+1].y) { si = i; break; }
       }
       if (clipY >= endY) si = pts.length - 2;
 
-      const p = pts[si];
-      const n = pts[si+1];
-      const my = (p.y + n.y) / 2;
-
-      // Inverse calculate 't' on the bezier curve purely based on current visible Y limit
+      const p = pts[si], n = pts[si+1], my = (p.y + n.y) / 2;
       let t = 0.5, minT = 0, maxT = 1;
       for (let step = 0; step < 10; step++) {
         const mt = 1 - t;
         const evalY = mt*mt*mt*p.y + 3*mt*mt*t*my + 3*mt*t*t*my + t*t*t*n.y;
-        if (evalY < clipY) minT = t;
-        else maxT = t;
+        if (evalY < clipY) minT = t; else maxT = t;
         t = (minT + maxT) / 2;
       }
 
       const mt = 1 - t;
       const dx = mt*mt*mt*p.x + 3*mt*mt*t*p.x + 3*mt*t*t*n.x + t*t*t*n.x;
-      const dy = clipY; // The dot stays impeccably locked to the clip boundary
+      const dy = clipY;
       const dc = lerpColor(COLORS[si], COLORS[Math.min(si+1, COLORS.length-1)], t);
 
       ctx.beginPath(); ctx.arc(dx, dy, 13, 0, Math.PI*2);
       ctx.strokeStyle = dc.replace("rgb(","rgba(").replace(")",",0.2)");
       ctx.lineWidth = 1; ctx.stroke();
-
-      ctx.beginPath(); ctx.arc(dx, dy, 7, 0, Math.PI*2);
-      ctx.strokeStyle = dc.replace("rgb(","rgba(").replace(")",",0.6)");
-      ctx.lineWidth = 1.5; ctx.stroke();
-
       ctx.beginPath(); ctx.arc(dx, dy, 4, 0, Math.PI*2);
-      ctx.fillStyle = dc;
-      ctx.shadowColor = dc; ctx.shadowBlur = 16;
+      ctx.fillStyle = dc; ctx.shadowColor = dc; ctx.shadowBlur = 16;
       ctx.fill(); ctx.shadowBlur = 0;
 
       rafRef.current = requestAnimationFrame(draw);
@@ -373,25 +340,26 @@ const TeamPage = () => {
       />
 
       <PageTransition>
-        <main className="min-h-screen bg-[#05001a] text-white font-sans selection:bg-white/20 relative">
+        <main className="min-h-screen bg-[#0F172A] text-white font-sans selection:bg-white/20 relative">
           <div className="fixed inset-0 pointer-events-none z-0">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:60px_60px]" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-80" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:60px_60px]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A] via-transparent to-[#0F172A] opacity-90" />
           </div>
 
           <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
-            <Link to="/" className="inline-flex items-center gap-2 text-white/40 hover:text-white transition-colors mb-20 group">
+            <Link to="/" className="inline-flex items-center gap-2 text-white/40 hover:text-[#3B82F6] transition-colors mb-20 group">
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               <span className="font-mono text-xs tracking-[0.2em] uppercase">Return to Base</span>
             </Link>
 
             <div className="flex flex-col md:flex-row justify-between items-end mb-32 border-b border-white/10 pb-8">
               <div>
-                <h1 className="text-7xl md:text-9xl font-black tracking-tighter text-white mb-2">THE CORE26</h1>
+                <h1 className="text-7xl md:text-9xl font-black tracking-tighter text-white mb-2">THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CFB] to-[#3B82F6]">CORE26</span></h1>
               </div>
               <div className="hidden md:block text-right pb-2">
                 <div className="flex items-center gap-2 text-white/60 font-mono text-xs">
-                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
+                  <span>SYSTEM_ONLINE</span>
                 </div>
               </div>
             </div>
@@ -411,7 +379,7 @@ const TeamPage = () => {
 
             <div className="mt-32 pt-8 border-t border-white/10 flex justify-between text-white/20 font-mono text-xs">
               <span>GRADIENT AI/ML</span>
-              <span>SECURE CONNECTION</span>
+              <span>SECURE_DATA_NODE</span>
             </div>
           </div>
         </main>
