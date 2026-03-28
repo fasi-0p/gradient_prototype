@@ -53,7 +53,7 @@ const Footer = () => {
   const socialLinks = [
     { name: 'Instagram', icon: Instagram, url: siteConfig.social.instagram },
     { name: 'LinkedIn', icon: Linkedin, url: siteConfig.social.linkedin },
-    { name: 'X', icon: Twitter, url: siteConfig.social.twitter }
+    // { name: 'X', icon: Twitter, url: siteConfig.social.twitter }
   ];
 
   const footerLinks = [
@@ -145,7 +145,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="inline-block mb-6">
-              <h3 className="font-heading font-bold text-3xl md:text-4xl gradient-text drop-shadow-lg">
+              <h3 className="font-heading font-bold text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CFB] to-[#3B82F6] drop-shadow-lg">
                 Gradient
               </h3>
             </Link>

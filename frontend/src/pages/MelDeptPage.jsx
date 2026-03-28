@@ -7,39 +7,37 @@ import {
   Trophy, 
   BrainCircuit, 
   ScanEye, 
-  MessageSquareCode,
-  Instagram,
-  Linkedin,
-  Github,
-  Mail,
-  MapPin
+  MessageSquareCode
 } from "lucide-react";
 
-// inline styles obv
+// The globally requested uniform heading standard
+const SYS_FONT = 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+
 const S = {
-  page: { background:"#030014", color:"#fff", fontFamily:'"DM Sans",sans-serif', overflowX:"hidden", width:"100%", minHeight:"100vh", position:"relative" },
+  // Syncing with EventsPage #0F172A theme
+  page: { background:"#0F172A", color:"#fff", fontFamily: SYS_FONT, overflowX:"hidden", width:"100%", minHeight:"100vh", position:"relative" },
   canvas: { position:"fixed", inset:0, zIndex:0, pointerEvents:"none" },
-  grid: { position:"fixed", inset:0, zIndex:0, pointerEvents:"none", backgroundImage:"linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px)", backgroundSize:"60px 60px" },
+  
+  // Aligning grid and overlays strictly to EventsPage specs
+  grid: { position:"fixed", inset:0, zIndex:0, pointerEvents:"none", backgroundImage:"linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px)", backgroundSize:"60px 60px" },
+  gridOverlay: { position:"fixed", inset:0, zIndex:0, pointerEvents:"none", background:"linear-gradient(to bottom, #0F172A, transparent, #0F172A)", opacity: 0.9 },
+  
   cursorGlow: { position:"fixed", width:400, height:400, borderRadius:"50%", background:"radial-gradient(circle,rgba(255,0,255,0.06) 0%,transparent 70%)", pointerEvents:"none", zIndex:0, transform:"translate(-50%,-50%)", transition:"left 0.3s ease,top 0.3s ease" },
   z1: { position:"relative", zIndex:1 },
 
   // hero
   hero: { minHeight:"100vh", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", textAlign:"center", padding:"120px clamp(1.5rem,6vw,6rem) 80px", position:"relative", overflow:"hidden" },
+  heroOverlay: { position:"absolute", inset:0, zIndex:0, pointerEvents:"none", background:"linear-gradient(to bottom, rgba(59, 130, 246, 0.05), transparent)" },
   orb: (s) => ({ position:"absolute", borderRadius:"50%", filter:"blur(80px)", pointerEvents:"none", ...s }),
-  badge: { display:"inline-flex", alignItems:"center", gap:"0.5rem", padding:"0.4rem 1rem", border:"1px solid rgba(0,240,255,0.3)", borderRadius:100, background:"rgba(0,240,255,0.05)", fontSize:"0.75rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#00f0ff", marginBottom:"2rem" },
-  badgeDot: { width:6, height:6, borderRadius:"50%", background:"#00f0ff", boxShadow:"0 0 8px #00f0ff" },
-  heroTitle: { fontFamily:'"Syne",sans-serif', fontSize:"clamp(2.8rem,7vw,6rem)", fontWeight:700, lineHeight:1, letterSpacing:"-0.03em", marginBottom:"1.5rem" },
-  heroSub: { maxWidth:620, color:"rgba(255,255,255,0.55)", fontSize:"clamp(1rem,2vw,1.2rem)", fontWeight:300, margin:"0 auto 2.5rem" },
-  heroButtons: { display:"flex", flexWrap:"wrap", gap:"1rem", justifyContent:"center" },
+  heroTitle: { fontFamily: SYS_FONT, fontSize:"clamp(2.8rem,7vw,6rem)", fontWeight:700, lineHeight:1, letterSpacing:"-0.03em", marginBottom:"1.5rem", position:"relative", zIndex:1 },
+  heroSub: { maxWidth:620, color:"rgba(255,255,255,0.55)", fontSize:"clamp(1rem,2vw,1.2rem)", fontWeight:300, margin:"0 auto 2.5rem", position:"relative", zIndex:1 },
   heroScroll: { position:"absolute", bottom:"2rem", left:"50%", transform:"translateX(-50%)", display:"flex", flexDirection:"column", alignItems:"center", gap:"0.5rem", color:"rgba(255,255,255,0.3)", fontSize:"0.7rem", letterSpacing:"0.15em", textTransform:"uppercase" },
   scrollLine: { width:1, height:50, background:"linear-gradient(to bottom,rgba(0,240,255,0.6),transparent)" },
-  btnPrimary: { display:"inline-flex", alignItems:"center", gap:"0.5rem", padding:"0.85rem 2rem", background:"linear-gradient(135deg,#ff00ff,#3b00ff)", color:"#fff", borderRadius:8, fontWeight:600, fontSize:"0.95rem", textDecoration:"none", boxShadow:"0 0 30px rgba(255,0,255,0.3)", transition:"transform 0.25s,box-shadow 0.25s" },
-  btnSecondary: { display:"inline-flex", alignItems:"center", gap:"0.5rem", padding:"0.85rem 2rem", background:"transparent", color:"#fff", borderRadius:8, fontWeight:500, fontSize:"0.95rem", textDecoration:"none", border:"1px solid rgba(255,255,255,0.08)", transition:"border-color 0.25s,background 0.25s,transform 0.25s" },
 
   // section
   section: (extra) => ({ padding:"clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,6rem)", position:"relative", zIndex:1, ...extra }),
   sectionLabel: { display:"inline-flex", alignItems:"center", gap:"0.75rem", fontSize:"1rem", fontWeight:600, letterSpacing:"0.2em", textTransform:"uppercase", color:"#00f0ff", marginBottom:"1rem" },
-  sectionTitle: { fontFamily:'"Syne",sans-serif', fontSize:"clamp(2rem,4vw,3rem)", fontWeight:700, letterSpacing:"-0.01em", lineHeight:1.3, marginBottom:"1rem" },
+  sectionTitle: { fontFamily: SYS_FONT, fontSize:"clamp(2rem,4vw,3rem)", fontWeight:700, letterSpacing:"-0.01em", lineHeight:1.3, marginBottom:"1rem" },
   sectionSub: { color:"rgba(255,255,255,0.5)", fontSize:"1rem", maxWidth:500, fontWeight:300 },
   sectionHeader: (extra) => ({ marginBottom:"4rem", ...extra }),
   gradText: { background:"linear-gradient(135deg,#ff00ff,#00f0ff)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" },
@@ -51,14 +49,14 @@ const S = {
   // stats
   statsGrid: { display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))", gap:"1.5rem" },
   statCard: { padding:"2rem 1.5rem", textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center" },
-  statNum: (g) => ({ fontFamily:'"Syne",sans-serif', fontSize:"2.8rem", fontWeight:800, letterSpacing:"-0.04em", lineHeight:1, marginBottom:"0.4rem", background:g, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }),
+  statNum: (g) => ({ fontFamily: SYS_FONT, fontSize:"2.8rem", fontWeight:800, letterSpacing:"-0.04em", lineHeight:1, marginBottom:"0.4rem", background:g, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }),
   statLabel: { fontSize:"0.85rem", color:"rgba(255,255,255,0.45)", letterSpacing:"0.05em" },
 
   // achievement
   achievementCard: { maxWidth:900, margin:"0 auto", padding:"3rem 3.5rem", textAlign:"center", borderRadius:24, background:"rgba(255,0,255,0.04)", border:"1px solid rgba(255,0,255,0.2)", position:"relative", overflow:"hidden" },
   trophyIcon: { width:800, height:400, objectFit:"cover", borderRadius:20, display:"block", margin:"0 auto 1.75rem auto", border:"1px solid rgba(255,255,255,0.12)", boxShadow:"0 0 40px rgba(255,0,255,0.15),0 8px 32px rgba(0,0,0,0.4)", maxWidth:"100%" },
   achieveLabel: { display:"inline-block", padding:"0.3rem 1rem", background:"linear-gradient(135deg,rgba(255,0,255,0.2),rgba(59,0,255,0.2))", border:"1px solid rgba(255,0,255,0.3)", borderRadius:100, fontSize:"0.75rem", letterSpacing:"0.15em", textTransform:"uppercase", color:"#ff00ff", marginBottom:"1.5rem" },
-  achieveTitle: { fontFamily:'"Syne",sans-serif', fontSize:"clamp(1.8rem,4vw,2.8rem)", fontWeight:700, marginBottom:"0.5rem", background:"linear-gradient(135deg,#ffd700,#ff8c00,#ff00ff)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" },
+  achieveTitle: { fontFamily: SYS_FONT, fontSize:"clamp(1.8rem,4vw,2.8rem)", fontWeight:700, marginBottom:"0.5rem", background:"linear-gradient(135deg,#ffd700,#ff8c00,#ff00ff)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" },
   achieveSub: { fontSize:"1.1rem", color:"rgba(255,255,255,0.6)", marginBottom:"1.5rem", fontWeight:300 },
   achieveDesc: { fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", maxWidth:600, margin:"0 auto 2rem", lineHeight:1.7 },
   achieveTags: { display:"flex", flexWrap:"wrap", gap:"0.75rem", justifyContent:"center", marginTop:"2rem" },
@@ -81,34 +79,19 @@ const S = {
 
   // team
   teamLayout: { display:"grid", gap:"3rem" },
-  groupTitle: { fontFamily:'"Syne",sans-serif', fontSize:"0.75rem", fontWeight:600, letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(255,255,255,0.35)", marginBottom:"1.5rem" },
+  groupTitle: { fontFamily: SYS_FONT, fontSize:"0.75rem", fontWeight:600, letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(255,255,255,0.35)", marginBottom:"1.5rem" },
   facultyGrid: { display:"flex", flexWrap:"wrap", gap:"1rem" },
   facultyCard: { padding:"1.25rem 1.75rem", borderRadius:12, display:"flex", alignItems:"center", gap:"1rem" },
-  avatar: (g) => ({ width:44, height:44, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:'"Syne",sans-serif', fontWeight:700, fontSize:"1.1rem", flexShrink:0, background:g, overflow: "hidden" }),
+  avatar: (g) => ({ width:44, height:44, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontFamily: SYS_FONT, fontWeight:700, fontSize:"1.1rem", flexShrink:0, background:g, overflow: "hidden" }),
   facultyName: { fontWeight:600, fontSize:"0.95rem" },
   facultyRole: { fontSize:"0.78rem", color:"rgba(255,255,255,0.4)" },
-  studentsGrid: { display:"flex", flexWrap:"wrap", gap:"0.75rem" },
-  chip: { display:"inline-flex", alignItems:"center", gap:"0.6rem", padding:"0.5rem 1rem", border:"1px solid rgba(255,255,255,0.08)", borderRadius:100, fontSize:"0.85rem", color:"rgba(255,255,255,0.75)", background:"rgba(255,255,255,0.03)" },
-  chipDot: (c="#ff00ff") => ({ width:5, height:5, borderRadius:"50%", background:c, boxShadow:`0 0 6px ${c}` }),
-
-  // footer
-  footer: { padding:"3rem clamp(1.5rem,6vw,6rem)", borderTop:"1px solid rgba(255,255,255,0.08)", background:"rgba(0,0,0,0.3)", position:"relative", zIndex:1 },
-  footerMain: { display:"grid", gridTemplateColumns:"2fr 1fr 1fr 1.5fr", gap:"3rem", marginBottom:"3rem" },
-  footerLogo: { fontFamily:'"Syne",sans-serif', fontWeight:800, fontSize:"1.3rem", background:"linear-gradient(135deg,#ff00ff,#00f0ff)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text", display:"block", marginBottom:"0.75rem" },
-  footerBottom: { borderTop:"1px solid rgba(255,255,255,0.08)", paddingTop:"2rem", display:"flex", flexWrap:"wrap", alignItems:"center", justifyContent:"space-between", gap:"1rem", fontSize:"0.8rem", color:"rgba(255,255,255,0.3)" },
 };
 
 /* ─────────────────────────────────────────
-   INJECT FONTS + KEYFRAMES (once)
+   INJECT FONTS + KEYFRAMES
 ───────────────────────────────────────── */
 function useStyles() {
   useEffect(() => {
-    if (!document.getElementById("mel-fonts")) {
-      const l = document.createElement("link");
-      l.id = "mel-fonts"; l.rel = "stylesheet";
-      l.href = "https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap";
-      document.head.appendChild(l);
-    }
     if (!document.getElementById("mel-css")) {
       const s = document.createElement("style");
       s.id = "mel-css";
@@ -124,16 +107,33 @@ function useStyles() {
         .mel-orb2{animation:mel-drift 8s ease-in-out infinite alternate;animation-delay:-4s}
         .mel-orb3{animation:mel-drift 8s ease-in-out infinite alternate;animation-delay:-2s}
         @keyframes mel-drift{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,20px) scale(1.05)}}
-        .mel-line2{background:linear-gradient(135deg,#ff00ff 0%,#00f0ff 50%,#3b00ff 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:mel-gshift 4s linear infinite,mel-fu 0.8s 0.2s ease both}
-        @keyframes mel-gshift{0%{background-position:0% center}100%{background-position:200% center}}
-        .mel-bdot{animation:mel-pulse 2s ease-in-out infinite}
-        @keyframes mel-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+        
+        .mel-line2 {
+          background: linear-gradient(
+            -45deg,
+            #ff00ff 0%,
+            #00f0ff 25%,
+            #3b00ff 50%,
+            #00f0ff 75%,
+            #ff00ff 100%
+          );
+          background-size: 300% 300%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: mel-wave 5s ease-in-out infinite alternate, mel-fu 0.8s 0.2s ease both;
+        }
+        @keyframes mel-wave {
+          0% { background-position: 0% 50% }
+          100% { background-position: 100% 50% }
+        }
+
         .mel-sline{animation:mel-sl 2s ease-in-out infinite}
         @keyframes mel-sl{0%,100%{opacity:.3}50%{opacity:1}}
         .mel-reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
         .mel-reveal.mel-vis{opacity:1;transform:none}
         .mel-glass:hover{border-color:rgba(0,240,255,0.25)!important;transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(0,240,255,.08)}
-        .mel-infra-h{font-family:"Syne",sans-serif;font-weight:600;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.08);color:#00f0ff;letter-spacing:.05em;text-transform:uppercase;font-size:.8rem}
+        .mel-infra-h{font-family:${SYS_FONT};font-weight:600;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.08);color:#00f0ff;letter-spacing:.05em;text-transform:uppercase;font-size:.8rem}
         @media(max-width:900px){.mel-infra-grid{grid-template-columns:1fr!important}.mel-footer-grid{grid-template-columns:1fr 1fr!important}}
         @media(max-width:700px){.mel-footer-grid{grid-template-columns:1fr!important;gap:2rem!important}.mel-trophy{width:100%!important;height:auto!important}.mel-achieve-card{padding:2rem 1.5rem!important}.mel-infra-panel{padding:1.5rem!important}}
       `;
@@ -159,8 +159,13 @@ function useParticleCanvas(ref) {
     const resize = () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; };
     resize();
     window.addEventListener("resize", resize);
+    
+    // reverted to original size (1.5 + .3)
     const mk = () => ({ x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3, r:Math.random()*1.5+.3, a:Math.random()*.6+.1, color:COLORS[Math.floor(Math.random()*COLORS.length)], life:0, maxLife:Math.random()*300+200 });
-    for (let i=0;i<120;i++) particles.push(mk());
+    
+    // 120 baseline * 1.2 (+20%) = 144 particles
+    for (let i=0;i<144;i++) particles.push(mk());
+    
     const draw = () => {
       ctx.clearRect(0,0,W,H);
       particles.forEach((p,i) => {
@@ -225,7 +230,6 @@ export default function MelDeptPage() {
   useCounters();
   useCursorGlow();
 
-  // Safely passing solid colors to lucide-react to guarantee rendering
   const stats = [
     { icon: <BookOpen size={36} color="#ff00ff" />,    target:10,  label:"Research Papers",      g:"linear-gradient(135deg,#ff00ff,#00f0ff)", d:"0s" },
     { icon: <Users size={36} color="#00f0ff" />,       target:25,  label:"Faculty Members",      g:"linear-gradient(135deg,#00f0ff,#3b00ff)", d:"0.1s" },
@@ -244,32 +248,28 @@ export default function MelDeptPage() {
 
   const services = ["Access to cutting-edge AI technology and infrastructure","Project-based collaboration and industry support","AI model development and deployment services","Performance optimization and scalability consulting","Large-scale data processing and analysis","Research mentorship and publication support"];
   
-  // NOTE: Double backslashes used below so JS treats them as standard backslashes in the string.
   const faculty  = [
     { i:"M", g:"linear-gradient(135deg,#ff00ff,#3b00ff)", name:"Dr. Monika Puttaramaiah", img:"https://gradient-content-server.vercel.app/content/faculties/Dr.Monika.png"},
     { i:"S", g:"linear-gradient(135deg,#00f0ff,#3b00ff)", name:"Prof. Soniya L", img:"https://gradient-content-server.vercel.app/content/faculties/Prof.Soniya.png"}
   ];
-  
-  const students = ["Pranav Veeraghanta","Likith Chowdary","Rishi","S Sanjana","Sri Sowmi","Vikhyat","Abhinav"];
-  const gradTeam = [{ name:"Pranav Veeraghanta · Tech Head", c:"#00f0ff" },{ name:"Vinay Yele · Design Head", c:"#00f0ff" }];
 
   return (
     <PageTransition variant="slideUp">
       <div style={S.page}>
-        <canvas ref={canvasRef} style={S.canvas} />
+        {/* Adjusted Background Overlays mirroring EventsPage */}
         <div style={S.grid} />
+        <div style={S.gridOverlay} />
+        
+        <canvas ref={canvasRef} style={S.canvas} />
         <div id="mel-cursor" style={S.cursorGlow} />
 
         {/* ── HERO ── */}
         <section style={S.hero}>
+          <div style={S.heroOverlay} />
+          
           <div className="mel-orb1" style={S.orb({ width:600,height:600,background:"radial-gradient(circle,rgba(255,0,255,0.18) 0%,transparent 70%)",top:-200,left:-200 })} />
           <div className="mel-orb2" style={S.orb({ width:500,height:500,background:"radial-gradient(circle,rgba(0,240,255,0.15) 0%,transparent 70%)",bottom:-150,right:-150 })} />
           <div className="mel-orb3" style={S.orb({ width:400,height:400,background:"radial-gradient(circle,rgba(59,0,255,0.2) 0%,transparent 70%)",top:"40%",left:"50%",transform:"translate(-50%,-50%)" })} />
-
-          <div className="mel-fade0" style={S.badge}>
-            <span className="mel-bdot" style={S.badgeDot} />
-            BMSCE · Bengaluru · AI Research
-          </div>
 
           <h1 className="mel-fade1" style={S.heroTitle}>
             <span style={{ color:"#fff" }}>Department of</span><br />
@@ -280,14 +280,8 @@ export default function MelDeptPage() {
             Pioneering research and innovation in Artificial Intelligence and Machine Learning. Building the future, one model at a time.
           </p>
 
-          <div className="mel-fade4" style={S.heroButtons}>
-            <a href="#research"      style={S.btnPrimary}>  <span>Explore Research</span><span>→</span></a>
-            <a href="#achievements" style={S.btnSecondary}>Our Achievements ↓</a>
-          </div>
-
           <div className="mel-fade10" style={S.heroScroll}>
             <div className="mel-sline" style={S.scrollLine} />
-            {/* <span>Scroll</span> */}
           </div>
         </section>
 
@@ -307,7 +301,7 @@ export default function MelDeptPage() {
         <div style={S.divider} />
 
         {/* ── ACHIEVEMENT ── */}
-        <section id="achievements" style={S.section({ background:"linear-gradient(180deg,#030014 0%,rgba(10,0,30,0.8) 50%,#030014 100%)" })}>
+        <section id="achievements" style={S.section({ background:"linear-gradient(180deg,#0F172A 0%,rgba(15,23,42,0.8) 50%,#0F172A 100%)" })}>
           <div style={S.sectionHeader({ textAlign:"center" })}>
             <div style={S.sectionLabel}>Recognition</div>
             <h2 style={S.sectionTitle}>PhaseShift 2025 Champions</h2>
@@ -331,8 +325,6 @@ export default function MelDeptPage() {
             <div style={{ marginTop:"2.5rem",paddingTop:"2rem",borderTop:"1px solid rgba(255,255,255,0.06)" }}>
               <p style={{ fontSize:"0.75rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(254,254,254,0.375)",marginBottom:"1rem" }}>Faculty Coordinators</p>
               <div style={{ display:"flex",gap:"1.5rem",flexWrap:"wrap",justifyContent:"center" }}>
-                
-                {/* ── FACULTY AVATARS UPDATED HERE ── */}
                 {faculty.map(f=>(
                   <div key={f.name} className="mel-glass" style={S.glass(S.facultyCard)}>
                     <div style={S.avatar(f.g)}>
@@ -352,7 +344,6 @@ export default function MelDeptPage() {
                     </div>
                   </div>
                 ))}
-
               </div>
             </div>
           </div>
@@ -375,7 +366,7 @@ export default function MelDeptPage() {
             ].map(r=>(
               <div key={r.title} className="mel-reveal mel-glass" style={{ ...S.glass({ padding:"2.5rem 2rem",borderRadius:16,cursor:"pointer" }), ...(r.d?{transitionDelay:r.d}:{}) }}>
                 <div style={{ width:56,height:56,borderRadius:14,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"1.5rem",background:r.ibg,boxShadow:`inset 0 0 0 1px ${r.ib}` }}>{r.icon}</div>
-                <h3 style={{ fontFamily:'"Syne",sans-serif',fontSize:"1.25rem",fontWeight:700,marginBottom:"0.75rem" }}>{r.title}</h3>
+                <h3 style={{ fontFamily: SYS_FONT, fontSize:"1.25rem",fontWeight:700,marginBottom:"0.75rem" }}>{r.title}</h3>
                 <p style={{ fontSize:"0.9rem",color:"rgba(255,255,255,0.5)",lineHeight:1.7 }}>{r.desc}</p>
                 <div style={{ marginTop:"1.5rem",fontSize:"0.8rem",fontWeight:600,letterSpacing:"0.05em",textTransform:"uppercase",color:r.ac }}>Explore →</div>
               </div>
@@ -401,7 +392,7 @@ export default function MelDeptPage() {
               <div key={f.title} className="mel-reveal mel-glass" style={{ ...S.glass({ borderRadius:16,overflow:"hidden",cursor:"pointer" }), ...(f.d?{transitionDelay:f.d}:{}) }}>
                 <img src={f.src} alt={f.alt} style={S.facilityImg} />
                 <div style={{ padding:"1.75rem" }}>
-                  <h3 style={{ fontFamily:'"Syne",sans-serif',fontSize:"1.1rem",fontWeight:700,marginBottom:"0.5rem" }}>{f.title}</h3>
+                  <h3 style={{ fontFamily: SYS_FONT, fontSize:"1.1rem",fontWeight:700,marginBottom:"0.5rem" }}>{f.title}</h3>
                   <p style={{ fontSize:"0.875rem",color:"rgba(255,255,255,0.5)",lineHeight:1.6 }}>{f.desc}</p>
                 </div>
               </div>
@@ -412,7 +403,7 @@ export default function MelDeptPage() {
         <div style={S.divider} />
 
         {/* ── INFRASTRUCTURE ── */}
-        <section id="infrastructure" style={S.section({ background:"rgba(10,0,30,0.4)" })}>
+        <section id="infrastructure" style={S.section({ background:"rgba(15,23,42,0.4)" })}>
           <div style={S.sectionHeader()}>
             <div style={S.sectionLabel}>B.S. Narayan Center of Excellence</div>
             <h2 style={S.sectionTitle}>Research <span style={S.gradText}>Infrastructure</span></h2>
@@ -453,8 +444,6 @@ export default function MelDeptPage() {
             <div className="mel-reveal">
               <p style={S.groupTitle}>Faculty Coordinators</p>
               <div style={S.facultyGrid}>
-                
-                {/* ── FACULTY AVATARS UPDATED HERE TOO ── */}
                 {faculty.map(f=>(
                   <div key={f.name} className="mel-glass" style={S.glass(S.facultyCard)}>
                     <div style={S.avatar(f.g)}>
@@ -474,7 +463,6 @@ export default function MelDeptPage() {
                     </div>
                   </div>
                 ))}
-
               </div>
             </div>
           </div>
