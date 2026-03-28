@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Calendar, MapPin } from 'lucide-react';
+import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageTransition from '../components/ui/PageTransition';
 
@@ -17,7 +17,6 @@ const allEvents=[
   { id: 1, title: "Jokes on You Again", category: "utsav", year: 2025, description: "", image: "https://gradient-content-server.vercel.app/content/utsav25/JOY.png" },
   { id: 2, title: "Uncharted 3: Lost Voyage", category: "utsav", year: 2025, description: "", image: "https://gradient-content-server.vercel.app/content/utsav25/UNC.png" },
   { id: 3, title: "Sync or Sink", category: "utsav", year: 2025, description: "", image: "https://gradient-content-server.vercel.app/content/utsav25/SOS.png" },
-  // { id: 4, title: "The Gradient Team", category: "utsav", year: 2025, description: "", image: "" },
 
   // UTSAV 2024
   { id: 5, title: "Jokes on You Too Standup Comedy Event", category: "utsav", year: 2024, description: "", image: "https://gradient-content-server.vercel.app/content/posters/jok2.webp" },
@@ -43,7 +42,6 @@ const allEvents=[
   { id: 17, title: "Impact AI 2.0 24hr Hackathon", category: "gradientweek", year: 2025, description: "", image: "https://gradient-week.vercel.app/posters/gw/impact2.webp" },
   { id: 18, title: "Parallel Fusion", category: "gradientweek", year: 2025, description: "", image: "https://gradient-week.vercel.app/posters/gw/pf.webp" },
   { id: 19, title: "AI Agents Hands on Workshop", category: "gradientweek", year: 2025, description: "", image: "https://gradient-content-server.vercel.app/content/posters/gw/aiwork.webp" },
-  // { id: 20, title: "Inauguration Ceremony", category: "gradientweek", year: 2025, description: "", image: "" },
   { id: 21, title: "Cultural Evening", category: "gradientweek", year: 2025, description: "", image: "https://gradient-content-server.vercel.app/content/gallery/recap/cult/1.webp" },
 
   // GRADIENT WEEK 2024
@@ -65,7 +63,7 @@ const allEvents=[
   { id: 31, title: "Talk on AI", category: "standalone", year: 2023, description: "", image: "https://gradient-content-server.vercel.app/content/posters/krishnaik.webp" },
   { id: 32, title: "Time-Traveler's Quest", category: "standalone", year: 2023, description: "", image: "https://gradient-content-server.vercel.app/content/posters/ttq.webp" },
   { id: 33, title: "Talk on Emerging & Converging Technologies", category: "standalone", year: 2023, description: "", image: "https://gradient-content-server.vercel.app/content/posters/ect.webp" }
-]
+];
 
 const EventCard = ({ event, index }) => {
   const ref = useRef(null);
@@ -81,7 +79,14 @@ const EventCard = ({ event, index }) => {
       className="group"
       data-testid={`event-card-${event.id}`}
     >
-      <div className="relative h-full glass rounded-2xl overflow-hidden">
+      <div 
+        className="relative h-full rounded-2xl overflow-hidden"
+        style={{ 
+          backgroundColor: 'rgba(255, 255, 255, 0.03)', 
+          backdropFilter: 'blur(10px)', 
+          border: '1px solid rgba(255, 255, 255, 0.05)' 
+        }}
+      >
         {/* Image */}
         <div className="relative aspect-[16/10] overflow-hidden">
           <img
@@ -90,22 +95,28 @@ const EventCard = ({ event, index }) => {
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F] via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent" />
           
           {/* Status badge */}
           <div className="absolute top-4 right-4">
-            <span className={`px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider ${
-              event.status === 'completed' 
-                ? 'bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/30'
-                : 'bg-[#ffcc00]/20 text-[#ffcc00] border border-[#ffcc00]/30'
-            }`}>
+            <span 
+              style={{ fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace' }}
+              className={`px-3 py-1 rounded-full text-xs uppercase tracking-wider ${
+                event.status === 'completed' 
+                  ? 'bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/30'
+                  : 'bg-[#ffcc00]/20 text-[#ffcc00] border border-[#ffcc00]/30'
+              }`}
+            >
               {event.status}
             </span>
           </div>
 
           {/* Year badge */}
           <div className="absolute bottom-4 left-4">
-            <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur text-xs font-mono">
+            <span 
+              style={{ fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace' }}
+              className="px-3 py-1 rounded-full bg-white/10 backdrop-blur text-xs text-white"
+            >
               {event.year}
             </span>
           </div>
@@ -113,7 +124,10 @@ const EventCard = ({ event, index }) => {
 
         {/* Content */}
         <div className="p-6">
-          <h3 className="font-heading font-semibold text-xl mb-2 group-hover:text-white transition-colors">
+          <h3 
+            className="font-semibold text-xl mb-2 transition-colors"
+            style={{ color: '#ffffff', fontFamily: 'ui-sans-serif, system-ui, -apple-system, sans-serif' }}
+          >
             {event.title}
           </h3>
           <p className="text-white/50 text-sm leading-relaxed mb-4">
@@ -125,7 +139,8 @@ const EventCard = ({ event, index }) => {
               href={event.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[#7C3AED] hover:text-white transition-colors text-sm font-medium"
+              className="inline-flex items-center gap-2 hover:text-white transition-colors text-sm font-medium"
+              style={{ color: '#3B82F6' }}
             >
               <span>Visit Event</span>
               <ExternalLink className="w-4 h-4" />
@@ -150,108 +165,155 @@ const EventsPage = () => {
     <PageTransition variant="slideUp">
       <main
         data-testid="events-page"
-        className="pt-20 md:pt-0"
+        className="min-h-screen relative pt-20 md:pt-0"
+        style={{ 
+          backgroundColor: '#0F172A', 
+          color: '#ffffff',
+          fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+        }}
       >
-      {/* Hero */}
-      <section ref={heroRef} className="min-h-[50vh] flex items-center relative overflow-hidden px-6 md:px-12 lg:px-24 py-24">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#7C3AED]/5 via-transparent to-transparent" />
-        
-        <div className="max-w-7xl mx-auto relative z-10 w-full">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={isHeroInView ? { opacity: 1, x: 0 } : {}}
-            className="mb-12"
-          >
-            <Link
-              to="/"
-              data-testid="events-back-home"
-              className="inline-flex items-center gap-2 text-white/40 hover:text-white transition-colors font-mono text-sm"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
-            </Link>
-          </motion.div>
-
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            className="font-mono text-xs uppercase tracking-[0.2em] text-[#7C3AED]"
-          >
-            Event Gallery
-          </motion.span>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1 }}
-            className="font-heading font-black text-5xl md:text-6xl lg:text-7xl tracking-tighter leading-[0.9] mt-4 mb-6"
-          >
-            Our{' '}
-            <span className="gradient-text">Events</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2 }}
-            className="text-white/60 text-lg max-w-2xl"
-          >
-            Explore our dynamic collection of workshops, hackathons, and technical showcases 
-            that define Gradient's commitment to innovation.
-          </motion.p>
+        {/* Abstract grids representing the Core Theme */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:60px_60px]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A] via-transparent to-[#0F172A] opacity-90" />
         </div>
-      </section>
 
-      {/* Filter tabs */}
-      <section className="px-6 md:px-12 lg:px-24 mb-12">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap gap-2">
-            {eventCategories.map((cat) => (
-              <motion.button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                data-testid={`filter-${cat.id}`}
-                className={`px-4 py-2 rounded-full font-medium text-sm transition-all duration-300 ${
-                  activeCategory === cat.id
-                    ? 'bg-gradient-to-r from-[#7C3AED] to-[#3B82F6] text-white'
-                    : 'glass text-white/60 hover:text-white'
-                }`}
+        <div className="relative z-10">
+          {/* Hero */}
+          <section ref={heroRef} className="min-h-[50vh] flex items-center relative overflow-hidden px-6 md:px-12 lg:px-24 py-24">
+            <div className="absolute inset-0 bg-gradient-to-b from-[#3B82F6]/5 via-transparent to-transparent" />
+            
+            <div className="max-w-7xl mx-auto relative w-full">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={isHeroInView ? { opacity: 1, x: 0 } : {}}
+                className="mb-12"
               >
-                {cat.label}
-              </motion.button>
-            ))}
-          </div>
-        </div>
-      </section>
+                <Link
+                  to="/"
+                  data-testid="events-back-home"
+                  className="inline-flex items-center gap-2 transition-colors text-sm uppercase group"
+                  style={{ color: 'rgba(255,255,255,0.4)', fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace', letterSpacing: '0.2em' }}
+                >
+                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                  <span style={{ color: '#3B82F6' }} className="group-hover:text-[#3B82F6]">Back to Base</span>
+                </Link>
+              </motion.div>
 
-      {/* Events grid */}
-      <section className="px-6 md:px-12 lg:px-24 pb-24">
-        <div className="max-w-7xl mx-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            >
-              {filteredEvents.map((event, index) => (
-                <EventCard key={event.id} event={event} index={index} />
-              ))}
-            </motion.div>
-          </AnimatePresence>
+              <div className="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-white/10 pb-8">
+                <div>
+                  <motion.span
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+                    className="text-xs uppercase tracking-[0.2em]"
+                    style={{ color: '#8B5CFB', fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace' }}
+                  >
+                    Event Hub
+                  </motion.span>
 
-          {filteredEvents.length === 0 && (
-            <div className="text-center py-24">
-              <p className="text-white/40 text-lg">No events found in this category.</p>
+                  <motion.h1
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: 0.1 }}
+                    className="font-black text-6xl md:text-8xl tracking-tighter leading-none mt-4 mb-2"
+                  >
+                    OUR{' '}
+                    <span 
+                      style={{ 
+                        background: 'linear-gradient(to right, #8B5CFB, #3B82F6)', 
+                        WebkitBackgroundClip: 'text', 
+                        WebkitTextFillColor: 'transparent' 
+                      }}
+                    >
+                      EVENTS
+                    </span>
+                  </motion.h1>
+                </div>
+                <div className="hidden md:block text-right pb-2">
+                  <div 
+                    className="flex items-center gap-2 text-white/60 text-xs"
+                    style={{ fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace' }}
+                  >
+                    <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
+                    <span>EVENTS_ONLINE</span>
+                  </div>
+                </div>
+              </div>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.2 }}
+                className="text-white/60 text-lg max-w-2xl"
+              >
+                Explore our dynamic collection of workshops, hackathons, and technical showcases 
+                that define Gradient's commitment to innovation.
+              </motion.p>
             </div>
-          )}
+          </section>
+
+          {/* Filter tabs */}
+          <section className="px-6 md:px-12 lg:px-24 mb-12">
+            <div className="max-w-7xl mx-auto">
+              <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4">
+                {eventCategories.map((cat) => (
+                  <motion.button
+                    key={cat.id}
+                    onClick={() => setActiveCategory(cat.id)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    data-testid={`filter-${cat.id}`}
+                    className="px-4 py-2 rounded-full font-medium text-sm transition-all duration-300"
+                    style={{ 
+                      backgroundColor: activeCategory === cat.id ? 'transparent' : 'rgba(255,255,255,0.05)',
+                      backgroundImage: activeCategory === cat.id ? 'linear-gradient(to right, #8B5CFB, #3B82F6)' : 'none',
+                      color: activeCategory === cat.id ? '#ffffff' : 'rgba(255,255,255,0.6)',
+                      border: activeCategory === cat.id ? 'none' : '1px solid rgba(255,255,255,0.1)'
+                    }}
+                  >
+                    {cat.label}
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Events grid */}
+          <section className="px-6 md:px-12 lg:px-24 pb-24">
+            <div className="max-w-7xl mx-auto">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeCategory}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                  {filteredEvents.map((event, index) => (
+                    <EventCard key={event.id} event={event} index={index} />
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+
+              {filteredEvents.length === 0 && (
+                <div className="text-center py-24">
+                  <p className="text-white/40 text-lg">No events found in this category.</p>
+                </div>
+              )}
+
+              {/* Added bottom footer style resembling Team Page */}
+              <div 
+                className="mt-32 pt-8 border-t border-white/10 flex justify-between text-white/20 text-xs"
+                style={{ fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace' }}
+              >
+                <span>GRADIENT AI/ML</span>
+                <span>EVENT_DATA_NODE</span>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
-    </main>
+      </main>
     </PageTransition>
   );
 };
