@@ -46,7 +46,7 @@ const CTASection = () => {
           className="font-heading font-bold text-4xl md:text-5xl lg:text-7xl tracking-tight leading-[1.1] mb-6"
         >
           Ready to{' '}
-          <span className="gradient-text">Redefine</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CFB] to-[#3B82F6]">Redefine</span>
           <br />
           Intelligence?
         </motion.h2>
