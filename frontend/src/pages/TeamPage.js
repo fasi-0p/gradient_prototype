@@ -1,17 +1,415 @@
+// import React, { useRef, useState, useEffect, useCallback } from 'react';
+// import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+// import { ArrowLeft, Github, Linkedin, Cpu, PenTool, Truck, Megaphone, Users } from 'lucide-react';
+// import { Link } from 'react-router-dom';
+// import PageTransition from '../components/ui/PageTransition';
+
+// /* ---------------- DATA ---------------- */
+// // Distinct colors applied to each domain. The canvas line will automatically interpolate these.
+// const teamData = [
+//   {
+//     title: "Club Coordinators",
+//     sector: "SECTOR 01",
+//     icon: Users,
+//     color: "#8B5CFB", // Deep Purple
+//     members: [
+//       { name: "S Sanjana", role: "", image: "https://gradient-content-server.vercel.app/content/core26/Sanjana.JPG", github: "https://github.com/SSanjana-17", linkedin: "https://www.linkedin.com/in/s-sanjana-816788292" },
+//       { name: "Divyam Jain", role: "OPERATIONS LEAD", image: "https://gradient-content-server.vercel.app/content/core26/Divyam.JPG", linkedin: "https://www.linkedin.com/in/divyamjainn" },
+//     ],
+//   },
+//   {
+//     title: "Technical Heads",
+//     sector: "SECTOR 02",
+//     icon: Cpu,
+//     color: "#00f0ff", // Cyber Cyan
+//     members: [
+//       { name: "Rahul", role: "ARCHITECT", image: "https://gradient-content-server.vercel.app/content/core26/Rahul.JPG", github: "https://github.com/RahulH007", linkedin: "https://www.linkedin.com/in/rahulhongekar" },
+//       { name: "Fasi Owaiz Ahmed", role: "FULL STACK", image: "https://gradient-content-server.vercel.app/content/core26/Fasi.JPG", github: "https://github.com/fasi-0p", linkedin: "https://linkedin.com/in/fasii" },
+//     ],
+//   },
+//   {
+//     title: "Multimedia Heads",
+//     sector: "SECTOR 03",
+//     icon: PenTool,
+//     color: "#ff00ff", // Fuchsia Pink
+//     members: [
+//       { name: "Shriyans", role: "VISUAL DIRECTOR", image: "https://gradient-content-server.vercel.app/content/core26/Shriyans.JPG", github: "https://github.com/MrPhantom2325", linkedin: "https://www.linkedin.com/in/shriyans-nayak-a38a02325" },
+//       { name: "Smaya", role: "UI/UX DESIGNER", image: "https://gradient-content-server.vercel.app/content/core26/Smaya.JPG", github: "https://github.com/smayamaben-01", linkedin: "https://www.linkedin.com/in/smaya-maben-a99580360" },
+//       { name: "Pooja", role: "MOTION ARTIST", image: "https://gradient-content-server.vercel.app/content/core26/Pooja.JPG", github: "https://github.com/pooja0606", linkedin: "https://www.linkedin.com/in/pooja-b-l-1312a1348" },
+//     ],
+//   },
+//   {
+//     title: "Logistics Heads",
+//     sector: "SECTOR 04",
+//     icon: Truck,
+//     color: "#FF9D00", // Neon Orange (As requested)
+//     members: [
+//       { name: "Channabasavanna", role: "RESOURCE MANAGER", image: "https://gradient-content-server.vercel.app/content/core26/Channabasavanna.JPG", linkedin: "https://www.linkedin.com/in/channabasavanna-mb-923aa92b7/" },
+//       { name: "Saachi", role: "DEPLOYMENT", image: "https://gradient-content-server.vercel.app/content/core26/Saachi.JPG" },
+//       { name: "Sneha", role: "INVENTORY", image: "https://gradient-content-server.vercel.app/content/core26/Sneha.JPG" },
+//     ],
+//   },
+//   {
+//     title: "Sponsorship & Marketing",
+//     sector: "SECTOR 05",
+//     icon: Megaphone,
+//     color: "#00FF9D", // Emerald Green
+//     members: [
+//       { name: "Krish", role: "BRAND LEAD", image: "https://gradient-content-server.vercel.app/content/core26/Krish.JPG", github: "https://github.com/Krishparmar10", linkedin: "https://www.linkedin.com/in/krish-n-jain-992066311" },
+//       { name: "Suniksha", role: "OUTREACH", image: "https://gradient-content-server.vercel.app/content/core26/Suniskha.JPG" },
+//     ],
+//   },
+// ];
+
+// /* ---------------- GLITCH TEXT ---------------- */
+
+// const GlitchText = ({ text, isHovered }) => {
+//   const [displayText, setDisplayText] = useState(text);
+//   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+";
+//   useEffect(() => {
+//     let interval = null;
+//     let iteration = 0;
+//     if (isHovered) {
+//       interval = setInterval(() => {
+//         setDisplayText(text.split("").map((l, i) => i < iteration ? text[i] : letters[Math.floor(Math.random() * letters.length)]).join(""));
+//         if (iteration >= text.length) clearInterval(interval);
+//         iteration += 1 / 3;
+//       }, 30);
+//     } else {
+//       setDisplayText(text);
+//     }
+//     return () => clearInterval(interval);
+//   }, [isHovered, text]);
+//   return <span className="font-mono">{displayText}</span>;
+// };
+
+// /* ---------------- TILT CARD ---------------- */
+
+// const TiltCard = ({ member, color, index, setHoveredCard, hoveredCard }) => {
+//   const x = useMotionValue(0);
+//   const y = useMotionValue(0);
+//   const [isHovered, setIsHovered] = useState(false);
+//   const mouseX = useSpring(x, { stiffness: 150, damping: 15 });
+//   const mouseY = useSpring(y, { stiffness: 150, damping: 15 });
+//   const rotateX = useTransform(mouseY, [-0.5, 0.5], ["15deg", "-15deg"]);
+//   const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-15deg", "15deg"]);
+//   const imageX = useTransform(mouseX, [-0.5, 0.5], ["-10px", "10px"]);
+//   const imageY = useTransform(mouseY, [-0.5, 0.5], ["-10px", "10px"]);
+  
+//   const handleMouseMove = (e) => {
+//     const r = e.currentTarget.getBoundingClientRect();
+//     x.set((e.clientX - r.left - r.width / 2) / r.width);
+//     y.set((e.clientY - r.top - r.height / 2) / r.height);
+//   };
+  
+//   const isDimmed = hoveredCard !== null && hoveredCard !== member.name;
+  
+//   return (
+//     <motion.div
+//       initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }}
+//       viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, delay: index * 0.1 }}
+//       style={{ rotateX, rotateY, transformStyle: "preserve-3d", perspective: 1000 }}
+//       onMouseMove={handleMouseMove}
+//       onMouseEnter={() => { setIsHovered(true); setHoveredCard(member.name); }}
+//       onMouseLeave={() => { setIsHovered(false); x.set(0); y.set(0); setHoveredCard(null); }}
+//       className={`relative h-[380px] w-full cursor-pointer transition-all duration-500 ${isDimmed ? "blur-[2px] opacity-40 scale-95" : "opacity-100 scale-100"}`}
+//     >
+//       <div className="absolute inset-0 rounded-2xl bg-[#0F172A]/80 border border-white/10 backdrop-blur-xl overflow-hidden transition-all duration-300 group hover:border-opacity-100"
+//         style={{ borderColor: isDimmed ? "rgba(255,255,255,0.1)" : `${color}50` }}>
+//         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+//           style={{ background: `radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), ${color}15, transparent 40%)` }} />
+//         <motion.div className="absolute top-0 left-0 w-full h-[65%] overflow-hidden rounded-t-2xl border-b border-white/5"
+//           style={{ x: imageX, y: imageY, translateZ: "20px" }}>
+//           <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent z-10 opacity-70" />
+//           <img src={member.image} alt={member.name}
+//             className={`w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-110 ${isDimmed ? "grayscale brightness-75 saturate-0" : "grayscale-0 brightness-100"}`} />
+//         </motion.div>
+//         <motion.div className="absolute bottom-0 left-0 w-full h-[35%] p-6 flex flex-col justify-between bg-gradient-to-t from-[#0F172A] to-[#0F172A]/90"
+//           style={{ translateZ: "40px" }}>
+//           <h3 className="text-xl font-bold text-white mb-1 transition-all duration-300">
+//             <GlitchText text={member.name} isHovered={isHovered} />
+//           </h3>
+//           <div className="flex gap-4">
+//             {member.github && <a href={member.github} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#3B82F6] hover:scale-110 transition-all"><Github size={18} /></a>}
+//             {member.linkedin && <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#3B82F6] hover:scale-110 transition-all"><Linkedin size={18} /></a>}
+//           </div>
+//         </motion.div>
+//       </div>
+//     </motion.div>
+//   );
+// };
+
+// /* ---------------- DOMAIN SECTION ---------------- */
+
+// const DomainSection = ({ section, index, hoveredCard, setHoveredCard, onIconMount }) => {
+//   const isEven = index % 2 === 1;
+//   const Icon = section.icon;
+
+//   const iconRefCallback = useCallback((node) => {
+//     if (node) onIconMount(index, node);
+//   }, [index, onIconMount]);
+
+//   return (
+//     <section className={`py-16 flex flex-col md:flex-row gap-12 items-start ${isEven ? "md:flex-row-reverse" : ""}`}>
+//       <div className={`flex flex-col gap-4 flex-shrink-0 md:w-1/3 md:sticky md:top-32 ${isEven ? "md:items-end md:text-right" : "md:items-start md:text-left"}`}>
+//         <div className="relative">
+//           <div
+//             ref={iconRefCallback}
+//             className="w-16 h-16 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center mb-4"
+//             style={{ boxShadow: `0 0 20px ${section.color}20`, borderColor: `${section.color}40` }}
+//           >
+//             <Icon size={32} style={{ color: section.color }} />
+//           </div>
+//           <div className={`absolute top-full h-24 w-[1px] bg-gradient-to-b from-white/20 to-transparent hidden md:block ${isEven ? "right-8" : "left-8"}`} />
+//         </div>
+//         <div>
+//           <h3 className="text-6xl font-black uppercase tracking-tighter text-white leading-none mb-2">
+//             {section.title.split(" ")[0]} <br />
+//             <span className="text-transparent bg-clip-text" style={{ backgroundImage: `linear-gradient(to right, ${section.color}, white)` }}>
+//               {section.title.split(" ").slice(1).join(" ")}
+//             </span>
+//           </h3>
+//           <p className="text-white/40 font-mono text-xs tracking-widest uppercase">{section.sector}</p>
+//         </div>
+//       </div>
+//       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 flex-grow w-full">
+//         {section.members.map((member, i) => (
+//           <TiltCard key={member.name} member={member} color={section.color} index={i}
+//             hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+//         ))}
+//       </div>
+//     </section>
+//   );
+// };
+
+// /* ---------------- MAIN PAGE ---------------- */
+
+// const TeamPage = () => {
+//   const [hoveredCard, setHoveredCard] = useState(null);
+//   const canvasRef = useRef(null);
+//   const rafRef = useRef(null);
+//   const iconNodes = useRef(new Array(teamData.length).fill(null));
+
+//   const onIconMount = useCallback((index, node) => {
+//     iconNodes.current[index] = node;
+//   }, []);
+
+//   useEffect(() => {
+//     const canvas = canvasRef.current;
+//     if (!canvas) return;
+
+//     const resize = () => {
+//       canvas.width = window.innerWidth;
+//       canvas.height = window.innerHeight;
+//     };
+//     resize();
+//     window.addEventListener("resize", resize);
+
+//     const COLORS = teamData.map(s => s.color);
+
+//     const hexToRgba = (hex, a) => {
+//       const h = parseInt(hex.replace("#",""), 16);
+//       return `rgba(${(h>>16)&255},${(h>>8)&255},${h&255},${a})`;
+//     };
+
+//     const lerpColor = (a, b, t) => {
+//       const pa = parseInt(a.replace("#",""),16), pb = parseInt(b.replace("#",""),16);
+//       const ar=(pa>>16)&255,ag=(pa>>8)&255,ab=pa&255;
+//       const br=(pb>>16)&255,bg=(pb>>8)&255,bb=pb&255;
+//       return `rgb(${Math.round(ar+(br-ar)*t)},${Math.round(ag+(bg-ag)*t)},${Math.round(ab+(bb-ab)*t)})`;
+//     };
+
+//     const draw = () => {
+//       const ctx = canvas.getContext("2d");
+//       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+//       const pts = iconNodes.current
+//         .map(node => {
+//           if (!node) return null;
+//           const r = node.getBoundingClientRect();
+//           return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+//         })
+//         .filter(Boolean);
+
+//       if (pts.length < 2) {
+//         rafRef.current = requestAnimationFrame(draw);
+//         return;
+//       }
+
+//       const winH = window.innerHeight;
+//       const docH = document.documentElement.scrollHeight;
+//       const scrollY = window.scrollY;
+//       const maxScroll = Math.max(1, docH - winH);
+//       const scrollRatio = Math.max(0, Math.min(1, scrollY / maxScroll));
+//       const drawHeadY = winH * (0.5 + 0.45 * scrollRatio);
+//       const startY = pts[0].y;
+//       const endY = pts[pts.length-1].y;
+//       const clipY = Math.max(startY, Math.min(endY, drawHeadY));
+
+//       ctx.save();
+//       ctx.setLineDash([5, 14]);
+//       ctx.lineWidth = 1.5;
+//       ctx.strokeStyle = "rgba(255,255,255,0.09)";
+//       ctx.beginPath();
+//       ctx.moveTo(pts[0].x, pts[0].y);
+//       for (let i = 1; i < pts.length; i++) {
+//         const p = pts[i-1], c = pts[i], my = (p.y + c.y) / 2;
+//         ctx.bezierCurveTo(p.x, my, c.x, my, c.x, c.y);
+//       }
+//       ctx.stroke();
+//       ctx.restore();
+
+//       if (clipY <= startY + 5) { 
+//         rafRef.current = requestAnimationFrame(draw); 
+//         return; 
+//       }
+
+//       ctx.save();
+//       ctx.beginPath();
+//       ctx.rect(0, 0, canvas.width, clipY + 20);
+//       ctx.clip();
+//       ctx.setLineDash([]);
+//       ctx.lineCap = "round";
+//       ctx.lineJoin = "round";
+
+//       for (let i = 1; i < pts.length; i++) {
+//         const p = pts[i-1], c = pts[i], my = (p.y + c.y) / 2;
+//         ctx.lineWidth = 12;
+//         ctx.strokeStyle = hexToRgba(COLORS[i-1], 0.1);
+//         ctx.shadowColor = COLORS[i-1];
+//         ctx.shadowBlur = 20;
+//         ctx.beginPath();
+//         ctx.moveTo(p.x, p.y);
+//         ctx.bezierCurveTo(p.x, my, c.x, my, c.x, c.y);
+//         ctx.stroke();
+
+//         // This draws the gradient transition between nodes
+//         const grad = ctx.createLinearGradient(p.x, p.y, c.x, c.y);
+//         grad.addColorStop(0, COLORS[i-1]);
+//         grad.addColorStop(1, COLORS[i]);
+//         ctx.lineWidth = 2.5;
+//         ctx.strokeStyle = grad;
+//         ctx.beginPath();
+//         ctx.moveTo(p.x, p.y);
+//         ctx.bezierCurveTo(p.x, my, c.x, my, c.x, c.y);
+//         ctx.stroke();
+//       }
+//       ctx.restore();
+
+//       let si = 0;
+//       for (let i = 0; i < pts.length - 1; i++) {
+//         if (clipY >= pts[i].y && clipY <= pts[i+1].y) { si = i; break; }
+//       }
+//       if (clipY >= endY) si = pts.length - 2;
+
+//       const p = pts[si], n = pts[si+1], my = (p.y + n.y) / 2;
+//       let t = 0.5, minT = 0, maxT = 1;
+//       for (let step = 0; step < 10; step++) {
+//         const mt = 1 - t;
+//         const evalY = mt*mt*mt*p.y + 3*mt*mt*t*my + 3*mt*t*t*my + t*t*t*n.y;
+//         if (evalY < clipY) minT = t; else maxT = t;
+//         t = (minT + maxT) / 2;
+//       }
+
+//       const mt = 1 - t;
+//       const dx = mt*mt*mt*p.x + 3*mt*mt*t*p.x + 3*mt*t*t*n.x + t*t*t*n.x;
+//       const dy = clipY;
+      
+//       // This is where the glowing tracker ball shifts colors
+//       const dc = lerpColor(COLORS[si], COLORS[Math.min(si+1, COLORS.length-1)], t);
+
+//       ctx.beginPath(); ctx.arc(dx, dy, 13, 0, Math.PI*2);
+//       ctx.strokeStyle = dc.replace("rgb(","rgba(").replace(")",",0.2)");
+//       ctx.lineWidth = 1; ctx.stroke();
+//       ctx.beginPath(); ctx.arc(dx, dy, 4, 0, Math.PI*2);
+//       ctx.fillStyle = dc; ctx.shadowColor = dc; ctx.shadowBlur = 16;
+//       ctx.fill(); ctx.shadowBlur = 0;
+
+//       rafRef.current = requestAnimationFrame(draw);
+//     };
+
+//     rafRef.current = requestAnimationFrame(draw);
+//     return () => {
+//       cancelAnimationFrame(rafRef.current);
+//       window.removeEventListener("resize", resize);
+//     };
+//   }, []);
+
+//   return (
+//     <>
+//       <canvas
+//         ref={canvasRef}
+//         style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", pointerEvents: "none", zIndex: 9999 }}
+//       />
+
+//       <PageTransition>
+//         <main className="min-h-screen bg-[#0F172A] text-white font-sans selection:bg-white/20 relative">
+          
+//           {/* Restored Original Theme Elements */}
+//           <div className="fixed inset-0 pointer-events-none z-0">
+//             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:60px_60px]" />
+//             <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A] via-transparent to-[#0F172A] opacity-90" />
+//           </div>
+
+//           <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
+//             <Link to="/" className="inline-flex items-center gap-2 text-white/40 hover:text-[#3B82F6] transition-colors mb-20 group">
+//               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+//               <span className="font-mono text-xs tracking-[0.2em] uppercase">Return to Base</span>
+//             </Link>
+
+//             <div className="flex flex-col md:flex-row justify-between items-end mb-32 border-b border-white/10 pb-8">
+//               <div>
+//                 <h1 className="text-7xl md:text-9xl font-black tracking-tighter text-white mb-2">THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CFB] to-[#3B82F6]">CORE26</span></h1>
+//               </div>
+//               <div className="hidden md:block text-right pb-2">
+//                 <div className="flex items-center gap-2 text-white/60 font-mono text-xs">
+//                   <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
+//                   <span>SYSTEM_ONLINE</span>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="flex flex-col gap-24">
+//               {teamData.map((section, index) => (
+//                 <DomainSection
+//                   key={section.title}
+//                   section={section}
+//                   index={index}
+//                   hoveredCard={hoveredCard}
+//                   setHoveredCard={setHoveredCard}
+//                   onIconMount={onIconMount}
+//                 />
+//               ))}
+//             </div>
+
+//             <div className="mt-32 pt-8 border-t border-white/10 flex justify-between text-white/20 font-mono text-xs">
+//               <span>GRADIENT AI/ML</span>
+//               <span>SECURE_DATA_NODE</span>
+//             </div>
+//           </div>
+//         </main>
+//       </PageTransition>
+//     </>
+//   );
+// };
+
+// export default TeamPage;
+
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowLeft, Github, Linkedin, Cpu, PenTool, Truck, Megaphone, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageTransition from '../components/ui/PageTransition';
+import NeuralNetworkBackground from "@/components/background/NeuralNetworkBackground";
 
 /* ---------------- DATA ---------------- */
-// Colors updated to: #8B5CFB (Primary), #3B82F6 (Secondary), #A855F7 (Tertiary)
+// Distinct colors applied to each domain. The canvas line will automatically interpolate these.
 const teamData = [
   {
     title: "Club Coordinators",
     sector: "SECTOR 01",
     icon: Users,
-    color: "#8B5CFB", // Primary
+    color: "#8B5CFB", // Deep Purple
     members: [
       { name: "S Sanjana", role: "", image: "https://gradient-content-server.vercel.app/content/core26/Sanjana.JPG", github: "https://github.com/SSanjana-17", linkedin: "https://www.linkedin.com/in/s-sanjana-816788292" },
       { name: "Divyam Jain", role: "OPERATIONS LEAD", image: "https://gradient-content-server.vercel.app/content/core26/Divyam.JPG", linkedin: "https://www.linkedin.com/in/divyamjainn" },
@@ -21,7 +419,7 @@ const teamData = [
     title: "Technical Heads",
     sector: "SECTOR 02",
     icon: Cpu,
-    color: "#3B82F6", // Secondary
+    color: "#00f0ff", // Cyber Cyan
     members: [
       { name: "Rahul", role: "ARCHITECT", image: "https://gradient-content-server.vercel.app/content/core26/Rahul.JPG", github: "https://github.com/RahulH007", linkedin: "https://www.linkedin.com/in/rahulhongekar" },
       { name: "Fasi Owaiz Ahmed", role: "FULL STACK", image: "https://gradient-content-server.vercel.app/content/core26/Fasi.JPG", github: "https://github.com/fasi-0p", linkedin: "https://linkedin.com/in/fasii" },
@@ -31,7 +429,7 @@ const teamData = [
     title: "Multimedia Heads",
     sector: "SECTOR 03",
     icon: PenTool,
-    color: "#A855F7", // Tertiary
+    color: "#ff00ff", // Fuchsia Pink
     members: [
       { name: "Shriyans", role: "VISUAL DIRECTOR", image: "https://gradient-content-server.vercel.app/content/core26/Shriyans.JPG", github: "https://github.com/MrPhantom2325", linkedin: "https://www.linkedin.com/in/shriyans-nayak-a38a02325" },
       { name: "Smaya", role: "UI/UX DESIGNER", image: "https://gradient-content-server.vercel.app/content/core26/Smaya.JPG", github: "https://github.com/smayamaben-01", linkedin: "https://www.linkedin.com/in/smaya-maben-a99580360" },
@@ -42,7 +440,7 @@ const teamData = [
     title: "Logistics Heads",
     sector: "SECTOR 04",
     icon: Truck,
-    color: "#8B5CFB", // Primary variant
+    color: "#FF9D00", // Neon Orange (As requested)
     members: [
       { name: "Channabasavanna", role: "RESOURCE MANAGER", image: "https://gradient-content-server.vercel.app/content/core26/Channabasavanna.JPG", linkedin: "https://www.linkedin.com/in/channabasavanna-mb-923aa92b7/" },
       { name: "Saachi", role: "DEPLOYMENT", image: "https://gradient-content-server.vercel.app/content/core26/Saachi.JPG" },
@@ -53,7 +451,7 @@ const teamData = [
     title: "Sponsorship & Marketing",
     sector: "SECTOR 05",
     icon: Megaphone,
-    color: "#3B82F6", // Secondary variant
+    color: "#00FF9D", // Emerald Green
     members: [
       { name: "Krish", role: "BRAND LEAD", image: "https://gradient-content-server.vercel.app/content/core26/Krish.JPG", github: "https://github.com/Krishparmar10", linkedin: "https://www.linkedin.com/in/krish-n-jain-992066311" },
       { name: "Suniksha", role: "OUTREACH", image: "https://gradient-content-server.vercel.app/content/core26/Suniskha.JPG" },
@@ -114,17 +512,18 @@ const TiltCard = ({ member, color, index, setHoveredCard, hoveredCard }) => {
       onMouseLeave={() => { setIsHovered(false); x.set(0); y.set(0); setHoveredCard(null); }}
       className={`relative h-[380px] w-full cursor-pointer transition-all duration-500 ${isDimmed ? "blur-[2px] opacity-40 scale-95" : "opacity-100 scale-100"}`}
     >
-      <div className="absolute inset-0 rounded-2xl bg-[#0F172A]/80 border border-white/10 backdrop-blur-xl overflow-hidden transition-all duration-300 group hover:border-opacity-100"
+      {/* Updated to Global Theme #0A0A0F */}
+      <div className="absolute inset-0 rounded-2xl bg-[#0A0A0F]/80 border border-white/10 backdrop-blur-xl overflow-hidden transition-all duration-300 group hover:border-opacity-100"
         style={{ borderColor: isDimmed ? "rgba(255,255,255,0.1)" : `${color}50` }}>
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{ background: `radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), ${color}15, transparent 40%)` }} />
         <motion.div className="absolute top-0 left-0 w-full h-[65%] overflow-hidden rounded-t-2xl border-b border-white/5"
           style={{ x: imageX, y: imageY, translateZ: "20px" }}>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent z-10 opacity-70" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F] via-transparent to-transparent z-10 opacity-70" />
           <img src={member.image} alt={member.name}
             className={`w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-110 ${isDimmed ? "grayscale brightness-75 saturate-0" : "grayscale-0 brightness-100"}`} />
         </motion.div>
-        <motion.div className="absolute bottom-0 left-0 w-full h-[35%] p-6 flex flex-col justify-between bg-gradient-to-t from-[#0F172A] to-[#0F172A]/90"
+        <motion.div className="absolute bottom-0 left-0 w-full h-[35%] p-6 flex flex-col justify-between bg-gradient-to-t from-[#0A0A0F] to-[#0A0A0F]/90"
           style={{ translateZ: "40px" }}>
           <h3 className="text-xl font-bold text-white mb-1 transition-all duration-300">
             <GlitchText text={member.name} isHovered={isHovered} />
@@ -283,6 +682,7 @@ const TeamPage = () => {
         ctx.bezierCurveTo(p.x, my, c.x, my, c.x, c.y);
         ctx.stroke();
 
+        // This draws the gradient transition between nodes
         const grad = ctx.createLinearGradient(p.x, p.y, c.x, c.y);
         grad.addColorStop(0, COLORS[i-1]);
         grad.addColorStop(1, COLORS[i]);
@@ -313,6 +713,8 @@ const TeamPage = () => {
       const mt = 1 - t;
       const dx = mt*mt*mt*p.x + 3*mt*mt*t*p.x + 3*mt*t*t*n.x + t*t*t*n.x;
       const dy = clipY;
+      
+      // This is where the glowing tracker ball shifts colors!
       const dc = lerpColor(COLORS[si], COLORS[Math.min(si+1, COLORS.length-1)], t);
 
       ctx.beginPath(); ctx.arc(dx, dy, 13, 0, Math.PI*2);
@@ -340,10 +742,23 @@ const TeamPage = () => {
       />
 
       <PageTransition>
-        <main className="min-h-screen bg-[#0F172A] text-white font-sans selection:bg-white/20 relative">
+        <main className="min-h-screen text-white font-sans selection:bg-white/20 relative">
+          
+          {/* Re-applied Global Theme #0A0A0F Elements */}
           <div className="fixed inset-0 pointer-events-none z-0">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:60px_60px]" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A] via-transparent to-[#0F172A] opacity-90" />
+            <NeuralNetworkBackground opacity={0.3} />
+            <div 
+              className="absolute inset-0 opacity-[0.02]"
+              style={{
+                backgroundImage: `
+                  linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+                `,
+                backgroundSize: '100px 100px'
+              }}
+            />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#3b82f6]/10 blur-[100px] rounded-full" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0F]/40 via-[#0A0A0F]/80 to-[#0A0A0F]" />
           </div>
 
           <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
@@ -356,12 +771,7 @@ const TeamPage = () => {
               <div>
                 <h1 className="text-7xl md:text-9xl font-black tracking-tighter text-white mb-2">THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CFB] to-[#3B82F6]">CORE26</span></h1>
               </div>
-              <div className="hidden md:block text-right pb-2">
-                <div className="flex items-center gap-2 text-white/60 font-mono text-xs">
-                  <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
-                  <span>SYSTEM_ONLINE</span>
-                </div>
-              </div>
+              
             </div>
 
             <div className="flex flex-col gap-24">
