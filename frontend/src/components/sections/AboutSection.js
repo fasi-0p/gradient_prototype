@@ -32,7 +32,7 @@ const AboutSection = () => {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1] mb-6"
             >
-              Who Are <span className="gradient-text">We?</span>
+              Who Are <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CFB] to-[#3B82F6]">We?</span>
             </motion.h2>
 
             <motion.p
