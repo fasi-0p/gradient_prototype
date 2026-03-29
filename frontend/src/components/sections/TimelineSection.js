@@ -182,12 +182,17 @@ const TimelineSection = () => {
 
   return (
     <div ref={sectionRef} data-testid="horizontal-whatwedo" className="bg-[#030014] text-white">
-      {/* Dynamic wrapper, allowing natural height flow strictly on mobile */}
-      <div ref={triggerRef} className="min-h-screen md:h-screen w-full relative overflow-hidden flex flex-col justify-center">
+      {/* FIXED WRAPPER: 
+        Changed justify-center to md:justify-center and justify-start on mobile.
+        Added explicit top and bottom padding on mobile (pt-32 pb-24) to ensure content breathes and doesn't get clipped.
+      */}
+      <div 
+        ref={triggerRef} 
+        className="w-full relative overflow-hidden flex flex-col justify-start md:justify-center min-h-screen md:h-screen pt-32 pb-24 md:pt-0 md:pb-0"
+      >
         
         {/* Background Layers */}
         <NeuralNetworkBackground opacity={0.3} />
-        {/* md:mix-blend-overlay cuts extensive computation stress out of constrained mobile bounds */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#7C3AED]/10 to-[#030014] opacity-80 md:mix-blend-overlay" />
         
         <div className="starfield absolute inset-0 w-[200vw] md:h-full opacity-10 pointer-events-none md:will-change-transform" 
@@ -199,13 +204,13 @@ const TimelineSection = () => {
         
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_10%,_#030014_90%)] z-20 pointer-events-none opacity-90" />
 
-        {/* Introduction Text (Seamless repositioning inside view hierarchy for Mobile context) */}
-        <div className="relative md:absolute md:top-20 md:left-24 z-30 pointer-events-none pt-24 px-6 md:pt-0 md:px-0 mb-10 md:mb-0">
+        {/* Introduction Text */}
+        <div className="relative md:absolute md:top-20 md:left-24 z-30 pointer-events-none px-6 mb-16 md:mb-0">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] uppercase tracking-widest mb-4">
             <span className="w-2 h-2 rounded-full bg-[#00f0ff] animate-pulse" />
             Our Initiatives
           </div>
-          <h2 className="font-heading font-bold text-3xl md:text-5xl tracking-tight leading-[1.1]">
+          <h2 className="font-heading font-bold text-4xl md:text-5xl tracking-tight leading-[1.1]">
             Building the future, <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00f0ff] via-[#ff00ff] to-[#3b00ff]">
               one event at a time.
@@ -213,13 +218,14 @@ const TimelineSection = () => {
           </h2>
         </div>
 
-        {/* Dynamic Track: Vertically stacking column for mobile -> Horizontal scroller explicitly mapped for desktop */}
+        {/* Dynamic Track */}
         <div 
           ref={trackRef} 
-          className="flex flex-col md:flex-row relative z-10 w-full md:h-[60vh] items-center md:will-change-transform md:mt-20 gap-16 md:gap-0 pb-24 md:pb-0"
+          // FIXED: Increased gap on mobile to gap-24 so the cards and parallax numbers don't overlap awkwardly
+          className="flex flex-col md:flex-row relative z-10 w-full md:h-[60vh] items-center md:will-change-transform gap-24 md:gap-0"
           style={isMobile ? { width: '100%'} : { width: `${pillars.length * 50 + 50}vw` }}
         >
-          {/* Track Lines - Hidded strictly from computation in Mobile DOM */}
+          {/* Track Lines (Desktop Only) */}
           <div className="hidden md:block absolute top-1/2 left-0 w-full h-[1px] bg-white/5 -z-10" />
           <div className="progress-line hidden md:block absolute top-1/2 left-0 w-full h-[2px] bg-gradient-to-r from-[#00f0ff] via-[#ff00ff] to-[#3b00ff] md:shadow-[0_0_20px_rgba(255,0,255,0.5)] -z-10 md:will-change-transform" />
 
@@ -229,9 +235,9 @@ const TimelineSection = () => {
             return (
               <div key={index} className="timeline-panel relative w-full px-6 md:px-12 md:w-[50vw] md:h-full flex items-center justify-center flex-shrink-0">
                 
-                {/* Parallax Number (Repositioned appropriately mapping to scale) */}
+                {/* Parallax Number (FIXED: Moved to top-left on mobile to sit above the card cleanly) */}
                 <div 
-                  className="parallax-number absolute top-4 md:top-1/4 left-10 text-[6rem] md:text-[16rem] font-bold text-white/5 select-none font-mono md:will-change-transform pointer-events-none z-0"
+                  className="parallax-number absolute -top-12 left-4 md:top-1/4 md:left-10 text-[8rem] md:text-[16rem] font-bold text-white/5 select-none font-mono md:will-change-transform pointer-events-none z-0 leading-none"
                   style={{ transform: 'translateZ(-50px)' }}
                 >
                   {item.id}
@@ -248,7 +254,7 @@ const TimelineSection = () => {
                     style={{ background: `linear-gradient(to bottom, transparent, ${item.color})` }}
                   />
 
-                  {/* Glassmorphism Card Optimized - Direct render BG solid hex over blur for smooth mobile repaint */}
+                  {/* Glassmorphism Card */}
                   <div 
                     className="relative p-6 md:p-12 backdrop-blur-none md:backdrop-blur-xl bg-[#0A0A0F] md:bg-[#0A0A0F]/60 border border-white/5 rounded-2xl overflow-hidden transition-all duration-500 hover:bg-[#12121a]/80 shadow-2xl md:shadow-none"
                     style={{ '--hover-border-color': item.color }}
@@ -256,7 +262,7 @@ const TimelineSection = () => {
                     onMouseLeave={(e) => { if (!isMobile) e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)' }}
                   >
                     
-                    {/* Glowing BG reduced constraints */}
+                    {/* Glowing BG */}
                     <div 
                       className="absolute -top-10 -right-10 w-24 h-24 md:w-32 md:h-32 rounded-full blur-[30px] md:blur-[60px] opacity-0 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none"
                       style={{ background: item.color }}
@@ -264,8 +270,6 @@ const TimelineSection = () => {
 
                     {/* Icon Header */}
                     <div className="flex items-center justify-between mb-6 md:mb-8 relative z-10">
-                      
-                      {/* ICON SIZING Responsive adjusted */}
                       <div
                         className="w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110"
                         style={{ 
@@ -276,7 +280,6 @@ const TimelineSection = () => {
                         <Icon className="w-7 h-7 md:w-8 md:h-8" style={{ color: item.color }} />
                       </div>
 
-                      {/* Category Pill */}
                       <span 
                         className="text-xs md:text-sm font-mono tracking-widest uppercase px-3 md:px-4 py-1.5 rounded-full border border-white/10"
                         style={{ color: item.color, backgroundColor: `${item.color}10` }}
