@@ -238,7 +238,7 @@ const EventsPage = () => {
                 </Link>
               </motion.div>
 
-              <div className="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-white/10 pb-8">
+              <div className="flex flex-col items-center text-center mb-6 border-b border-white/10 pb-6">
                 <div>
                   <motion.span
                     initial={{ opacity: 0, y: 20 }}
@@ -267,25 +267,15 @@ const EventsPage = () => {
                     </span>
                   </motion.h1>
                 </div>
-                <div className="hidden md:block text-right pb-2">
-                  <div 
-                    className="flex items-center gap-2 text-white/60 text-xs"
-                    style={{ fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace' }}
-                  >
-                    <span className="w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
-                    <span>EVENTS_ONLINE</span>
-                  </div>
-                </div>
               </div>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.2 }}
-                className="text-white/60 text-lg max-w-2xl"
+                className="text-white/60 text-lg max-w-3xl mx-auto text-center mt-4"
               >
-                Explore our dynamic collection of workshops, hackathons, and technical showcases 
-                that define Gradient's commitment to innovation.
+                Explore our dynamic collection of workshops, hackathons, and technical showcases that define Gradient's commitment to innovation.
               </motion.p>
             </div>
           </section>

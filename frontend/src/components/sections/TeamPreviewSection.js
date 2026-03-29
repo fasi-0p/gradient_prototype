@@ -91,14 +91,6 @@ const TeamPreviewSection = () => {
 
             {/* Avatars */}
             <div className="mt-12 flex items-center gap-4">
-              <div className="flex -space-x-3">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8B5CFB] to-[#3B82F6] border-2 border-[#030014]"
-                  />
-                ))}
-              </div>
               <span className="text-white/40 font-mono text-sm">300+ Community Members</span>
             </div>
           </div>

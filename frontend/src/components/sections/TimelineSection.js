@@ -198,12 +198,14 @@ const TimelineSection = () => {
         {/* Introduction Text */}
         <div className="relative md:absolute md:top-20 md:left-24 z-30 pointer-events-none px-6 mb-12 md:mb-0">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#00f0ff] uppercase tracking-widest mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#00f0ff] animate-pulse" />
             Our Initiatives
           </div>
           <h2 className="font-heading font-bold text-4xl md:text-5xl tracking-tight leading-[1.1]">
             Building the future, <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00f0ff] via-[#ff00ff] to-[#3b00ff]">
+            {/* <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00f0ff] via-[#ff00ff] to-[#3b00ff]">
+              one event at a time.
+            </span> */}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CFB] to-[#3B82F6]">
               one event at a time.
             </span>
           </h2>

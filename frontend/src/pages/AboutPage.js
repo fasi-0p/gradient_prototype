@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowLeft, Calendar, MapPin, Award, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -44,26 +44,51 @@ const milestones = [
   }
 ];
 
+/* --- Sleek Animated Number Component --- */
+const AnimatedNumber = ({ value }) => {
+  const [display, setDisplay] = useState(0);
+  const target = parseInt(value.replace(/[^0-9]/g, ''));
+  const suffix = value.replace(/[0-9]/g, '');
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start;
+    const duration = 2000;
+    
+    const tick = (now) => {
+      if (!start) start = now;
+      const progress = Math.min((now - start) / duration, 1);
+      // Smooth easeOutQuart curve
+      const ease = 1 - Math.pow(1 - progress, 4); 
+      setDisplay(Math.floor(ease * target));
+      
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [isInView, target]);
+
+  return <span ref={ref}>{display}{suffix}</span>;
+};
+
 const AboutPage = () => {
   const heroRef = useRef(null);
   const isHeroInView = useInView(heroRef, { once: true });
 
-  // Reusable Tailwind classes for the exact gradient you requested
   const gradientTextClasses = "text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CFB] to-[#3B82F6]";
 
   return (
     <PageTransition variant="slideUp">
       <main
         data-testid="about-page"
-        className="pt-20 md:pt-0" // Removed the hardcoded bg-[#0F172A] to match EventsPage
+        className="pt-20 md:pt-0"
       >
         {/* Hero */}
         <section ref={heroRef} className="min-h-screen flex items-center relative overflow-hidden px-6 md:px-12 lg:px-24 py-24">
-          {/* Background Gradient matched to EventsPage (#7C3AED) */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#7C3AED]/5 via-transparent to-transparent" />
           
           <div className="max-w-7xl mx-auto relative z-10 w-full">
-            {/* Back link */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={isHeroInView ? { opacity: 1, x: 0 } : {}}
@@ -97,7 +122,7 @@ const AboutPage = () => {
                   transition={{ duration: 0.8, delay: 0.1 }}
                   className="text-7xl md:text-8xl font-black tracking-tighter text-white mb-6 mt-4 uppercase"
                 >
-                  WHO <span className={gradientTextClasses}>WE ARE</span>
+                  <h1>WHO <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CFB] to-[#3B82F6]">WE ARE</span></h1>
                 </motion.h1>
 
                 <motion.p
@@ -124,7 +149,6 @@ const AboutPage = () => {
                 </motion.p>
               </div>
 
-              {/* Image Container */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={isHeroInView ? { opacity: 1, scale: 1 } : {}}
@@ -136,34 +160,43 @@ const AboutPage = () => {
                   alt="Gradient Team"
                   className="w-full h-full object-cover"
                 />
-                {/* Updated gradient fade from hardcoded color to standard dark background #0A0A0F */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F] via-transparent to-transparent opacity-80" />
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* Stats */}
-        <section className="py-24 px-6 md:px-12 lg:px-24">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Upgraded Premium Stats Section */}
+        <section className="py-24 px-6 md:px-12 lg:px-24 relative">
+          <div className="max-w-5xl mx-auto relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
               {achievements.map((stat, index) => (
                 <motion.div
                   key={stat.label}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center p-6 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm"
+                  transition={{ duration: 0.8, delay: index * 0.15 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  className="flex flex-col items-center text-center relative group"
                   data-testid={`about-stat-${index}`}
                 >
-                  <stat.icon className="w-8 h-8 mx-auto mb-4 text-[#3B82F6]" />
-                  <div 
-                    className={`font-black text-4xl tracking-tighter mb-2 ${gradientTextClasses}`}
-                  >
-                    {stat.value}
+                  {/* Subtle vertical divider between stats on Desktop */}
+                  {index !== 0 && (
+                    <div className="hidden md:block absolute -left-4 top-1/2 -translate-y-1/2 w-[1px] h-24 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
+                  )}
+
+                  <div className="relative mb-6">
+                    <div className="absolute inset-0 bg-[#3B82F6] blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 rounded-full" />
+                    <stat.icon className="w-10 h-10 text-[#3B82F6] relative z-10" />
                   </div>
-                  <p className="text-white/50 text-sm uppercase tracking-wider">{stat.label}</p>
+                  
+                  <div className={`font-black text-6xl md:text-7xl tracking-tighter mb-4 ${gradientTextClasses}`}>
+                    <AnimatedNumber value={stat.value} />
+                  </div>
+                  
+                  <p className="text-white/40 font-mono text-sm uppercase tracking-widest">
+                    {stat.label}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -222,7 +255,6 @@ const AboutPage = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    {/* Updated gradient fade from hardcoded color to standard dark background #0A0A0F */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F]/80 via-transparent to-transparent" />
                   </div>
                 </motion.div>

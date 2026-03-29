@@ -28,7 +28,7 @@ const SpaceTravelSection = () => {
       tl.fromTo(".ring-outer", { z: 1000, opacity: 0 }, { z: 0, opacity: 1, duration: 5, ease: "power2.out" })
         .fromTo(".ring-mid", { z: 2000, opacity: 0, rotation: 180 }, { z: 0, opacity: 1, rotation: 0, duration: 5, ease: "power2.out" }, "<0.2")
         .fromTo(".ring-inner", { z: 500, opacity: 0 }, { z: 0, opacity: 1, duration: 5, ease: "power2.out" }, "<0.2")
-        .to(".hud.status", { opacity: 1, textContent: "SYSTEM ONLINE", duration: 1 }, "-=1");
+        .to(".hud.status", { opacity: 1, textContent: "", duration: 1 }, "-=1");
 
       // ----------------------------------------------------
       // PHASE 2: CHARGE & LOCK (20% - 50%)
