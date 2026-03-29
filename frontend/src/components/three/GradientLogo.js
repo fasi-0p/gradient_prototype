@@ -31,7 +31,7 @@ const GradientLogo = () => {
 
     // --- SCENE ---
     scene = new THREE.Scene();
-    // 1. REMOVED the hardcoded background color so the Tailwind CSS background shows through!
+    // Leaving background undefined so it remains completely transparent
 
     // --- CAMERA ---
     camera = new THREE.PerspectiveCamera(
@@ -46,7 +46,7 @@ const GradientLogo = () => {
 
     // --- RENDERER ---
     renderer = new THREE.WebGLRenderer({
-      alpha: true, // 2. CRITICAL: Allows the canvas to be transparent
+      alpha: true, // Allows the canvas to be transparent
       antialias: !isMobile,
       powerPreference: 'high-performance',
     });
@@ -57,7 +57,6 @@ const GradientLogo = () => {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.6;
     
-    // We keep shadowmaps enabled globally, but disable them on the mesh to fix the waves
     renderer.shadowMap.enabled = !isMobile;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
@@ -137,7 +136,7 @@ const GradientLogo = () => {
           envMapIntensity: 1.5,
         });
         
-        // 3. CRITICAL FIX: Disabled Shadows on the mesh to prevent the "Wave" Striping (Shadow Acne)
+        // Disabled Shadows on the mesh to prevent the "Wave" Striping (Shadow Acne)
         child.castShadow    = false; 
         child.receiveShadow = false; 
       });
@@ -154,7 +153,7 @@ const GradientLogo = () => {
       const maxDim = Math.max(size.x, size.y, size.z);
 
       // now apply base scale
-      const baseScale = 6.0 / maxDim;
+      const baseScale = (isMobile ? 6.0 : 8.0) / maxDim;
 
       model.scale.set( 
         baseScale, //length
@@ -176,7 +175,6 @@ const GradientLogo = () => {
 
     // --- INPUT: MOUSE + TOUCH ---
     const canvas = renderer.domElement;
-    // Handled purely via CSS now for better consistency
 
     const onMouseDown = (e) => {
       isDragging = true;
@@ -191,7 +189,7 @@ const GradientLogo = () => {
       const deltaX = e.clientX - prevX;
       const deltaY = e.clientY - prevY;
 
-      // 4. SWIPE FIX: Changed deltaX from positive to negative multiplier (-0.006)
+      // Inverted direction multiplier
       targetSpeed = deltaX * -0.006; 
       targetTiltX += deltaY * 0.01;
       targetTiltX = THREE.MathUtils.clamp(targetTiltX, -maxTiltX, maxTiltX);
@@ -220,7 +218,7 @@ const GradientLogo = () => {
       const deltaX = e.touches[0].clientX - prevX;
       const deltaY = e.touches[0].clientY - prevY;
 
-      // 4. SWIPE FIX: Changed deltaX from positive to negative multiplier (-0.006)
+      // Inverted direction multiplier
       targetSpeed = deltaX * -0.006;
       targetTiltX += deltaY * 0.01;
       targetTiltX = THREE.MathUtils.clamp(targetTiltX, -maxTiltX, maxTiltX);
@@ -326,20 +324,11 @@ const GradientLogo = () => {
   }, []);
 
   return (
-    /* The Framer Purple Background Wrapper */
-    <div className="relative w-full max-w-[500px] aspect-square rounded-[2rem] mx-auto overflow-hidden bg-gradient-to-br from-[#4c1d68] via-[#2c1358] to-[#0a0a1a] shadow-[0_0_50px_rgba(91,33,182,0.3)] cursor-grab active:cursor-grabbing">
-      
-      {/* Concentric Rings Details */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
-        <div className="absolute w-[35%] h-[35%] rounded-full border border-[#ec4899]" />
-        <div className="absolute w-[60%] h-[60%] rounded-full border border-[#c084fc]" />
-        <div className="absolute w-[85%] h-[85%] rounded-full border border-[#3b82f6]" />
-      </div>
-
-      {/* The 3D Canvas Mount Point */}
-      <div ref={mountRef} className="absolute inset-0 w-full h-full" />
-      
-    </div>
+    <div 
+      ref={mountRef} 
+      className="w-full h-full cursor-grab active:cursor-grabbing" 
+      style={{ minHeight: "400px" }} 
+    />
   );
 };
 

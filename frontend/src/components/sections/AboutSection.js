@@ -69,53 +69,22 @@ const AboutSection = () => {
             </motion.div>
           </div>
 
-          {/* Visual */}
+          {/* Visual - Frame Removed, purely floating logo */}
           <motion.div
             ref={visualRef}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative mx-auto aspect-square rounded-3xl overflow-hidden glass gradient-border"
-            style={{ width: '420px', height: '420px', maxWidth: '100%' }}
+            className="relative mx-auto flex items-center justify-center"
+            style={{ width: '100%', height: '500px', maxWidth: '500px' }}
           >
-            {/* Glass/gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#ff00ff]/10 to-[#3b00ff]/10" />
-            
-            {/* Animated Circles */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <motion.div
-                animate={{
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 180, 360]
-                }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="w-48 h-48 rounded-full border border-[#ff00ff]/30"
-              />
-              <motion.div
-                animate={{
-                  scale: [1.2, 1, 1.2],
-                  rotate: [360, 180, 0]
-                }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                className="absolute w-64 h-64 rounded-full border border-[#3b00ff]/20"
-              />
-              <motion.div
-                animate={{
-                  scale: [1, 1.1, 1],
-                  rotate: [0, -180, -360]
-                }}
-                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                className="absolute w-80 h-80 rounded-full border border-[#00f0ff]/10"
-              />
-            </div>
-
             {/* Center logo mark (Three.js) */}
-            <div className="relative z-10 flex items-center justify-center w-full h-full">
+            <div className="relative z-10 w-full h-full">
               <GradientLogo />
             </div>
 
-            <div className="absolute -inset-4 bg-gradient-to-r from-[#ff00ff]/20 to-[#3b00ff]/20 rounded-3xl blur-3xl -z-10 pointer-events-none" />
-
+            {/* Subtle ambient glow behind the free-floating logo */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#ff00ff]/10 to-[#3b00ff]/10 rounded-full blur-[100px] -z-10 pointer-events-none" />
           </motion.div>
 
         </div>
