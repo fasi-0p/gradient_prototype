@@ -49,23 +49,19 @@ const AboutPage = () => {
   const heroRef = useRef(null);
   const isHeroInView = useInView(heroRef, { once: true });
 
-  // CSS for the gradient text based on your palette
-  const gradientTextStyle = {
-    background: 'linear-gradient(to right, #8B5CFB, #3B82F6, #A855F7)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  };
+  // Reusable Tailwind classes for the exact gradient you requested
+  const gradientTextClasses = "text-transparent bg-clip-text bg-gradient-to-r from-[#8B5CFB] to-[#3B82F6]";
 
   return (
     <PageTransition variant="slideUp">
       <main
         data-testid="about-page"
-        className="pt-20 md:pt-0 bg-[#0F172A] text-white"
+        className="pt-20 md:pt-0" // Removed the hardcoded bg-[#0F172A] to match EventsPage
       >
         {/* Hero */}
         <section ref={heroRef} className="min-h-screen flex items-center relative overflow-hidden px-6 md:px-12 lg:px-24 py-24">
-          {/* Background Gradient using #8B5CFB (Primary) */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#8B5CFB]/10 via-transparent to-transparent" />
+          {/* Background Gradient matched to EventsPage (#7C3AED) */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#7C3AED]/5 via-transparent to-transparent" />
           
           <div className="max-w-7xl mx-auto relative z-10 w-full">
             {/* Back link */}
@@ -78,10 +74,10 @@ const AboutPage = () => {
               <Link
                 to="/"
                 data-testid="back-home"
-                className="inline-flex items-center gap-2 text-white/40 hover:text-[#3B82F6] transition-colors font-mono text-sm"
+                className="inline-flex items-center gap-2 text-white/40 hover:text-[#3B82F6] transition-colors font-mono text-sm uppercase tracking-widest"
               >
                 <ArrowLeft className="w-4 h-4" />
-                Back to Home
+                Return to Base
               </Link>
             </motion.div>
 
@@ -91,7 +87,7 @@ const AboutPage = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6 }}
-                  className="font-mono text-xs uppercase tracking-[0.2em] text-[#8B5CFB]"
+                  className="font-mono text-xs uppercase tracking-[0.2em] text-[#7C3AED]"
                 >
                   About Gradient
                 </motion.span>
@@ -100,9 +96,9 @@ const AboutPage = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.1 }}
-                  className="font-heading font-black text-5xl md:text-6xl lg:text-7xl tracking-tighter leading-[0.9] mt-4 mb-6"
+                  className="text-7xl md:text-8xl font-black tracking-tighter text-white mb-6 mt-4 uppercase"
                 >
-                  <span style={gradientTextStyle}>Who</span> We Are
+                  WHO <span className={gradientTextClasses}>WE ARE</span>
                 </motion.h1>
 
                 <motion.p
@@ -129,7 +125,7 @@ const AboutPage = () => {
                 </motion.p>
               </div>
 
-              {/* Image Container with Tertiary Shadow */}
+              {/* Image Container */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={isHeroInView ? { opacity: 1, scale: 1 } : {}}
@@ -141,7 +137,8 @@ const AboutPage = () => {
                   alt="Gradient Team"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent" />
+                {/* Updated gradient fade from hardcoded color to standard dark background #0A0A0F */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F] via-transparent to-transparent opacity-80" />
               </motion.div>
             </div>
           </div>
@@ -163,8 +160,7 @@ const AboutPage = () => {
                 >
                   <stat.icon className="w-8 h-8 mx-auto mb-4 text-[#3B82F6]" />
                   <div 
-                    className="font-heading font-bold text-4xl mb-2"
-                    style={gradientTextStyle}
+                    className={`font-black text-4xl tracking-tighter mb-2 ${gradientTextClasses}`}
                   >
                     {stat.value}
                   </div>
@@ -188,9 +184,9 @@ const AboutPage = () => {
               <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#A855F7]">
                 Our Journey
               </span>
-              <h2 className="font-heading font-bold text-4xl md:text-5xl tracking-tight mt-4">
-                From <span style={gradientTextStyle}>Roots</span> to{' '}
-                <span style={gradientTextStyle}>Stars</span>
+              <h2 className="font-black text-4xl md:text-6xl tracking-tighter mt-4 uppercase">
+                FROM <span className={gradientTextClasses}>ROOTS</span> TO{' '}
+                <span className={gradientTextClasses}>STARS</span>
               </h2>
             </motion.div>
 
@@ -209,12 +205,11 @@ const AboutPage = () => {
                 >
                   <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
                     <div 
-                      className="font-heading font-black text-6xl md:text-8xl opacity-30 mb-4"
-                      style={gradientTextStyle}
+                      className={`font-black text-6xl md:text-8xl opacity-30 mb-4 ${gradientTextClasses}`}
                     >
                       {milestone.year}
                     </div>
-                    <h3 className="font-heading font-bold text-2xl md:text-3xl mb-4 text-white">
+                    <h3 className="font-black text-2xl md:text-4xl tracking-tighter mb-4 text-white uppercase">
                       {milestone.title}
                     </h3>
                     <p className="text-white/60 text-lg leading-relaxed">
@@ -228,7 +223,8 @@ const AboutPage = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/80 via-transparent to-transparent" />
+                    {/* Updated gradient fade from hardcoded color to standard dark background #0A0A0F */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F]/80 via-transparent to-transparent" />
                   </div>
                 </motion.div>
               ))}
