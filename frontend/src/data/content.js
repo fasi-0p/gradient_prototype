@@ -12,10 +12,9 @@ export const siteConfig = {
 };
 
 export const stats = [
-  { value: "43+", label: "Events Conducted", suffix: "" },
-  { value: "3300+", label: "Participants", suffix: "" },
+  { value: "60+", label: "Events Conducted", suffix: "" },
+  { value: "3750+", label: "Participants", suffix: "" },
   { value: "300+", label: "Community Members", suffix: "" },
-  { value: "5.3L+", label: "Sponsorship Raised", prefix: "₹" }
 ];
 
 export const pillars = [

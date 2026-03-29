@@ -1,10 +1,15 @@
 import React, { useRef, useEffect, useState } from 'react'; 
 import { motion, useInView } from 'framer-motion';
-import { stats } from '../../data/content';
 import NeuralNetworkBackground from "../background/NeuralNetworkBackground";
 
-/* Animated counter */
+// The stats array as you provided
+export const stats = [
+  { value: "60+", label: "Events Conducted", suffix: "" },
+  { value: "3750+", label: "Participants", suffix: "" },
+  { value: "300+", label: "Community Members", suffix: "" },
+];
 
+/* Animated counter */
 const AnimatedCounter = ({ value, prefix = '', suffix = '', isInView }) => {
   const [displayValue, setDisplayValue] = useState(0);
   const numericValue = parseInt(value.replace(/[^0-9]/g, ''));
@@ -48,7 +53,7 @@ const StatCard = ({ stat, index, isInView }) => {
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: 0.15 * index }}
-      className="relative group"
+      className="relative group w-full"
       data-testid={`stat-${index}`}
     >
       <div className="text-center p-8">
@@ -133,7 +138,8 @@ const StatsSection = () => {
           Our <span style={{ color: '#3b82f6' }}>Achievements</span>
         </motion.h2>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+        {/* FIXED: Changed to grid-cols-1 for mobile, md:grid-cols-3 for desktop. Added max-w-5xl mx-auto to perfectly center the block. */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center justify-center">
           {stats.map((stat, index) => (
             <StatCard 
               key={stat.label} 
