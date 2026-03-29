@@ -20,7 +20,8 @@ const TeamPreviewSection = () => {
   return (
     <section
       ref={ref}
-      className="relative py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
+      // FIXED: Added min-h-screen and flex items-center to force full-screen height on desktop
+      className="relative min-h-screen flex items-center py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
     >
       {/* Shared Neural Background */}
       <NeuralNetworkBackground opacity={0.3} />
@@ -43,7 +44,7 @@ const TeamPreviewSection = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           
           {/* Left Side Text Content */}
@@ -100,16 +101,15 @@ const TeamPreviewSection = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative w-full max-w-md mx-auto lg:ml-auto"
+            className="relative w-full max-w-xl mx-auto lg:ml-auto" 
           >
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl shadow-[#3B82F6]/10 border border-white/5">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-[#3B82F6]/10 border border-white/5">
               <img 
                 src={teamImage} 
                 alt="Gradient Team" 
-                className="w-full h-full object-cover" 
+                className="w-full h-auto block" 
               />
-              {/* Fade out the bottom of the image into the background */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent opacity-80" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030014] via-[#030014]/10 to-transparent opacity-90 pointer-events-none" />
             </div>
           </motion.div>
 
