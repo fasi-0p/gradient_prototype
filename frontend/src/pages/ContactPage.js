@@ -4,6 +4,7 @@ import { ArrowLeft, Instagram, Linkedin, Twitter, Mail, MapPin, ExternalLink } f
 import { Link } from 'react-router-dom';
 import { siteConfig } from '../data/content';
 import PageTransition from '../components/ui/PageTransition';
+import NeuralNetworkBackground from "@/components/background/NeuralNetworkBackground";
 
 const socialLinks = [
   { 
@@ -37,15 +38,46 @@ const ContactPage = () => {
         data-testid="contact-page"
         className="min-h-screen relative pt-20 md:pt-0"
         style={{ 
-          backgroundColor: '#0F172A', 
+          backgroundColor: '#0A0A0F', 
           color: '#ffffff',
           fontFamily: SYS_FONT
         }}
       >
-        {/* Abstract grids representing the Core Theme */}
+        {/* ── BACKGROUND (TeamPage style) ── */}
         <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:60px_60px]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A] via-transparent to-[#0F172A] opacity-90" />
+          <NeuralNetworkBackground opacity={0.3} />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              opacity: 0.02,
+              backgroundImage: `
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: "100px 100px",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: 800,
+              height: 400,
+              background: "rgba(59,130,246,0.10)",
+              filter: "blur(100px)",
+              borderRadius: "50%",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(to bottom, rgba(10,10,15,0.4), rgba(10,10,15,0.8), #0A0A0F)",
+            }}
+          />
         </div>
 
         <div className="relative z-10 w-full">
@@ -220,7 +252,7 @@ const ContactPage = () => {
                 </div>
               </div>
               
-              {/* Bottom footer style matching EventsPage */}
+              {/* Bottom footer */}
               <div 
                 className="mt-24 pt-8 border-t border-white/10 flex justify-between text-white/20 text-xs"
                 style={{ fontFamily: MONO_FONT }}

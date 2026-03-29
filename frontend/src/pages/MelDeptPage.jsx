@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
 import PageTransition from "../components/ui/PageTransition";
-import { 
-  BookOpen, 
-  Users, 
-  GraduationCap, 
-  Trophy, 
-  BrainCircuit, 
-  ScanEye, 
+import NeuralNetworkBackground from "@/components/background/NeuralNetworkBackground";
+import {
+  BookOpen,
+  Users,
+  GraduationCap,
+  Trophy,
+  BrainCircuit,
+  ScanEye,
   MessageSquareCode
 } from "lucide-react";
 
@@ -14,77 +15,71 @@ import {
 const SYS_FONT = 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
 
 const S = {
-  // Syncing with EventsPage #0F172A theme
-  page: { background:"#0F172A", color:"#fff", fontFamily: SYS_FONT, overflowX:"hidden", width:"100%", minHeight:"100vh", position:"relative" },
-  canvas: { position:"fixed", inset:0, zIndex:0, pointerEvents:"none" },
-  
-  // Aligning grid and overlays strictly to EventsPage specs
-  grid: { position:"fixed", inset:0, zIndex:0, pointerEvents:"none", backgroundImage:"linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px)", backgroundSize:"60px 60px" },
-  gridOverlay: { position:"fixed", inset:0, zIndex:0, pointerEvents:"none", background:"linear-gradient(to bottom, #0F172A, transparent, #0F172A)", opacity: 0.9 },
-  
-  cursorGlow: { position:"fixed", width:400, height:400, borderRadius:"50%", background:"radial-gradient(circle,rgba(255,0,255,0.06) 0%,transparent 70%)", pointerEvents:"none", zIndex:0, transform:"translate(-50%,-50%)", transition:"left 0.3s ease,top 0.3s ease" },
-  z1: { position:"relative", zIndex:1 },
+  // Updated to Global Theme #0A0A0F
+  page: { background: "#0A0A0F", color: "#fff", fontFamily: SYS_FONT, overflowX: "hidden", width: "100%", minHeight: "100vh", position: "relative" },
+
+  z1: { position: "relative", zIndex: 1 },
 
   // hero
-  hero: { minHeight:"100vh", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", textAlign:"center", padding:"120px clamp(1.5rem,6vw,6rem) 80px", position:"relative", overflow:"hidden" },
-  heroOverlay: { position:"absolute", inset:0, zIndex:0, pointerEvents:"none", background:"linear-gradient(to bottom, rgba(59, 130, 246, 0.05), transparent)" },
-  orb: (s) => ({ position:"absolute", borderRadius:"50%", filter:"blur(80px)", pointerEvents:"none", ...s }),
-  heroTitle: { fontFamily: SYS_FONT, fontSize:"clamp(2.8rem,7vw,6rem)", fontWeight:700, lineHeight:1, letterSpacing:"-0.03em", marginBottom:"1.5rem", position:"relative", zIndex:1 },
-  heroSub: { maxWidth:620, color:"rgba(255,255,255,0.55)", fontSize:"clamp(1rem,2vw,1.2rem)", fontWeight:300, margin:"0 auto 2.5rem", position:"relative", zIndex:1 },
-  heroScroll: { position:"absolute", bottom:"2rem", left:"50%", transform:"translateX(-50%)", display:"flex", flexDirection:"column", alignItems:"center", gap:"0.5rem", color:"rgba(255,255,255,0.3)", fontSize:"0.7rem", letterSpacing:"0.15em", textTransform:"uppercase" },
-  scrollLine: { width:1, height:50, background:"linear-gradient(to bottom,rgba(0,240,255,0.6),transparent)" },
+  hero: { minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "120px clamp(1.5rem,6vw,6rem) 80px", position: "relative", overflow: "hidden" },
+  heroOverlay: { position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", background: "linear-gradient(to bottom, rgba(59, 130, 246, 0.05), transparent)" },
+  orb: (s) => ({ position: "absolute", borderRadius: "50%", filter: "blur(80px)", pointerEvents: "none", ...s }),
+  heroTitle: { fontFamily: SYS_FONT, fontSize: "clamp(2.8rem,7vw,6rem)", fontWeight: 700, lineHeight: 1, letterSpacing: "-0.03em", marginBottom: "1.5rem", position: "relative", zIndex: 1 },
+  heroSub: { maxWidth: 620, color: "rgba(255,255,255,0.55)", fontSize: "clamp(1rem,2vw,1.2rem)", fontWeight: 300, margin: "0 auto 2.5rem", position: "relative", zIndex: 1 },
+  heroScroll: { position: "absolute", bottom: "2rem", left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem", color: "rgba(255,255,255,0.3)", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase" },
+  scrollLine: { width: 1, height: 50, background: "linear-gradient(to bottom,rgba(0,240,255,0.6),transparent)" },
 
   // section
-  section: (extra) => ({ padding:"clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,6rem)", position:"relative", zIndex:1, ...extra }),
-  sectionLabel: { display:"inline-flex", alignItems:"center", gap:"0.75rem", fontSize:"1rem", fontWeight:600, letterSpacing:"0.2em", textTransform:"uppercase", color:"#00f0ff", marginBottom:"1rem" },
-  sectionTitle: { fontFamily: SYS_FONT, fontSize:"clamp(2rem,4vw,3rem)", fontWeight:700, letterSpacing:"-0.01em", lineHeight:1.3, marginBottom:"1rem" },
-  sectionSub: { color:"rgba(255,255,255,0.5)", fontSize:"1rem", maxWidth:500, fontWeight:300 },
-  sectionHeader: (extra) => ({ marginBottom:"4rem", ...extra }),
-  gradText: { background:"linear-gradient(135deg,#ff00ff,#00f0ff)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" },
-  divider: { height:1, background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent)", margin:"0 clamp(1.5rem,6vw,6rem)", position:"relative", zIndex:1 },
+  section: (extra) => ({ padding: "clamp(5rem,10vh,8rem) clamp(1.5rem,6vw,6rem)", position: "relative", zIndex: 1, ...extra }),
+  sectionLabel: { display: "inline-flex", alignItems: "center", gap: "0.75rem", fontSize: "1rem", fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", color: "#00f0ff", marginBottom: "1rem" },
+  sectionTitle: { fontFamily: SYS_FONT, fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.3, marginBottom: "1rem" },
+  sectionSub: { color: "rgba(255,255,255,0.5)", fontSize: "1rem", maxWidth: 500, fontWeight: 300 },
+  sectionHeader: (extra) => ({ marginBottom: "4rem", ...extra }),
+  gradText: { background: "linear-gradient(135deg,#ff00ff,#00f0ff)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
+  divider: { height: 1, background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent)", margin: "0 clamp(1.5rem,6vw,6rem)", position: "relative", zIndex: 1 },
 
   // glass
-  glass: (extra) => ({ background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:16, backdropFilter:"blur(12px)", WebkitBackdropFilter:"blur(12px)", position:"relative", overflow:"hidden", transition:"border-color 0.3s,transform 0.3s,box-shadow 0.3s", ...extra }),
+  glass: (extra) => ({ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", position: "relative", overflow: "hidden", transition: "border-color 0.3s,transform 0.3s,box-shadow 0.3s", ...extra }),
 
   // stats
-  statsGrid: { display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))", gap:"1.5rem" },
-  statCard: { padding:"2rem 1.5rem", textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center" },
-  statNum: (g) => ({ fontFamily: SYS_FONT, fontSize:"2.8rem", fontWeight:800, letterSpacing:"-0.04em", lineHeight:1, marginBottom:"0.4rem", background:g, WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }),
-  statLabel: { fontSize:"0.85rem", color:"rgba(255,255,255,0.45)", letterSpacing:"0.05em" },
+  statsGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))", gap: "1.5rem" },
+  statCard: { padding: "2rem 1.5rem", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" },
+  statNum: (g) => ({ fontFamily: SYS_FONT, fontSize: "2.8rem", fontWeight: 800, letterSpacing: "-0.04em", lineHeight: 1, marginBottom: "0.4rem", background: g, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }),
+  statLabel: { fontSize: "0.85rem", color: "rgba(255,255,255,0.45)", letterSpacing: "0.05em" },
 
   // achievement
-  achievementCard: { maxWidth:900, margin:"0 auto", padding:"3rem 3.5rem", textAlign:"center", borderRadius:24, background:"rgba(255,0,255,0.04)", border:"1px solid rgba(255,0,255,0.2)", position:"relative", overflow:"hidden" },
-  trophyIcon: { width:800, height:400, objectFit:"cover", borderRadius:20, display:"block", margin:"0 auto 1.75rem auto", border:"1px solid rgba(255,255,255,0.12)", boxShadow:"0 0 40px rgba(255,0,255,0.15),0 8px 32px rgba(0,0,0,0.4)", maxWidth:"100%" },
-  achieveLabel: { display:"inline-block", padding:"0.3rem 1rem", background:"linear-gradient(135deg,rgba(255,0,255,0.2),rgba(59,0,255,0.2))", border:"1px solid rgba(255,0,255,0.3)", borderRadius:100, fontSize:"0.75rem", letterSpacing:"0.15em", textTransform:"uppercase", color:"#ff00ff", marginBottom:"1.5rem" },
-  achieveTitle: { fontFamily: SYS_FONT, fontSize:"clamp(1.8rem,4vw,2.8rem)", fontWeight:700, marginBottom:"0.5rem", background:"linear-gradient(135deg,#ffd700,#ff8c00,#ff00ff)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" },
-  achieveSub: { fontSize:"1.1rem", color:"rgba(255,255,255,0.6)", marginBottom:"1.5rem", fontWeight:300 },
-  achieveDesc: { fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", maxWidth:600, margin:"0 auto 2rem", lineHeight:1.7 },
-  achieveTags: { display:"flex", flexWrap:"wrap", gap:"0.75rem", justifyContent:"center", marginTop:"2rem" },
+  achievementCard: { maxWidth: 900, margin: "0 auto", padding: "3rem 3.5rem", textAlign: "center", borderRadius: 24, background: "rgba(255,0,255,0.04)", border: "1px solid rgba(255,0,255,0.2)", position: "relative", overflow: "hidden" },
+  trophyIcon: { width: 800, height: 400, objectFit: "cover", borderRadius: 20, display: "block", margin: "0 auto 1.75rem auto", border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 0 40px rgba(255,0,255,0.15),0 8px 32px rgba(0,0,0,0.4)", maxWidth: "100%" },
+  achieveLabel: { display: "inline-block", padding: "0.3rem 1rem", background: "linear-gradient(135deg,rgba(255,0,255,0.2),rgba(59,0,255,0.2))", border: "1px solid rgba(255,0,255,0.3)", borderRadius: 100, fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#ff00ff", marginBottom: "1.5rem" },
+  achieveTitle: { fontFamily: SYS_FONT, fontSize: "clamp(1.8rem,4vw,2.8rem)", fontWeight: 700, marginBottom: "0.5rem", background: "linear-gradient(135deg,#ffd700,#ff8c00,#ff00ff)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
+  achieveSub: { fontSize: "1.1rem", color: "rgba(255,255,255,0.6)", marginBottom: "1.5rem", fontWeight: 300 },
+  achieveDesc: { fontSize: "0.95rem", color: "rgba(255,255,255,0.5)", maxWidth: 600, margin: "0 auto 2rem", lineHeight: 1.7 },
+  achieveTags: { display: "flex", flexWrap: "wrap", gap: "0.75rem", justifyContent: "center", marginTop: "2rem" },
   tag: (hi) => hi
-    ? { padding:"0.35rem 0.9rem", borderRadius:100, fontSize:"0.78rem", fontWeight:500, border:"1px solid rgba(0,240,255,0.3)", color:"#00f0ff", background:"rgba(0,240,255,0.05)" }
-    : { padding:"0.35rem 0.9rem", borderRadius:100, fontSize:"0.78rem", fontWeight:500, border:"1px solid rgba(255,255,255,0.08)", color:"rgba(255,255,255,0.7)", background:"rgba(255,255,255,0.04)" },
+    ? { padding: "0.35rem 0.9rem", borderRadius: 100, fontSize: "0.78rem", fontWeight: 500, border: "1px solid rgba(0,240,255,0.3)", color: "#00f0ff", background: "rgba(0,240,255,0.05)" }
+    : { padding: "0.35rem 0.9rem", borderRadius: 100, fontSize: "0.78rem", fontWeight: 500, border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.7)", background: "rgba(255,255,255,0.04)" },
 
   // grids
-  researchGrid: { display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))", gap:"1.5rem" },
-  facilitiesGrid: { display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))", gap:"1.5rem" },
-  facilityImg: { width:"100%", height:220, objectFit:"cover", display:"block", borderRadius:"16px 16px 0 0" },
+  researchGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "1.5rem" },
+  facilitiesGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "1.5rem" },
+  facilityImg: { width: "100%", height: 220, objectFit: "cover", display: "block", borderRadius: "16px 16px 0 0" },
 
   // infra
-  infraLayout: { display:"grid", gridTemplateColumns:"1fr 1fr", gap:"2rem", alignItems:"start" },
-  infraPanel: { padding:"2.5rem" },
-  hwItem: (last) => ({ display:"flex", gap:"1rem", marginBottom: last?"0":"1.5rem", paddingBottom: last?"0":"1.5rem", borderBottom: last?"none":"1px solid rgba(255,255,255,0.04)" }),
-  hwDot: (c) => ({ width:10, height:10, borderRadius:"50%", marginTop:6, flexShrink:0, background:c, boxShadow:`0 0 8px ${c}` }),
-  hwName: { fontWeight:600, fontSize:"0.95rem", marginBottom:"0.25rem" },
-  hwSpec: { fontSize:"0.8rem", color:"rgba(255,255,255,0.4)", lineHeight:1.6 },
+  infraLayout: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem", alignItems: "start" },
+  infraPanel: { padding: "2.5rem" },
+  hwItem: (last) => ({ display: "flex", gap: "1rem", marginBottom: last ? "0" : "1.5rem", paddingBottom: last ? "0" : "1.5rem", borderBottom: last ? "none" : "1px solid rgba(255,255,255,0.04)" }),
+  hwDot: (c) => ({ width: 10, height: 10, borderRadius: "50%", marginTop: 6, flexShrink: 0, background: c, boxShadow: `0 0 8px ${c}` }),
+  hwName: { fontWeight: 600, fontSize: "0.95rem", marginBottom: "0.25rem" },
+  hwSpec: { fontSize: "0.8rem", color: "rgba(255,255,255,0.4)", lineHeight: 1.6 },
 
   // team
-  teamLayout: { display:"grid", gap:"3rem" },
-  groupTitle: { fontFamily: SYS_FONT, fontSize:"0.75rem", fontWeight:600, letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(255,255,255,0.35)", marginBottom:"1.5rem" },
-  facultyGrid: { display:"flex", flexWrap:"wrap", gap:"1rem" },
-  facultyCard: { padding:"1.25rem 1.75rem", borderRadius:12, display:"flex", alignItems:"center", gap:"1rem" },
-  avatar: (g) => ({ width:44, height:44, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontFamily: SYS_FONT, fontWeight:700, fontSize:"1.1rem", flexShrink:0, background:g, overflow: "hidden" }),
-  facultyName: { fontWeight:600, fontSize:"0.95rem" },
-  facultyRole: { fontSize:"0.78rem", color:"rgba(255,255,255,0.4)" },
+  teamLayout: { display: "grid", gap: "3rem" },
+  groupTitle: { fontFamily: SYS_FONT, fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: "1.5rem" },
+  facultyGrid: { display: "flex", flexWrap: "wrap", gap: "1rem" },
+  facultyCard: { padding: "1.25rem 1.75rem", borderRadius: 12, display: "flex", alignItems: "center", gap: "1rem" },
+  avatar: (g) => ({ width: 44, height: 44, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: SYS_FONT, fontWeight: 700, fontSize: "1.1rem", flexShrink: 0, background: g, overflow: "hidden" }),
+  facultyName: { fontWeight: 600, fontSize: "0.95rem" },
+  facultyRole: { fontSize: "0.78rem", color: "rgba(255,255,255,0.4)" },
 };
 
 /* ─────────────────────────────────────────
@@ -107,7 +102,7 @@ function useStyles() {
         .mel-orb2{animation:mel-drift 8s ease-in-out infinite alternate;animation-delay:-4s}
         .mel-orb3{animation:mel-drift 8s ease-in-out infinite alternate;animation-delay:-2s}
         @keyframes mel-drift{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,20px) scale(1.05)}}
-        
+
         .mel-line2 {
           background: linear-gradient(
             -45deg,
@@ -149,43 +144,10 @@ function useScrollToTop() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 }
 
-function useParticleCanvas(ref) {
-  useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    let W, H, particles = [], animId;
-    const COLORS = ["rgba(255,0,255,","rgba(0,240,255,","rgba(59,0,255,","rgba(150,0,255,"];
-    const resize = () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; };
-    resize();
-    window.addEventListener("resize", resize);
-    
-    // reverted to original size (1.5 + .3)
-    const mk = () => ({ x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3, r:Math.random()*1.5+.3, a:Math.random()*.6+.1, color:COLORS[Math.floor(Math.random()*COLORS.length)], life:0, maxLife:Math.random()*300+200 });
-    
-    // 120 baseline * 1.2 (+20%) = 144 particles
-    for (let i=0;i<144;i++) particles.push(mk());
-    
-    const draw = () => {
-      ctx.clearRect(0,0,W,H);
-      particles.forEach((p,i) => {
-        p.x+=p.vx; p.y+=p.vy; p.life++;
-        if (p.life>p.maxLife||p.x<0||p.x>W||p.y<0||p.y>H) { particles[i]=mk(); return; }
-        const fade=Math.sin((p.life/p.maxLife)*Math.PI);
-        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fillStyle=p.color+p.a*fade+")"; ctx.fill();
-      });
-      animId=requestAnimationFrame(draw);
-    };
-    draw();
-    return () => { cancelAnimationFrame(animId); window.removeEventListener("resize", resize); };
-  }, [ref]);
-}
-
 function useScrollReveal() {
   useEffect(() => {
     const els = document.querySelectorAll(".mel-reveal");
-    const io = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("mel-vis"); }), { threshold:0.12 });
+    const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("mel-vis"); }), { threshold: 0.12 });
     els.forEach(e => io.observe(e));
     return () => io.disconnect();
   }, []);
@@ -197,24 +159,15 @@ function useCounters() {
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
-        const el=e.target, target=parseInt(el.getAttribute("data-target"));
-        let t0=0;
-        const step=ts => { if(!t0)t0=ts; const p=Math.min((ts-t0)/1800,1),ease=1-Math.pow(1-p,3); el.textContent=Math.floor(ease*target)+"+"; if(p<1)requestAnimationFrame(step); else el.textContent=target+"+"; };
+        const el = e.target, target = parseInt(el.getAttribute("data-target"));
+        let t0 = 0;
+        const step = ts => { if (!t0) t0 = ts; const p = Math.min((ts - t0) / 1800, 1), ease = 1 - Math.pow(1 - p, 3); el.textContent = Math.floor(ease * target) + "+"; if (p < 1) requestAnimationFrame(step); else el.textContent = target + "+"; };
         requestAnimationFrame(step);
         io.unobserve(el);
       });
-    }, { threshold:0.5 });
+    }, { threshold: 0.5 });
     els.forEach(e => io.observe(e));
     return () => io.disconnect();
-  }, []);
-}
-
-function useCursorGlow() {
-  useEffect(() => {
-    const el = document.getElementById("mel-cursor");
-    const h = e => { if(el){el.style.left=e.clientX+"px";el.style.top=e.clientY+"px";} };
-    document.addEventListener("mousemove", h);
-    return () => document.removeEventListener("mousemove", h);
   }, []);
 }
 
@@ -222,57 +175,92 @@ function useCursorGlow() {
    COMPONENT
 ───────────────────────────────────────── */
 export default function MelDeptPage() {
-  const canvasRef = useRef(null);
   useStyles();
   useScrollToTop();
-  useParticleCanvas(canvasRef);
   useScrollReveal();
   useCounters();
-  useCursorGlow();
 
   const stats = [
-    { icon: <BookOpen size={36} color="#ff00ff" />,    target:10,  label:"Research Papers",      g:"linear-gradient(135deg,#ff00ff,#00f0ff)", d:"0s" },
-    { icon: <Users size={36} color="#00f0ff" />,       target:25,  label:"Faculty Members",      g:"linear-gradient(135deg,#00f0ff,#3b00ff)", d:"0.1s" },
-    { icon: <GraduationCap size={36} color="#ffd700" />, target:200, label:"Students Placed",    g:"linear-gradient(135deg,#ffd700,#ff00ff)", d:"0.2s" },
-    { icon: <Trophy size={36} color="#3b00ff" />,      target:100, label:"Student Achievements", g:"linear-gradient(135deg,#3b00ff,#ff00ff)", d:"0.3s" },
+    { icon: <BookOpen size={36} color="#ff00ff" />, target: 10, label: "Research Papers", g: "linear-gradient(135deg,#ff00ff,#00f0ff)", d: "0s" },
+    { icon: <Users size={36} color="#00f0ff" />, target: 25, label: "Faculty Members", g: "linear-gradient(135deg,#00f0ff,#3b00ff)", d: "0.1s" },
+    { icon: <GraduationCap size={36} color="#ffd700" />, target: 200, label: "Students Placed", g: "linear-gradient(135deg,#ffd700,#ff00ff)", d: "0.2s" },
+    { icon: <Trophy size={36} color="#3b00ff" />, target: 100, label: "Student Achievements", g: "linear-gradient(135deg,#3b00ff,#ff00ff)", d: "0.3s" },
   ];
 
   const hw = [
-    { c:"#ff00ff", name:"Nvidia DGX A100 Server",      spec:"320GB GPU memory, 2 AMD 128-core CPUs, 1TB RAM, 600 GB/s NVSwitch." },
-    { c:"#00f0ff", name:"HP Elite 800 G9",             spec:"Windows 11 Pro, Intel Core i7-12700, 32GB memory." },
-    { c:"#a78bff", name:"HP Elite 600 G9",             spec:"Intel Core i7-10700 @ 2.90GHz, 16GB RAM." },
-    { c:"#ffd700", name:"HP ProDesk 400 G7",           spec:"Intel Core i7-10700 @ 2.90GHz, 16GB RAM." },
-    { c:"#ff00ff", name:"Lenovo P520 Workstation",     spec:"Xeon W-2295 18-Core, 128GB RAM, Nvidia RTX A5000." },
-    { c:"#00f0ff", name:'Sense Interactive Panel 86"', spec:"Intel i5-8500 @ 3.00GHz, 8GB DDR4 RAM." },
+    { c: "#ff00ff", name: "Nvidia DGX A100 Server", spec: "320GB GPU memory, 2 AMD 128-core CPUs, 1TB RAM, 600 GB/s NVSwitch." },
+    { c: "#00f0ff", name: "HP Elite 800 G9", spec: "Windows 11 Pro, Intel Core i7-12700, 32GB memory." },
+    { c: "#a78bff", name: "HP Elite 600 G9", spec: "Intel Core i7-10700 @ 2.90GHz, 16GB RAM." },
+    { c: "#ffd700", name: "HP ProDesk 400 G7", spec: "Intel Core i7-10700 @ 2.90GHz, 16GB RAM." },
+    { c: "#ff00ff", name: "Lenovo P520 Workstation", spec: "Xeon W-2295 18-Core, 128GB RAM, Nvidia RTX A5000." },
+    { c: "#00f0ff", name: 'Sense Interactive Panel 86"', spec: "Intel i5-8500 @ 3.00GHz, 8GB DDR4 RAM." },
   ];
 
-  const services = ["Access to cutting-edge AI technology and infrastructure","Project-based collaboration and industry support","AI model development and deployment services","Performance optimization and scalability consulting","Large-scale data processing and analysis","Research mentorship and publication support"];
-  
-  const faculty  = [
-    { i:"M", g:"linear-gradient(135deg,#ff00ff,#3b00ff)", name:"Dr. Monika Puttaramaiah", img:"https://gradient-content-server.vercel.app/content/faculties/Dr.Monika.png"},
-    { i:"S", g:"linear-gradient(135deg,#00f0ff,#3b00ff)", name:"Prof. Soniya L", img:"https://gradient-content-server.vercel.app/content/faculties/Prof.Soniya.png"}
+  const services = [
+    "Access to cutting-edge AI technology and infrastructure",
+    "Project-based collaboration and industry support",
+    "AI model development and deployment services",
+    "Performance optimization and scalability consulting",
+    "Large-scale data processing and analysis",
+    "Research mentorship and publication support"
+  ];
+
+  const faculty = [
+    { i: "M", g: "linear-gradient(135deg,#ff00ff,#3b00ff)", name: "Dr. Monika Puttaramaiah", img: "https://gradient-content-server.vercel.app/content/faculties/Dr.Monika.png" },
+    { i: "S", g: "linear-gradient(135deg,#00f0ff,#3b00ff)", name: "Prof. Soniya L", img: "https://gradient-content-server.vercel.app/content/faculties/Prof.Soniya.png" }
   ];
 
   return (
     <PageTransition variant="slideUp">
       <div style={S.page}>
-        {/* Adjusted Background Overlays mirroring EventsPage */}
-        <div style={S.grid} />
-        <div style={S.gridOverlay} />
-        
-        <canvas ref={canvasRef} style={S.canvas} />
-        <div id="mel-cursor" style={S.cursorGlow} />
+
+        {/* ── BACKGROUND (TeamPage style) ── */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <NeuralNetworkBackground opacity={0.3} />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              opacity: 0.02,
+              backgroundImage: `
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: "100px 100px",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: 800,
+              height: 400,
+              background: "rgba(59,130,246,0.10)",
+              filter: "blur(100px)",
+              borderRadius: "50%",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(to bottom, rgba(10,10,15,0.4), rgba(10,10,15,0.8), #0A0A0F)",
+            }}
+          />
+        </div>
 
         {/* ── HERO ── */}
         <section style={S.hero}>
           <div style={S.heroOverlay} />
-          
-          <div className="mel-orb1" style={S.orb({ width:600,height:600,background:"radial-gradient(circle,rgba(255,0,255,0.18) 0%,transparent 70%)",top:-200,left:-200 })} />
-          <div className="mel-orb2" style={S.orb({ width:500,height:500,background:"radial-gradient(circle,rgba(0,240,255,0.15) 0%,transparent 70%)",bottom:-150,right:-150 })} />
-          <div className="mel-orb3" style={S.orb({ width:400,height:400,background:"radial-gradient(circle,rgba(59,0,255,0.2) 0%,transparent 70%)",top:"40%",left:"50%",transform:"translate(-50%,-50%)" })} />
+
+          <div className="mel-orb1" style={S.orb({ width: 600, height: 600, background: "radial-gradient(circle,rgba(255,0,255,0.18) 0%,transparent 70%)", top: -200, left: -200 })} />
+          <div className="mel-orb2" style={S.orb({ width: 500, height: 500, background: "radial-gradient(circle,rgba(0,240,255,0.15) 0%,transparent 70%)", bottom: -150, right: -150 })} />
+          <div className="mel-orb3" style={S.orb({ width: 400, height: 400, background: "radial-gradient(circle,rgba(59,0,255,0.2) 0%,transparent 70%)", top: "40%", left: "50%", transform: "translate(-50%,-50%)" })} />
 
           <h1 className="mel-fade1" style={S.heroTitle}>
-            <span style={{ color:"#fff" }}>Department of</span><br />
+            <span style={{ color: "#fff" }}>Department of</span><br />
             <span className="mel-line2">Machine Learning</span>
           </h1>
 
@@ -289,8 +277,8 @@ export default function MelDeptPage() {
         <section id="stats" style={S.section()}>
           <div style={S.statsGrid}>
             {stats.map(st => (
-              <div key={st.label} className="mel-reveal mel-glass" style={{ ...S.glass(S.statCard), ...(st.d?{transitionDelay:st.d}:{}) }}>
-                <div style={{ marginBottom:"1rem" }}>{st.icon}</div>
+              <div key={st.label} className="mel-reveal mel-glass" style={{ ...S.glass(S.statCard), ...(st.d ? { transitionDelay: st.d } : {}) }}>
+                <div style={{ marginBottom: "1rem" }}>{st.icon}</div>
                 <div className="mel-stat-num" data-target={st.target} style={S.statNum(st.g)}>0+</div>
                 <div style={S.statLabel}>{st.label}</div>
               </div>
@@ -301,8 +289,8 @@ export default function MelDeptPage() {
         <div style={S.divider} />
 
         {/* ── ACHIEVEMENT ── */}
-        <section id="achievements" style={S.section({ background:"linear-gradient(180deg,#0F172A 0%,rgba(15,23,42,0.8) 50%,#0F172A 100%)" })}>
-          <div style={S.sectionHeader({ textAlign:"center" })}>
+        <section id="achievements" style={S.section({ background: "linear-gradient(180deg,rgba(10,10,15,0) 0%,rgba(10,10,15,0.8) 50%,rgba(10,10,15,0) 100%)" })}>
+          <div style={S.sectionHeader({ textAlign: "center" })}>
             <div style={S.sectionLabel}>Recognition</div>
             <h2 style={S.sectionTitle}>PhaseShift 2025 Champions</h2>
           </div>
@@ -316,29 +304,29 @@ export default function MelDeptPage() {
               As one of the newest departments at BMSCE, we outperformed departments with years — even decades more experience —
               proving that innovation, dedication, and cutting-edge expertise trump legacy every time.
             </p>
-            <p style={{ fontSize:"0.8rem",color:"rgba(254,254,254,0.375)",fontStyle:"italic",marginBottom:"1.5rem" }}>"This is just the beginning"</p>
+            <p style={{ fontSize: "0.8rem", color: "rgba(254,254,254,0.375)", fontStyle: "italic", marginBottom: "1.5rem" }}>"This is just the beginning"</p>
             <div style={S.achieveTags}>
-              {["Innovation Award","Project Stalls","BMSCE","1st Place","PhaseShift 2025"].map((t,i)=>(
-                <span key={t} style={S.tag(i%2===0)}>{t}</span>
+              {["Innovation Award", "Project Stalls", "BMSCE", "1st Place", "PhaseShift 2025"].map((t, i) => (
+                <span key={t} style={S.tag(i % 2 === 0)}>{t}</span>
               ))}
             </div>
-            <div style={{ marginTop:"2.5rem",paddingTop:"2rem",borderTop:"1px solid rgba(255,255,255,0.06)" }}>
-              <p style={{ fontSize:"0.75rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(254,254,254,0.375)",marginBottom:"1rem" }}>Faculty Coordinators</p>
-              <div style={{ display:"flex",gap:"1.5rem",flexWrap:"wrap",justifyContent:"center" }}>
-                {faculty.map(f=>(
+            <div style={{ marginTop: "2.5rem", paddingTop: "2rem", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+              <p style={{ fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(254,254,254,0.375)", marginBottom: "1rem" }}>Faculty Coordinators</p>
+              <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", justifyContent: "center" }}>
+                {faculty.map(f => (
                   <div key={f.name} className="mel-glass" style={S.glass(S.facultyCard)}>
                     <div style={S.avatar(f.g)}>
                       {f.img ? (
-                        <img 
-                          src={f.img} 
-                          alt={f.name} 
-                          style={{ width: "100%", height: "100%", borderRadius: "inherit", objectFit: "cover" }} 
+                        <img
+                          src={f.img}
+                          alt={f.name}
+                          style={{ width: "100%", height: "100%", borderRadius: "inherit", objectFit: "cover" }}
                         />
                       ) : (
-                        f.i 
+                        f.i
                       )}
                     </div>
-                    <div style={{ display:"flex",flexDirection:"column" }}>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
                       <span style={S.facultyName}>{f.name}</span>
                       <span style={S.facultyRole}>Faculty Coordinator</span>
                     </div>
@@ -360,15 +348,15 @@ export default function MelDeptPage() {
           </div>
           <div style={S.researchGrid}>
             {[
-              { icon: <BrainCircuit size={32} color="#ff00ff" />,      title:"Machine Learning",      desc:"Building intelligent models that learn from data. Developing novel algorithms, deep neural networks, and scalable training frameworks for real-world impact.",                                            ibg:"rgba(255,0,255,0.12)",  ib:"rgba(255,0,255,0.25)",  ac:"#ff00ff" },
-              { icon: <ScanEye size={32} color="#00f0ff" />,           title:"Computer Vision",       desc:"Teaching machines to see and interpret the visual world. From object detection to semantic understanding and beyond using state-of-the-art architectures.",                                            ibg:"rgba(0,240,255,0.12)",  ib:"rgba(0,240,255,0.25)",  ac:"#00f0ff", d:"0.15s" },
-              { icon: <MessageSquareCode size={32} color="#a78bff" />, title:"Natural Language Processing", desc:"Enabling machines to understand, generate, and reason with human language. Specializing in LLMs, semantic parsing, and multilingual AI systems.",                                            ibg:"rgba(59,0,255,0.12)",   ib:"rgba(59,0,255,0.25)",   ac:"#a78bff", d:"0.3s" },
-            ].map(r=>(
-              <div key={r.title} className="mel-reveal mel-glass" style={{ ...S.glass({ padding:"2.5rem 2rem",borderRadius:16,cursor:"pointer" }), ...(r.d?{transitionDelay:r.d}:{}) }}>
-                <div style={{ width:56,height:56,borderRadius:14,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"1.5rem",background:r.ibg,boxShadow:`inset 0 0 0 1px ${r.ib}` }}>{r.icon}</div>
-                <h3 style={{ fontFamily: SYS_FONT, fontSize:"1.25rem",fontWeight:700,marginBottom:"0.75rem" }}>{r.title}</h3>
-                <p style={{ fontSize:"0.9rem",color:"rgba(255,255,255,0.5)",lineHeight:1.7 }}>{r.desc}</p>
-                <div style={{ marginTop:"1.5rem",fontSize:"0.8rem",fontWeight:600,letterSpacing:"0.05em",textTransform:"uppercase",color:r.ac }}>Explore →</div>
+              { icon: <BrainCircuit size={32} color="#ff00ff" />, title: "Machine Learning", desc: "Building intelligent models that learn from data. Developing novel algorithms, deep neural networks, and scalable training frameworks for real-world impact.", ibg: "rgba(255,0,255,0.12)", ib: "rgba(255,0,255,0.25)", ac: "#ff00ff" },
+              { icon: <ScanEye size={32} color="#00f0ff" />, title: "Computer Vision", desc: "Teaching machines to see and interpret the visual world. From object detection to semantic understanding and beyond using state-of-the-art architectures.", ibg: "rgba(0,240,255,0.12)", ib: "rgba(0,240,255,0.25)", ac: "#00f0ff", d: "0.15s" },
+              { icon: <MessageSquareCode size={32} color="#a78bff" />, title: "Natural Language Processing", desc: "Enabling machines to understand, generate, and reason with human language. Specializing in LLMs, semantic parsing, and multilingual AI systems.", ibg: "rgba(59,0,255,0.12)", ib: "rgba(59,0,255,0.25)", ac: "#a78bff", d: "0.3s" },
+            ].map(r => (
+              <div key={r.title} className="mel-reveal mel-glass" style={{ ...S.glass({ padding: "2.5rem 2rem", borderRadius: 16, cursor: "pointer" }), ...(r.d ? { transitionDelay: r.d } : {}) }}>
+                <div style={{ width: 56, height: 56, borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem", background: r.ibg, boxShadow: `inset 0 0 0 1px ${r.ib}` }}>{r.icon}</div>
+                <h3 style={{ fontFamily: SYS_FONT, fontSize: "1.25rem", fontWeight: 700, marginBottom: "0.75rem" }}>{r.title}</h3>
+                <p style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>{r.desc}</p>
+                <div style={{ marginTop: "1.5rem", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase", color: r.ac }}>Explore →</div>
               </div>
             ))}
           </div>
@@ -385,15 +373,15 @@ export default function MelDeptPage() {
           </div>
           <div style={S.facilitiesGrid}>
             {[
-              { src:"https://gradient-content-server.vercel.app/content/department/class.jpeg",  alt:"Classrooms",   title:"Classrooms",   desc:"State-of-the-art classrooms equipped with advanced technology, featuring interactive panels and modern AV systems." },
-              { src:"https://gradient-content-server.vercel.app/content/department/lab.webp",  alt:"Computer Labs", title:"Computer Labs", desc:"High-performance computing clusters equipped with top-tier NVIDIA GPUs, enabling demanding AI and ML workloads at scale.", d:"0.15s" },
-              { src:"https://gradient-content-server.vercel.app/content/department/semh.jpeg", alt:"Seminar Hall",  title:"Seminar Hall",  desc:"A spacious, professional seminar hall with modern seating, clear acoustics, and premium ambiance.", d:"0.3s" },
-            ].map(f=>(
-              <div key={f.title} className="mel-reveal mel-glass" style={{ ...S.glass({ borderRadius:16,overflow:"hidden",cursor:"pointer" }), ...(f.d?{transitionDelay:f.d}:{}) }}>
+              { src: "https://gradient-content-server.vercel.app/content/department/class.jpeg", alt: "Classrooms", title: "Classrooms", desc: "State-of-the-art classrooms equipped with advanced technology, featuring interactive panels and modern AV systems." },
+              { src: "https://gradient-content-server.vercel.app/content/department/lab.webp", alt: "Computer Labs", title: "Computer Labs", desc: "High-performance computing clusters equipped with top-tier NVIDIA GPUs, enabling demanding AI and ML workloads at scale.", d: "0.15s" },
+              { src: "https://gradient-content-server.vercel.app/content/department/semh.jpeg", alt: "Seminar Hall", title: "Seminar Hall", desc: "A spacious, professional seminar hall with modern seating, clear acoustics, and premium ambiance.", d: "0.3s" },
+            ].map(f => (
+              <div key={f.title} className="mel-reveal mel-glass" style={{ ...S.glass({ borderRadius: 16, overflow: "hidden", cursor: "pointer" }), ...(f.d ? { transitionDelay: f.d } : {}) }}>
                 <img src={f.src} alt={f.alt} style={S.facilityImg} />
-                <div style={{ padding:"1.75rem" }}>
-                  <h3 style={{ fontFamily: SYS_FONT, fontSize:"1.1rem",fontWeight:700,marginBottom:"0.5rem" }}>{f.title}</h3>
-                  <p style={{ fontSize:"0.875rem",color:"rgba(255,255,255,0.5)",lineHeight:1.6 }}>{f.desc}</p>
+                <div style={{ padding: "1.75rem" }}>
+                  <h3 style={{ fontFamily: SYS_FONT, fontSize: "1.1rem", fontWeight: 700, marginBottom: "0.5rem" }}>{f.title}</h3>
+                  <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>{f.desc}</p>
                 </div>
               </div>
             ))}
@@ -403,7 +391,7 @@ export default function MelDeptPage() {
         <div style={S.divider} />
 
         {/* ── INFRASTRUCTURE ── */}
-        <section id="infrastructure" style={S.section({ background:"rgba(15,23,42,0.4)" })}>
+        <section id="infrastructure" style={S.section({ background: "rgba(10,10,15,0.4)" })}>
           <div style={S.sectionHeader()}>
             <div style={S.sectionLabel}>B.S. Narayan Center of Excellence</div>
             <h2 style={S.sectionTitle}>Research <span style={S.gradText}>Infrastructure</span></h2>
@@ -412,19 +400,19 @@ export default function MelDeptPage() {
           <div className="mel-infra-grid" style={S.infraLayout}>
             <div className="mel-reveal mel-glass mel-infra-panel" style={{ ...S.glass(S.infraPanel) }}>
               <h3 className="mel-infra-h">Hardware Infrastructure</h3>
-              {hw.map((h,i)=>(
-                <div key={h.name} style={S.hwItem(i===hw.length-1)}>
+              {hw.map((h, i) => (
+                <div key={h.name} style={S.hwItem(i === hw.length - 1)}>
                   <div style={S.hwDot(h.c)} />
                   <div><div style={S.hwName}>{h.name}</div><div style={S.hwSpec}>{h.spec}</div></div>
                 </div>
               ))}
             </div>
-            <div className="mel-reveal mel-glass mel-infra-panel" style={{ ...S.glass(S.infraPanel), transitionDelay:"0.2s" }}>
+            <div className="mel-reveal mel-glass mel-infra-panel" style={{ ...S.glass(S.infraPanel), transitionDelay: "0.2s" }}>
               <h3 className="mel-infra-h">Services Offered</h3>
-              <ul style={{ listStyle:"none",display:"flex",flexDirection:"column",gap:"0.75rem" }}>
-                {services.map(s=>(
-                  <li key={s} style={{ display:"flex",alignItems:"flex-start",gap:"0.75rem",fontSize:"0.9rem",color:"rgba(255,255,255,0.7)",padding:"0.75rem",borderRadius:10,background:"rgba(255,255,255,0.02)" }}>
-                    <span style={{ color:"#00f0ff",fontWeight:700,flexShrink:0 }}>→</span>{s}
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                {services.map(s => (
+                  <li key={s} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", fontSize: "0.9rem", color: "rgba(255,255,255,0.7)", padding: "0.75rem", borderRadius: 10, background: "rgba(255,255,255,0.02)" }}>
+                    <span style={{ color: "#00f0ff", fontWeight: 700, flexShrink: 0 }}>→</span>{s}
                   </li>
                 ))}
               </ul>
@@ -444,20 +432,20 @@ export default function MelDeptPage() {
             <div className="mel-reveal">
               <p style={S.groupTitle}>Faculty Coordinators</p>
               <div style={S.facultyGrid}>
-                {faculty.map(f=>(
+                {faculty.map(f => (
                   <div key={f.name} className="mel-glass" style={S.glass(S.facultyCard)}>
                     <div style={S.avatar(f.g)}>
                       {f.img ? (
-                        <img 
-                          src={f.img} 
-                          alt={f.name} 
-                          style={{ width: "100%", height: "100%", borderRadius: "inherit", objectFit: "cover" }} 
+                        <img
+                          src={f.img}
+                          alt={f.name}
+                          style={{ width: "100%", height: "100%", borderRadius: "inherit", objectFit: "cover" }}
                         />
                       ) : (
-                        f.i 
+                        f.i
                       )}
                     </div>
-                    <div style={{ display:"flex",flexDirection:"column" }}>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
                       <span style={S.facultyName}>{f.name}</span>
                       <span style={S.facultyRole}>Faculty Coordinator</span>
                     </div>
