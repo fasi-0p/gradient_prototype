@@ -3,6 +3,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageTransition from '../components/ui/PageTransition';
+import NeuralNetworkBackground from '../components/background/NeuralNetworkBackground';
 
 const eventCategories = [
   { id: 'all', label: 'All Events' },
@@ -95,7 +96,7 @@ const EventCard = ({ event, index }) => {
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0F] via-transparent to-transparent" />
           
           {/* Status badge */}
           <div className="absolute top-4 right-4">
@@ -167,15 +168,52 @@ const EventsPage = () => {
         data-testid="events-page"
         className="min-h-screen relative pt-20 md:pt-0"
         style={{ 
-          backgroundColor: '#0F172A', 
+          backgroundColor: '#0A0A0F', 
           color: '#ffffff',
           fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
         }}
       >
-        {/* Abstract grids representing the Core Theme */}
+        {/* ── BACKGROUND (TeamPage style) ── */}
         <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:60px_60px]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A] via-transparent to-[#0F172A] opacity-90" />
+          <NeuralNetworkBackground opacity={0.3} />
+          
+          {/* Subtle Grid */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              opacity: 0.02,
+              backgroundImage: `
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: "100px 100px",
+            }}
+          />
+          
+          {/* Central Blue Radial Glow */}
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: 800,
+              height: 400,
+              background: "rgba(59,130,246,0.10)",
+              filter: "blur(100px)",
+              borderRadius: "50%",
+            }}
+          />
+          
+          {/* Vertical Theme Gradients */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(to bottom, rgba(10,10,15,0.4), rgba(10,10,15,0.8), #0A0A0F)",
+            }}
+          />
         </div>
 
         <div className="relative z-10">
