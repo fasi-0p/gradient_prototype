@@ -1,4 +1,5 @@
-  // import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
+import '@fontsource/piazzolla/700.css';
+// import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 // import { motion } from 'framer-motion';
 // import { ArrowDown } from 'lucide-react';
 // import { Link } from 'react-router-dom';
@@ -400,10 +401,26 @@ const HeroSection = () => {
           ref={textContainerRef}
           className="relative z-10 will-change-transform"
         >
-          <h1 className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[10rem] tracking-tighter leading-[0.85] mb-6 flex justify-center">
-  <span className="text-[#8B5CF6]">
-    {siteConfig.name}
-  </span>
+          {/* og font during creation */}
+          {/* <h1 className="font-heading font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[10rem] tracking-tighter leading-[0.85] mb-6 flex justify-center">
+            <span className="text-[#8B5CF6]">
+              Gradient
+            </span>
+          </h1> */}
+          <h1
+  className="text-[80px] sm:text-[120px] md:text-[160px] lg:text-[200px]"
+  style={{
+    fontFamily: 'Piazzolla, serif',
+    fontWeight: 700,
+    // Muted Brand Purple -> Deep Core Purple -> Rich Brand Blue
+    background: 'linear-gradient(135deg, #8B5CF6 0%, #5B21B6 50%, #1D4ED8 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    // A soft, dark shadow to ground it, avoiding any "neon" light bleed
+    filter: 'drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.6))'
+  }}
+>
+  <span>Gradient</span>
 </h1>
         </motion.div>
 
